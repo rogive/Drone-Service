@@ -7,6 +7,7 @@ const CarouselContainer = styled.div`
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover; 
+  color: white;
 `
 
 
