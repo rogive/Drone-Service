@@ -2,21 +2,28 @@ import React from 'react';
 import logo from '../IconoDS.png';
 import styled from 'styled-components';
 
+
+const defaultMargin = "0-auto"
+
+const HeaderContainer = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  margin: ${defaultMargin}
+`
+
 const HeaderLogoContainer = styled.div`
   display: flex;
-  background: #2980B9;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`;
+`
 
 const Ulist = styled.ul`
   display: flex;
   list-style: none;
-`;
+`
 
 const List = styled.li`
   margin-right: 20px;
-`;
+`
 
 /* const Container = styled.div`
   width: 500px;
@@ -33,7 +40,7 @@ const List = styled.li`
 
 function Header(){
   return(
-    <div>
+    <HeaderContainer>
       <HeaderLogoContainer>
         <img width="100px" src = {logo} alt="logo_drone_services"/>
         <h2>Drone Services</h2>
@@ -45,9 +52,46 @@ function Header(){
         <List>About</List>
         <List>Ayuda</List>
       </Ulist>
-    </div>
+    </HeaderContainer>
   )
 }
+
+ /*    <div class="HeaderContainer">
+        <div class="HeaderLogoContainer">
+          <img/>
+          <h2>Drone Services<h2/>
+        </div>
+        <ul class="Ulist">
+          <list class="List"></list>
+          <list class="List"></list>
+          <list class="List"></list>
+          <list class="List"></list>
+        </ul>
+    </div>
+
+  <style>
+
+    .HeaderContainer{
+
+    }
+
+    .HeaderLogoContainer{
+
+    }
+
+    .Ulist{
+
+    }
+
+
+    .List{
+
+    }
+    
+    </style>
+     */
+    
+  
 
 
 export default Header
