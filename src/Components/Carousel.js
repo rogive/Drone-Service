@@ -52,8 +52,6 @@ button{
 }
 `
 
-
-
 function Carousel(){
   return(
       <CarouselContainer>
