@@ -1,97 +1,80 @@
 import React from 'react';
-import logo from '../IconoDS.png';
+import logo from '../../src/logo2.svg';
 import styled from 'styled-components';
 
-
-const defaultMargin = "0-auto"
-
 const HeaderContainer = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  margin: ${defaultMargin}
+width: 90%;
+margin: 1rem auto;
+display: flex;
 `
 
 const HeaderLogoContainer = styled.div`
-  display: flex;
+flex: 1 1 30%;
+  img{
+    width: 16rem;
+  }
 `
 
 const Ulist = styled.ul`
-  display: flex;
-  list-style: none;
+display: flex;
+flex: 1 1 40%;
+font-size: 1.5rem;
+justify-content: space-between;
+text-decoration: none;
+list-style: none;
+align-items: center;
+font-family: 'Montserrat';
 `
 
 const List = styled.li`
-  margin-right: 20px;
+cursor: pointer;
+padding: .3rem 1rem;
+transition: all .3s ease-in-out;
+&:hover{
+  transform: scale(1.2) rotate(-8deg);
+  box-shadow: .6rem .5rem .5rem rgba(0,0,0, .2);
+}
 `
 
-/* const Container = styled.div`
-  width: 500px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  display: ${props => props.hidden ? 'none' : 'block'};
+const Session = styled.li`
+display: flex;
+flex: 1 1 30%;
+font-size: 1.5rem;
+justify-content: flex-end;
+text-decoration: none;
+list-style: none;
+align-items: center;
+font-family: 'Montserrat';
 
-  @media screen and (min-width: 600px) {
-    width: 100%;
-    background: beige;
-  }
-`;
- */
+.signup{
+  margin-right: 3rem;
+  font-weight: 600;
+}
+
+.login{
+  font-weight: 600;
+}
+`
 
 function Header(){
   return(
     <HeaderContainer>
       <HeaderLogoContainer>
         <img width="100px" src = {logo} alt="logo_drone_services"/>
-        <h2>Drone Services</h2>
       </HeaderLogoContainer>
       <Ulist>
         <List>Home</List>
-        <List>Blog de noticias</List>
+        <List>Blog </List>
         <List>Explora</List>
         <List>About</List>
         <List>Ayuda</List>
       </Ulist>
+      <Session>
+        <List className="signup">Sign Up</List>
+        <List className="login">Login</List>
+      </Session> 
     </HeaderContainer>
   )
 }
-
- /*    <div class="HeaderContainer">
-        <div class="HeaderLogoContainer">
-          <img/>
-          <h2>Drone Services<h2/>
-        </div>
-        <ul class="Ulist">
-          <list class="List"></list>
-          <list class="List"></list>
-          <list class="List"></list>
-          <list class="List"></list>
-        </ul>
-    </div>
-
-  <style>
-
-    .HeaderContainer{
-
-    }
-
-    .HeaderLogoContainer{
-
-    }
-
-    .Ulist{
-
-    }
-
-
-    .List{
-
-    }
-    
-    </style>
-     */
-    
-  
-
 
 export default Header

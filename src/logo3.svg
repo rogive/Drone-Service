@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1283 757" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-41.838,-5.71858)">
+        <g id="Logo" transform="matrix(2.14582,0,0,2.14582,-530.442,-231.396)">
+            <g transform="matrix(1,0,0,1,25.9176,-123.218)">
+                <text x="240.767px" y="467.552px" style="font-family:'Anurati-Regular', 'Anurati';font-size:167.305px;fill:white;">D</text>
+                <text x="356.375px" y="467.552px" style="font-family:'Anurati-Regular', 'Anurati';font-size:167.305px;fill:white;">R</text>
+                <text x="477.838px" y="367.552px" style="font-family:'Anurati-Regular', 'Anurati';font-size:167.305px;fill:white;">O</text>
+                <text x="625.066px" y="467.552px" style="font-family:'Anurati-Regular', 'Anurati';font-size:167.305px;fill:white;">N<tspan x="749.206px " y="467.552px ">E</tspan></text>
+            </g>
+            <g transform="matrix(0.678595,0,0,0.7227,140.586,125.176)">
+                <text x="240.767px" y="467.552px" style="font-family:'Elianto-Regular', 'Elianto';font-size:167.305px;fill:white;">s<tspan x="348.344px 486.036px 582.069px 709.053px 773.298px 906.64px " y="467.552px 467.552px 467.552px 467.552px 467.552px 467.552px ">ervice</tspan></text>
+            </g>
+        </g>
+    </g>
+</svg>
