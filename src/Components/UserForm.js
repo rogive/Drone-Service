@@ -20,9 +20,10 @@ class UserForm extends Component {
 
   handleSubmit = event => {
     event.pereventDefault()
-
-    
+  // axios put
   }
+
+  //VALIDACIÓN DESDE EL FRONT END (PEJ Contraseña mínimo de 8 caractéres, validación email REGEX)
 
   render() {
     const { name, lastName, email, password, phone, department, city} = this.state
