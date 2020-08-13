@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Home from './Pages/Home';
+import DronePilot from './Pages/DronePilot';
 
 function App() {
   return (
-    <Home/>
+    <DronePilot/>
   );
 }
 
