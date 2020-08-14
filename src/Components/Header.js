@@ -1,3 +1,4 @@
+  
 import React from 'react';
 import logo from '../IconoDS.png';
 import styled from 'styled-components';
@@ -25,19 +26,18 @@ const List = styled.li`
   margin-right: 20px;
 `
 
--/* const Container = styled.div`
--  width: 500px;
--  border: 1px solid #333;
--  border-radius: 5px;
--  display: ${props => props.hidden ? 'none' : 'block'};
--
--  @media screen and (min-width: 600px) {
--    width: 100%;
--    background: beige;
--  }
--`;
-- */
--
+/* const Container = styled.div`
+  width: 500px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  display: ${props => props.hidden ? 'none' : 'block'};
+  @media screen and (min-width: 600px) {
+    width: 100%;
+    background: beige;
+  }
+`;
+ */
+
 function Header(){
   return(
     <HeaderContainer>
@@ -55,5 +55,33 @@ function Header(){
     </HeaderContainer>
   )
 }
+
+ /*    <div class="HeaderContainer">
+        <div class="HeaderLogoContainer">
+          <img/>
+          <h2>Drone Services<h2/>
+        </div>
+        <ul class="Ulist">
+          <list class="List"></list>
+          <list class="List"></list>
+          <list class="List"></list>
+          <list class="List"></list>
+        </ul>
+    </div>
+  <style>
+    .HeaderContainer{
+    }
+    .HeaderLogoContainer{
+    }
+    .Ulist{
+    }
+    .List{
+    }
+    
+    </style>
+     */
+    
+  
+
 
 export default Header

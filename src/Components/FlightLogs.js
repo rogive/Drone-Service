@@ -1,12 +1,7 @@
 import React from 'react';
-import logo from '../IconoDS.png';
 import styled from 'styled-components';
 
-
-const defaultMargin = "0-auto"
-
 const CertificatesContainer = styled.div`
-  position: absolute;
   justify-content: space-between;
 
 `
@@ -17,23 +12,10 @@ const AddContainer = styled.div`
 
 `
 
-const ElemContainer = styled.div`
-  position: absolute;
-  justify-content: space-between;
-`
 const CertificatesBar = styled.label`
   margin-right: 40vw;
 
 `
-
-const Ulist = styled.ul`
-  list-style: none;
-`
-
-const List = styled.li`
-  margin-right: 20px;
-`
-
 
 function FlightLogs(){
   return(
@@ -46,7 +28,7 @@ function FlightLogs(){
             publica, solo aparecerá la cantida
         </h6>
         <AddContainer>
-          <h6>Bitacora_2_Piloto_Alan_Brito.pdf</h6>
+          <CertificatesBar>Bitacora_2_Piloto_Alan_Brito.pdf</CertificatesBar>
           <button>Adjuntar</button>
         </AddContainer>
       </CertificatesContainer>

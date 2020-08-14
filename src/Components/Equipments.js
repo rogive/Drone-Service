@@ -21,17 +21,15 @@ const CertificatesBar = styled.label`
 `
 
 
-function Certificates(){
+function Equipments(){
   return(
     <CertificatesContainer>
-      <h2>Certificaciones</h2>
-      <h6>Piloto certificado en UAS con especialidades en fotogrametria
-          y seguridad aerea. Piloto certificado en UAS con especialidades
-          en fotogrametria y seguridad aerea. 
+      <h2>Equipos</h2>
+      <h6>En esta secciòn podras añadir los equipos de trabajo que posees
+          para realizar los diferentes servicios.
       </h6>
       <AddContainer>
         <CertificatesBar>Curso_Especializacion_Fotogrametria.pdf</CertificatesBar>
-        <button>Examinar</button>
         <button>Adjuntar</button>
       </AddContainer>
     </CertificatesContainer>
@@ -39,4 +37,4 @@ function Certificates(){
 }
 
 
-export default Certificates
+export default Equipments

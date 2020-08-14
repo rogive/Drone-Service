@@ -1,11 +1,8 @@
 import React from 'react';
-import logo from '../IconoDS.png';
 import styled from 'styled-components';
 import Certificates from '../Components/Certificates'
-import DescriptionDP from '../Components/DescriptionDP'
 import FlightLogs from './FlightLogs';
-
-const defaultMargin = "0-auto"
+import Equipments from './Equipments';
 
 const SelectorContainer = styled.div`
 position: absolute;
@@ -16,27 +13,44 @@ justify-content: space-between;
 
 class SelectorDP extends React.Component{
 
-  state = { status: 1}
+  state = { value: "select"}
 
-  changeSelect = () => {
-    this.setState({ state: this.props.value });
+  handleChange = (event) => {
+    this.setState({ value: event.target.value });
   }
+
+/*  switch(this.state.value){
+    Certifications: 
+      <Certificates></Certificates>
+      break;
+    FlighLogs:
+      <FlightLogs></FlightLogs>
+      break;
+    } */
+
     render(){
       return(
-        
+
             <SelectorContainer>
-                <select name="valueSel">
-                  <option value="1" onChange={this.changeSelect}>Certificaciones Profesionales</option> 
-                  <option value="2" onChange={this.changeSelect}>Bitacoras de Vuelo</option> 
-                  <option value="3" onChange={this.changeSelect}>Equipos</option>
-                  <option value="4" onChange={this.changeSelect}>Horas de Vuelo Apps</option> 
-                  <option value="5" onChange={this.changeSelect}>Tecnologias</option> 
-                  <option value="6" onChange={this.changeSelect}>otros</option> 
+                <select name="valueSel"  value={this.state.value} onChange={this.handleChange}>
+                  <option value="" >Elige una opción</option> 
+                  <option value="Certifications" >Certificaciones Profesionales</option> 
+                  <option value="FlightLogs" >Bitacoras de Vuelo</option> 
+                  <option value="Equipments" >Equipos</option>
+                  <option value="AppLogs" >Horas de Vuelo Apps</option> 
+                  <option value="Technology" >Tecnologias</option> 
+                  <option value="Others" >otros</option> 
                 </select>
-                {this.state.status === 1 ?
-                  <Certificates></Certificates> :
-                  <FlightLogs></FlightLogs>
-                }
+                <div>
+                    { this.state.value === "Certifications" ?
+                        <Certificates></Certificates> :
+                        this.state.value === "FlightLogs" ?
+                        <FlightLogs></FlightLogs> :
+                        this.state.value === "Equipments" ?
+                        <Equipments></Equipments> :
+                        <span></span>
+                    }
+                </div>
             </SelectorContainer>
       )  
   }
