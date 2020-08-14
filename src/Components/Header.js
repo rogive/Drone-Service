@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../src/logo2.svg';
+import logo from '../../src/Logo-Drone.png';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
