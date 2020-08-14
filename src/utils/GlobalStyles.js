@@ -6,4 +6,6 @@ width: 90%;
 margin: 3rem auto;
 `
 
+
+
 export default GlobalContainer
