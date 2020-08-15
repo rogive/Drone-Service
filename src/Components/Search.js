@@ -36,20 +36,38 @@ class CitySearch extends React.Component{
 
   handleChange = (event) => {
     console.dir(event.target.id)
-    
     this.setState({ deparmentID : event.target.id });
-
   }
+
+  citiesRender = (data) =>{
+    let cities = data[this.state.deparmentID].ciudades
+    console.log(cities)
+    return(
+        cities.map((element)=>{
+          return(
+            <div> 
+              <div>
+                <input id={element} type="checkbox" onChange={this.handleChange}/>
+                <label htmlFor={element}>{element}</label>
+              </div>
+            </div>
+          )
+        })
+      )
+    }
+  
+
+
 
   render(){
       const { data } = this.props 
+      
       // const ciudades = ""
       // const variable = data[this.state.deparmentID]  
       
   
       return (
         <div>
-
             <div>
               <h3>Departamentos</h3>
               {data.map((element)=>{
@@ -65,7 +83,8 @@ class CitySearch extends React.Component{
             </div>
             <div>
             <h3>Ciudades</h3>
-            {this.state.deparmentID === null ? <h1>falso</h1> : <h1>Verdadero</h1>}
+            {this.state.deparmentID !== null ? this.citiesRender(data) : <h1>Falso</h1>}
+         
           </div>
         </div>
         
