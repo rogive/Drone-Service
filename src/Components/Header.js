@@ -1,4 +1,5 @@
 import React from 'react';
+
 import logo from '../../src/Logo-Drone.png';
 import styled from 'styled-components';
 
@@ -61,18 +62,22 @@ function Header(){
     <HeaderContainer>
       <HeaderLogoContainer>
         <img width="100px" src = {logo} alt="logo_drone_services"/>
+
       </HeaderLogoContainer>
       <Ulist>
         <List>Home</List>
         <List>Blog </List>
+
         <List>Explora</List>
         <List>About</List>
         <List>Ayuda</List>
       </Ulist>
+
       <Session>
         <List className="signup">Sign Up</List>
         <List className="login">Login</List>
       </Session> 
+
     </HeaderContainer>
   )
 }

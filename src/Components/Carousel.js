@@ -39,6 +39,7 @@ const TextBox = styled.div`
   }
 `
 
+
 function Carousel(){
   return(
       <CarouselContainer>
