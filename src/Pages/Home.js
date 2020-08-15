@@ -6,10 +6,11 @@ function Home(){
 
 return (
     <div> 
-        <Header/>
-        <Carousel/>
+      <Header/>
+      <Carousel/>
     </div>
-    )
+  )
+
 }
 
 export default Home
