@@ -1,0 +1,27 @@
+[
+  { 
+    "name": "John",
+    "departmentID": 0,
+    "city": "Leticia"
+  },
+  { 
+    "name": "Elena",
+    "departmentID": 0,
+    "city": "Puerto Nari\u00f1o"
+  },
+  {
+    "name": "Leon",
+    "departmentID": 1,
+    "city": "Abejorral"
+  },
+  {
+    "name": "Chris",
+    "departmentID": 2,
+    "city": "Arauca"
+  },
+  {
+    "name": "Rebeca",
+    "departmentID": 3,
+    "city": "Baranoa"
+  }
+]

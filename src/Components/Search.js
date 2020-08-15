@@ -1,11 +1,18 @@
 import React from 'react';
 import newDepartments from '../data/deparments.json'
+import styled from 'styled-components'
+import mockdata from '../data/mockdata.json'
+
+const ExploraContainer = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+`
 
 
-class Checked extends React.Component{
+class Categories extends React.Component{
 render(){
     const { data } = this.props   
-    console.log(data)
+    
 
     return (
       <div>
@@ -26,28 +33,31 @@ render(){
 }
 
 
-
 class CitySearch extends React.Component{
 
   state = {
     deparmentID : null,
-    cityArray: []
+    city: "",
   }
 
   handleChange = (event) => {
-    console.dir(event.target.id)
     this.setState({ deparmentID : event.target.id });
   }
 
+  cityHandleChange = async (event) => {
+    await this.setState({ city : event.target.id})
+    this.props.sendInfo(this.state)
+  }
+
   citiesRender = (data) =>{
-    let cities = data[this.state.deparmentID].ciudades
-    console.log(cities)
+    let { ciudades } = data[this.state.deparmentID]
+    
     return(
-        cities.map((element)=>{
+        ciudades.map((element)=>{
           return(
             <div> 
               <div>
-                <input id={element} type="checkbox" onChange={this.handleChange}/>
+                <input name={element} id={element} type="checkbox" onChange={this.cityHandleChange}/>
                 <label htmlFor={element}>{element}</label>
               </div>
             </div>
@@ -56,8 +66,6 @@ class CitySearch extends React.Component{
       )
     }
   
-
-
 
   render(){
       const { data } = this.props 
@@ -84,7 +92,7 @@ class CitySearch extends React.Component{
             <div>
             <h3>Ciudades</h3>
             {this.state.deparmentID !== null ? this.citiesRender(data) : <h1>Falso</h1>}
-         
+              
           </div>
         </div>
         
@@ -120,16 +128,57 @@ const categories = [
 // const newDepartments = JSON.parse(stringifyDeparments)
 
 
+function Results(info){
+  const foundData = mockdata.filter(element => element.departmentID == info.info.deparmentID && element.city == info.info.city)
+  
+  console.log(foundData)
+  if(!foundData){
+    return(
+      <div>
+        <h2>Resultados</h2>
+        <div>
+          <img src={info.image} alt="paisaje"/>
+          <h1> {foundData[0].name}</h1>
+          <div>
+            <p>{info.description}</p>
+            <div>
+              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
+          </div>n  
+        </div>
+      </div>
+    )    
+  }else{
+    return <div>Resultados</div>
+  }
+}
+
 
 class Search extends React.Component{
+  
+  state = {
+    deparmentID: "",
+    city: ""
+  }
+
+  
+  sendInfo=(info)=>{
+    this.setState({deparmentID: info.deparmentID})
+    this.setState({city: info.city})
+  }
 
   render(){
       return(
-        <div>
-          <input class="buscar" type="text" placeholder="Buscar"/>
-          <Checked name="Categorias" data={categories}/>
-          <CitySearch data={newDepartments}/>
-        </div>
+        <ExploraContainer>
+          <div>
+            <input class="buscar" type="text" placeholder="Buscar"/>
+            <Categories name="Categorias" data={categories}/>
+            <CitySearch data={newDepartments} sendInfo = {this.sendInfo}/>
+          </div>
+          <div>
+            <Results info={this.state}/>
+          </div>
+        </ExploraContainer>
      )
   }
 }
