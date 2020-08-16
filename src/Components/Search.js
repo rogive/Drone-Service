@@ -9,6 +9,41 @@ const ExploraContainer = styled.div`
     justify-content: space-evenly;
 `
 
+const OptionContainer = styled.div`
+    border: 1px solid grey;
+    box-sizing: border-box;
+    padding: 20px 0;
+    height: 160px;
+    overflow-y: scroll;
+`
+
+const SearchContainer = styled.div`
+    border: 1px red solid;
+    padding: 30px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+`
+
+const ResultsContainer = styled.div`
+    border: 1px red solid;
+    padding: 30px;
+    width: 60%;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    div h2{
+      text-align: center;
+    }
+    div div img{
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+`
+
 
 class Categories extends React.Component{
   
@@ -19,15 +54,17 @@ class Categories extends React.Component{
     return(
       <div>
         <h3>{this.props.name}</h3>
-        {data.map((element)=>{
-          return(
-            <div>
-              <input id={element.id} type="checkbox"/>
-              <label htmlFor={element.id}>{element.label}</label>
-            </div>)
-            }
-          )
-        }
+        <OptionContainer>
+          {data.map((element)=>{
+            return(
+              <div>
+                <input id={element.id} type="radio" name="Categoria"/>
+                <label htmlFor={element.id}>{element.label}</label>
+              </div>)
+              }
+            )
+          }
+        </OptionContainer>
       </div>
     )
   }
@@ -54,16 +91,20 @@ class CitySearch extends React.Component{
     const { ciudades } = data[this.state.departmentID]
     
     return(
-        ciudades.map((element)=>{
-          return(
-            <div> 
-              <div>
-                <input name={element} id={element} type="checkbox" onChange={this.cityHandleChange}/>
-                <label htmlFor={element}>{element}</label>
-              </div>
-            </div>
-          )
-        })
+      <OptionContainer>
+       {
+         ciudades.map((element)=>{
+           return(
+             <div> 
+               <div>
+                 <input name="City" id={element} type="radio" onChange={this.cityHandleChange}/>
+                 <label htmlFor={element}>{element}</label>
+               </div>
+             </div>
+           )
+         })
+       }
+      </OptionContainer>
       )
     }
   
@@ -76,16 +117,18 @@ class CitySearch extends React.Component{
         <div>
           <div>
               <h3>Departamentos</h3>
-              {data.map((element)=>{
-                return(
-                  <div> 
-                    <div>
-                      <input id={element.id} type="checkbox" onChange={this.handleChange}/>
-                      <label htmlFor={element.id}>{element.label}</label>
+              <OptionContainer>
+                {data.map((element)=>{
+                  return(
+                    <div> 
+                      <div>
+                        <input id={element.id} type="radio" onChange={this.handleChange} name="Department"/>
+                        <label htmlFor={element.id}>{element.label}</label>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </OptionContainer>
             </div>
             <div>
             <h3>Ciudades</h3>
@@ -131,8 +174,8 @@ function Results(info){
       {
         foundData.map((element)=>{
           return <div>
-                    <img width="500px" src={element.image}/>
-                    <h2>{element.name}</h2>
+                    <img src={element.image}/>
+                    <h3>{element.name}</h3>
                     <p>{element.description}</p>
                  </div>
               }
@@ -152,21 +195,21 @@ class Search extends React.Component{
 
   
   sendInfo=(info)=>{
-    this.setState({deparmentID: info.deparmentID})
+    this.setState({departmentID: info.departmentID})
     this.setState({city: info.city})
   }
 
   render(){
       return(
         <ExploraContainer>
-          <div>
+          <SearchContainer>
             <input class="buscar" type="text" placeholder="Buscar"/>
             <Categories name="Categorias" data={categories}/>
             <CitySearch data={Departments} sendInfo = {this.sendInfo}/>
-          </div>
-          <div>
+          </SearchContainer>
+          <ResultsContainer>
             <Results info={this.state}/>
-          </div>
+          </ResultsContainer>
         </ExploraContainer>
      )
   }
