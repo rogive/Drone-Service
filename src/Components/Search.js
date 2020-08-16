@@ -1,7 +1,8 @@
 import React from 'react';
-import newDepartments from '../data/deparments.json'
+import Departments from '../data/deparments.json'
 import styled from 'styled-components'
 import mockdata from '../data/mockdata.json'
+
 
 const ExploraContainer = styled.div`
     display: flex;
@@ -10,23 +11,23 @@ const ExploraContainer = styled.div`
 
 
 class Categories extends React.Component{
-render(){
-    const { data } = this.props   
-    
+  
+  render(){
 
-    return (
+    const { data } = this.props   
+      
+    return(
       <div>
         <h3>{this.props.name}</h3>
         {data.map((element)=>{
           return(
-            <div> 
-              <div>
-                <input id={element.id} type="checkbox"/>
-                <label htmlFor={element.id}>{element.label}</label>
-              </div>
-            </div>
+            <div>
+              <input id={element.id} type="checkbox"/>
+              <label htmlFor={element.id}>{element.label}</label>
+            </div>)
+            }
           )
-        })}
+        }
       </div>
     )
   }
@@ -36,12 +37,12 @@ render(){
 class CitySearch extends React.Component{
 
   state = {
-    deparmentID : null,
+    departmentID : null,
     city: "",
   }
 
   handleChange = (event) => {
-    this.setState({ deparmentID : event.target.id });
+    this.setState({ departmentID : event.target.id });
   }
 
   cityHandleChange = async (event) => {
@@ -50,7 +51,7 @@ class CitySearch extends React.Component{
   }
 
   citiesRender = (data) =>{
-    let { ciudades } = data[this.state.deparmentID]
+    const { ciudades } = data[this.state.departmentID]
     
     return(
         ciudades.map((element)=>{
@@ -68,15 +69,12 @@ class CitySearch extends React.Component{
   
 
   render(){
+
       const { data } = this.props 
       
-      // const ciudades = ""
-      // const variable = data[this.state.deparmentID]  
-      
-  
       return (
         <div>
-            <div>
+          <div>
               <h3>Departamentos</h3>
               {data.map((element)=>{
                 return(
@@ -91,14 +89,12 @@ class CitySearch extends React.Component{
             </div>
             <div>
             <h3>Ciudades</h3>
-            {this.state.deparmentID !== null ? this.citiesRender(data) : <h1>Falso</h1>}
-              
+            {this.state.departmentID !== null ? this.citiesRender(data) : null }
           </div>
-        </div>
-        
-      )
-    }
+       </div>
+    )
   }
+}
 
 
 const categories = [
@@ -124,40 +120,33 @@ const categories = [
   }
 ]
 
-// const stringifyDeparments = JSON.stringify(deparments)
-// const newDepartments = JSON.parse(stringifyDeparments)
-
 
 function Results(info){
-  const foundData = mockdata.filter(element => element.departmentID == info.info.deparmentID && element.city == info.info.city)
-  
-  console.log(foundData)
-  if(!foundData){
-    return(
-      <div>
-        <h2>Resultados</h2>
-        <div>
-          <img src={info.image} alt="paisaje"/>
-          <h1> {foundData[0].name}</h1>
-          <div>
-            <p>{info.description}</p>
-            <div>
-              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-            </div>
-          </div>n  
-        </div>
-      </div>
-    )    
-  }else{
-    return <div>Resultados</div>
-  }
+
+  const foundData = mockdata.filter(element => element.departmentID == info.info.departmentID && element.city == info.info.city)
+
+  return(
+    <div>
+      <h2>Resultados</h2>
+      {
+        foundData.map((element)=>{
+          return <div>
+                    <img width="500px" src={element.image}/>
+                    <h2>{element.name}</h2>
+                    <p>{element.description}</p>
+                 </div>
+              }
+            )
+          }
+    </div>
+  )    
 }
 
 
 class Search extends React.Component{
   
   state = {
-    deparmentID: "",
+    departmentID: "",
     city: ""
   }
 
@@ -173,7 +162,7 @@ class Search extends React.Component{
           <div>
             <input class="buscar" type="text" placeholder="Buscar"/>
             <Categories name="Categorias" data={categories}/>
-            <CitySearch data={newDepartments} sendInfo = {this.sendInfo}/>
+            <CitySearch data={Departments} sendInfo = {this.sendInfo}/>
           </div>
           <div>
             <Results info={this.state}/>
@@ -182,5 +171,6 @@ class Search extends React.Component{
      )
   }
 }
+
 
 export default Search
