@@ -3,7 +3,16 @@ import mockdata from '../data/mockdata.json'
 
 function Results({info}){
 
-  const foundData = mockdata.filter(element => element.departmentID == info.departmentID && element.city == info.city)
+  let foundData = []
+
+  if(info.categorie && info.departmentID && info.city){
+    foundData = mockdata.filter(pilot => pilot.departmentID == info.departmentID && pilot.city == info.city && pilot.categorie == info.categorie) 
+  }else if(info.categorie){
+    foundData = mockdata.filter(pilot => pilot.categorie == info.categorie)
+  }else if(info.departmentID){
+    foundData = mockdata.filter(pilot => pilot.departmentID == info.departmentID && pilot.city == info.city)
+  }
+
 
   return(
     <div>

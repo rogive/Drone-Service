@@ -43,24 +43,22 @@ class Search extends React.Component{
   
   state = {
     departmentID: "",
-    city: ""
+    city: "",
+    categorie: ""
   }
 
-  handleChange = (event) => {
-    this.setState({ departmentID : event.target.id, city:"" });
-  }
+  handleChange = (event) => this.setState({ departmentID : event.target.id, city:"" })
+  
+  cityHandleChange = (event) => this.setState({ city : event.target.value})
 
-  cityHandleChange = (event) => {
-    this.setState({ city : event.target.value})
-  }
+  categorieHandleChange = (event) => this.setState({categorie: event.target.id})
 
   
   render(){
       return(
         <ExploraContainer>
           <SearchContainer>
-            <input class="buscar" type="text" placeholder="Buscar"/>
-            <Categories/>
+            <Categories categorieHandleChange={this.categorieHandleChange}/>
             <CitySearch data={Departments} handleChange={this.handleChange} cityHandleChange={this.cityHandleChange} departmentID={this.state.departmentID} city={this.state.city}/>
           </SearchContainer>
           <ResultsContainer>

@@ -20,12 +20,10 @@ class CitySearch extends React.Component{
        {
          ciudades.map((element)=>{
            return(
-             <div> 
-               <div>
-                 <input value={element} checked={this.props.city === element} name="City" id={element} type="radio" onChange={this.props.cityHandleChange}/>
-                 <label htmlFor={element}>{element}</label>
-               </div>
-             </div>
+              <div>
+                <input value={element} checked={this.props.city === element} name="City" id={element} type="radio" onChange={this.props.cityHandleChange}/>
+                <label htmlFor={element}>{element}</label>
+              </div>
            )
          })
        }
@@ -45,11 +43,9 @@ class CitySearch extends React.Component{
               <OptionContainer>
                 {data.map((element)=>{
                   return(
-                    <div> 
-                      <div>
-                        <input  id={element.id} type="radio" onChange={this.props.handleChange} name="Department"/>
-                        <label htmlFor={element.id}>{element.label}</label>
-                      </div>
+                    <div>
+                      <input value={element} id={element.id} type="radio" onChange={this.props.handleChange} name="Department"/>
+                      <label htmlFor={element.id}>{element.label}</label>
                     </div>
                   )
                 })}
