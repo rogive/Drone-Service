@@ -18,17 +18,20 @@
   {
     "name": "Leon",
     "departmentID": 1,
-    "city": "Abejorral"
+    "city": "Abejorral",
+    "categorie": "videos"
   },
   {
     "name": "Chris",
     "departmentID": 2,
-    "city": "Arauca"
+    "city": "Arauca",
+    "categorie": "fotogrametria"
   },
   {
     "name": "Rebeca",
     "departmentID": 3,
-    "city": "Baranoa"
+    "city": "Baranoa",
+    "categorie": "ortomapas"
   },
   {
     "name": "Jonathan",
