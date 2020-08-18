@@ -1,4 +1,3 @@
-  
 import React from 'react';
 import logo from '../../src/Logo-Drone.png';
 import styled from 'styled-components';
