@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Button from './Button'
+import formFields from '../data/formFields.json'
 
 const FullContainer = styled.div `
   display: flex;
@@ -33,44 +34,6 @@ const FormInput = styled.input`
   padding:0.5rem;
   font-size: 1.2rem;
 `
-
-const formFields = [
-  {
-    id: 'name',
-    label: 'Nombre *',
-    type: 'text'
-  },
-  {
-    id: 'lastName',
-    label: 'Apellido *',
-    type: 'text'
-  },
-  {
-    id: 'email',
-    label: 'E-Mail *',
-    type: 'email'
-  },
-  {
-    id: 'password',
-    label: 'Contraseña *',
-    type: 'password'
-  },
-  {
-    id: 'phone',
-    label: 'Celular',
-    type: 'number'
-  },
-  {
-    id: 'department',
-    label: 'Departamento *',
-    type: 'text'
-  },
-  {
-    id: 'city',
-    label: 'Ciudad *',
-    type: 'text'
-  }
-]
 
 class UserForm extends Component {
   state = {

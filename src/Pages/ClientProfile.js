@@ -1,14 +1,15 @@
 import React from 'react';
 import UserForm from '../Components/UserForm';
 import Header from '../Components/Header'
+import GlobalContainer from '../utils/GlobalStyles'
 
 function ClientProfile(){
 
 return (
-  <div>
+  <GlobalContainer>
     <Header/>
     <UserForm/>
-  </div>
+  </GlobalContainer>
   )
 }
 
