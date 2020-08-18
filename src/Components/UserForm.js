@@ -1,7 +1,65 @@
 import React, { Component } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+import GlobalContainer from '../utils/GlobalStyles'
+import Button from './Button'
 
-class UserForm extends Component {
+const FormContainer = styled.form`
+  display:block;
+`
+const FormFieldset = styled.fieldset`
+  display:flex;
+  width: 50%;
+  margin: 1rem auto;
+`
+const FormLabel = styled.label`
+  display:flex;
+  width: 30%;
+  margin: 1rem 0 1rem 1rem;
+  font-size: 1.3rem;
+  align-items: center;
+`
+const FormInput = styled.input`
+  display:flex;
+  width: 50%;
+  margin: 1rem 0 1rem 1rem;
+  float:left;
+  padding:0.5rem;
+  font-size: 1.2rem;
+`
+
+const formFields = [
+  {
+    id: 'name',
+    label: 'Nombre *'
+  },
+  {
+    id: 'lastName',
+    label: 'Apellido *'
+  },
+  {
+    id: 'email',
+    label: 'E-Mail *'
+  },
+  {
+    id: 'password',
+    label: 'Contraseña *'
+  },
+  {
+    id: 'phone',
+    label: 'Celular'
+  },
+  {
+    id: 'department',
+    label: 'Departamento *'
+  },
+  {
+    id: 'city',
+    label: 'Ciudad *'
+  }
+]
+
+class FieldsetMap extends Component {
+
   state = {
     name: '',
     lastName: '',
@@ -9,99 +67,79 @@ class UserForm extends Component {
     password: '',
     phone: '',
     department: '',
-    city: ''
+    city: '',
+    errors: {}
   }
 
   handleChange = event => {
-    const { name, value } = event.target;
-    
-    this.setState({ [name]: value }, () => console.dir(this.state))
+    const {name, value} = event.target;
+
+    this.setState({ [name]: value })
+  }
+
+  handleValidation = (formFields) => {
+    const fields = this.state
+    let errors = {}
+    let formIsValid = true
+
+    formFields.forEach(e => {
+      if(!fields[e.id] && e.label.includes('*')) {
+        formIsValid = false;
+        errors[e.label] = `El campo ${e.label} no puede estar vacío`
+      }
+    });
+
+    this.setState({errors: errors});
+    return formIsValid
   }
 
   handleSubmit = event => {
-    event.pereventDefault()
-  // axios put
+    event.preventDefault()
+
+    if(this.handleValidation(formFields)) {
+      // axios put
+      alert('Formulario enviado')
+    }else{
+      alert('El formulario tiene errores')
+    }
   }
 
+  render() {
+    const { formFields } = this.props
+
+    return (
+      <div>
+        <FormContainer onSubmit={this.handleSubmit}>
+          {formFields.map((element) => {
+            return (
+              <FormFieldset key={element.id}>
+                <FormLabel htmlFor={element.id}>{element.label}: </FormLabel>
+                <FormInput
+                  type='text'
+                  id={element.id}
+                  name={element.id}
+                  onChange={this.handleChange}
+                  value={this.state[element.id]}
+                />
+              </FormFieldset>
+            )
+          })}
+          <Button>Enviar</Button>
+        </FormContainer>
+      </div>
+    )
+  }
+}
+
+class UserForm extends Component {
   //VALIDACIÓN DESDE EL FRONT END (PEJ Contraseña mínimo de 8 caractéres, validación email REGEX)
 
   render() {
-    const { name, lastName, email, password, phone, department, city} = this.state
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <fieldset>
-          <label htmlFor="name">Nombre: </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            onChange={this.handleChange}
-            value={name}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="lastName">Apellido: </label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            onChange={this.handleChange}
-            value={lastName}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="email">E-Mail: </label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            onChange={this.handleChange}
-            value={email}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="password">Contraseña: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={this.handleChange}
-            value={password}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="phone">Celular: </label>
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            onChange={this.handleChange}
-            value={phone}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="department">Departamento: </label>
-          <input
-            type="text"
-            id="department"
-            name="department"
-            onChange={this.handleChange}
-            value={department}
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="city">Ciudad: </label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            onChange={this.handleChange}
-            value={city}
-          />
-        </fieldset>
-        <button>Enviar</button>
-      </form>
+      <GlobalContainer>
+        <FieldsetMap formFields={formFields} />
+      </GlobalContainer>
     )
   }
 }
