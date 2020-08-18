@@ -1,0 +1,44 @@
+[
+  { 
+    "name": "John",
+    "description": "Soy un piloto profesional, con mas de 2000 horas de vuelo y preparacion.",
+    "departmentID": 0,
+    "city": "Leticia",
+    "image": "https://images.pexels.com/photos/2082949/pexels-photo-2082949.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "categorie": "fotos"
+  },
+  { 
+    "name": "Elena",
+    "departmentID": 0,
+    "description": "Lista para el trabajo",
+    "city": "Puerto Nari\u00f1o",
+    "image": "https://images.pexels.com/photos/814499/pexels-photo-814499.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "categorie": "fotos"
+  },
+  {
+    "name": "Leon",
+    "departmentID": 1,
+    "city": "Abejorral",
+    "categorie": "videos"
+  },
+  {
+    "name": "Chris",
+    "departmentID": 2,
+    "city": "Arauca",
+    "categorie": "fotogrametria"
+  },
+  {
+    "name": "Rebeca",
+    "departmentID": 3,
+    "city": "Baranoa",
+    "categorie": "ortomapas"
+  },
+  {
+    "name": "Jonathan",
+    "description": "Soy un piloto profesional, con mas de 2000 horas de vuelo y preparacion.",
+    "departmentID": 0,
+    "city": "Leticia",
+    "image": "https://images.pexels.com/photos/814499/pexels-photo-814499.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "categorie": "fotos"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "fotos",
+    "label": "Fotos"
+  },
+  {
+    "id": "videos",
+    "label": "Videos"
+  },
+  {
+    "id": "fotogrametria",
+    "label": "Fotogrametria"
+  },
+  {
+    "id": "ortomapas",
+    "label": "Ortomapas"
+  },
+  {
+    "id": "modeloDigital",
+    "label": "Modelo Digital"
+  }
+]
