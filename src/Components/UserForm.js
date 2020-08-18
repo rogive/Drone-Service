@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import GlobalContainer from '../utils/GlobalStyles'
 import Button from './Button'
 
+const FullContainer = styled.div `
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+`
+
 const FormContainer = styled.form`
-  display:block;
+  display: block;
+  margin: 1rem;
 `
 const FormFieldset = styled.fieldset`
   display:flex;
   width: 50%;
   margin: 1rem auto;
+  float: left;
 `
 const FormLabel = styled.label`
   display:flex;
@@ -30,36 +37,42 @@ const FormInput = styled.input`
 const formFields = [
   {
     id: 'name',
-    label: 'Nombre *'
+    label: 'Nombre *',
+    type: 'text'
   },
   {
     id: 'lastName',
-    label: 'Apellido *'
+    label: 'Apellido *',
+    type: 'text'
   },
   {
     id: 'email',
-    label: 'E-Mail *'
+    label: 'E-Mail *',
+    type: 'email'
   },
   {
     id: 'password',
-    label: 'Contraseña *'
+    label: 'Contraseña *',
+    type: 'password'
   },
   {
     id: 'phone',
-    label: 'Celular'
+    label: 'Celular',
+    type: 'number'
   },
   {
     id: 'department',
-    label: 'Departamento *'
+    label: 'Departamento *',
+    type: 'text'
   },
   {
     id: 'city',
-    label: 'Ciudad *'
+    label: 'Ciudad *',
+    type: 'text'
   }
 ]
 
-class FieldsetMap extends Component {
-
+class UserForm extends Component {
   state = {
     name: '',
     lastName: '',
@@ -74,20 +87,33 @@ class FieldsetMap extends Component {
   handleChange = event => {
     const {name, value} = event.target;
 
-    this.setState({ [name]: value })
+    this.setState({[name]: value})
   }
 
   handleValidation = (formFields) => {
     const fields = this.state
     let errors = {}
     let formIsValid = true
-
-    formFields.forEach(e => {
-      if(!fields[e.id] && e.label.includes('*')) {
+    const emailRegexp = (/((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/)
+    
+    formFields.filter((e) => e.type.includes('text')).forEach(e => {
+      if(!fields[e.id].match(/^[a-zA-Z\s]+$/)) {
         formIsValid = false;
-        errors[e.label] = `El campo ${e.label} no puede estar vacío`
+        errors[e.id] = `El campo ${e.label} solo puede contener letras`
       }
-    });
+    })
+
+    if(!fields['email'].match(emailRegexp)) {
+      formIsValid = false;
+      errors['email'] = `E-mail inválido`
+    }
+    
+    formFields.filter((e) => e.label.includes('*')).forEach(e => {
+      if(!fields[e.id]) {
+        formIsValid = false;
+        errors[e.id] = `El campo ${e.label} es obligatorio`
+      }
+    })
 
     this.setState({errors: errors});
     return formIsValid
@@ -95,6 +121,12 @@ class FieldsetMap extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+    
+    for (const key in this.state) {
+      if (!(typeof(this.state[key]) === 'object')) {
+        this.setState({[key]: this.state[key].trim() })
+      }
+    }
 
     if(this.handleValidation(formFields)) {
       // axios put
@@ -105,10 +137,9 @@ class FieldsetMap extends Component {
   }
 
   render() {
-    const { formFields } = this.props
 
     return (
-      <div>
+      <FullContainer>
         <FormContainer onSubmit={this.handleSubmit}>
           {formFields.map((element) => {
             return (
@@ -121,25 +152,13 @@ class FieldsetMap extends Component {
                   onChange={this.handleChange}
                   value={this.state[element.id]}
                 />
+                <span style={{color: "red"}}>{this.state.errors[element.id]}</span>
               </FormFieldset>
             )
           })}
           <Button>Enviar</Button>
         </FormContainer>
-      </div>
-    )
-  }
-}
-
-class UserForm extends Component {
-  //VALIDACIÓN DESDE EL FRONT END (PEJ Contraseña mínimo de 8 caractéres, validación email REGEX)
-
-  render() {
-
-    return (
-      <GlobalContainer>
-        <FieldsetMap formFields={formFields} />
-      </GlobalContainer>
+      </FullContainer>
     )
   }
 }

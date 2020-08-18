@@ -9,7 +9,7 @@ function App() {
       {/* <Home/> */}
       <ClientProfile/>
     </div>
-  );
+  )
 }
 
 export default App;
