@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import React from "react";
 import { Link, Router, BrowserRouter, Switch, Route } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
-=======
-import React from 'react';
-import logo from '../../src/Logo-Drone.png';
-import styled from 'styled-components';
->>>>>>> 32be49cd163bce367e0b3892be4a3341b00e4aa6
 
 const HeaderContainer = styled.div`
   width: 90%;
