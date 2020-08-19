@@ -119,7 +119,7 @@ class UserForm extends Component {
               </FormFieldset>
             )
           })}
-          <Button>Enviar</Button>
+          <Button title={"Continuar"} linkto={"/pilot-profile"}/>
         </FormContainer>
       </FullContainer>
     )

@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from "react-router-dom";
 
-const Button1 = styled.button`
+const Button1 = styled(Link)`
+    text-decoration: none;
     align-self: flex-start;
     padding: 1rem 1.6rem;
     border-radius: 8px;
@@ -17,9 +19,9 @@ const Button1 = styled.button`
     }
 `
 
-function Button(){
+function Button(props){
     return (
-        <Button1>Registrarme</Button1>
+        <Button1 to={props.linkto}>{props.title}</Button1>
     )
 }
 

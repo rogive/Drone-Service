@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Router, BrowserRouter, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
 
@@ -84,8 +84,8 @@ function Header() {
       </Ulist>
 
       <Session>
-        <List className="signup">Sign Up</List>
-        <List className="login">Login</List>
+        <StyledLink to="/user-registry">Registrarme</StyledLink>
+        <List>Iniciar sesión</List>
       </Session>
     </HeaderContainer>
   );
