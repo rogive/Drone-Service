@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Button1 = styled.button`
+    align-self: flex-start;
     padding: 1rem 1.6rem;
     border-radius: 8px;
     font-family: 'Montserrat';

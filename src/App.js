@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import DronePilot from './Pages/DronePilot'; 
 import Home from './Pages/Home';
-import Explora from './Pages/Explora'
-
+import ClientProfile from './Pages/ClientProfile'
 
 function App() {
   return (
-    <Explora/>
-  );
+    <div>
+      {/* <Home/> */}
+      <ClientProfile/>
+    </div>
+  )
 }
 
 export default App;
