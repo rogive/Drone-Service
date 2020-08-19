@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import GlobalContainer from '../utils/GlobalStyles'
-import Header from '../Components/Header'
-import SelectorDP from '../Components/SelectorDP'
+import GlobalContainer from '../utils/GlobalStyles';
+import SelectorDP from '../Components/SelectorDP';
 
 const MainContainer = styled.div`
   padding-top: 1rem;
@@ -23,7 +22,6 @@ function DronePilot(){
 
 return (
   <div>
-    <Header/>
     <GlobalContainer>
       <MainContainer>
         <div className="TitleDP"> 
