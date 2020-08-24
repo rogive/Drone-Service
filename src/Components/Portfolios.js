@@ -75,10 +75,10 @@ class Portfolios extends React.Component{
 
   componentDidMount() {
     axios({
-      url: `localhost:8000/media/listar/piloto/${this.state.pilotId}`,
+      url: `http://localhost:8000/media/listar/piloto/${this.state.pilotId}`,
       method: 'GET',
     })
-      .then(({ data }) => this.setState({ portfolios: data }, ()=>console.dir(data)))
+      .then(({ data }) => this.setState({ portfolios: data }, ))
       .catch((error) => this.setState({ error }))
   }
 
@@ -116,7 +116,7 @@ class Portfolios extends React.Component{
           });
 
           axios({
-            url: 'localhost:8000/media/crear',
+            url: 'http://localhost:8000/media/crear',
             method: 'POST',
             data: {
               pilotId: this.state.pilotId,
