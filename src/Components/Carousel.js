@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import hero from '../img/drone-hero.jpg'
-import Button from '../Components/Button'
+import hero from '../img/drone-hero.jpg';
+import Button from '../Components/Button';
+import { Link } from "react-router-dom";
 
 
 const CarouselContainer = styled.div`
@@ -47,7 +48,7 @@ function Carousel(){
           <h1>Le damos <span>alas</span> a tus proyectos!!!</h1>
           <p>Contamos con personal experimentado y calificado y estamos listos 
              para poner tus ideas en el cielo.</p>
-          <Button></Button>
+          <Button title={"Registro"} linkto={"/user-registry"}/>
         </TextBox>
       </CarouselContainer>
   )
