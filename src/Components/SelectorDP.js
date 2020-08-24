@@ -92,7 +92,12 @@ const TabsContainer = styled.div`
 
 class SelectorDP extends React.Component{
 
-  state = { value: "Profile"}
+  state = { value: "Profile", pilotName:"" }
+
+  componentDidMount() {
+    const pilotName = localStorage.getItem("pilot")
+    this.setState({ pilotName })
+  }
 
   handleClick = (event) => {
     this.setState({ value: event.target.value });
@@ -103,7 +108,7 @@ class SelectorDP extends React.Component{
       <SecondaryContainer>
         <LateralContainer>
           <div className="Bienvenido">
-            <h2> ¡Bienvenido Alan!</h2>
+            <h2> ¡Bienvenido {this.state.pilotName}!</h2>
           </div>
           <div className="Indicador"> 
             <p className="TuPerfil"> Tu perfil esta al:</p>
