@@ -109,7 +109,7 @@ class UserForm extends Component {
               <FormFieldset key={element.id}>
                 <FormLabel htmlFor={element.id}>{element.label}: </FormLabel>
                 <FormInput
-                  type='text'
+                  type={element.type}
                   id={element.id}
                   name={element.id}
                   onChange={this.handleChange}
@@ -119,7 +119,7 @@ class UserForm extends Component {
               </FormFieldset>
             )
           })}
-          <Button title={"Continuar"} linkto={"/pilot-profile"}/>
+          <button>Continuar</button>
         </FormContainer>
       </FullContainer>
     )

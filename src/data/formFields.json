@@ -33,5 +33,15 @@
     "id": "city",
     "label": "Ciudad *",
     "type": "text"
+  },
+  {
+    "id": "client",
+    "label": "Cliente *",
+    "type": "radio"
+  },
+  {
+    "id": "pilot",
+    "label": "Piloto *",
+    "type": "radio"
   }
 ]

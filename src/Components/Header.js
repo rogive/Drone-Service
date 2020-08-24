@@ -85,7 +85,7 @@ function Header() {
 
       <Session>
         <StyledLink to="/user-registry">Registrarme</StyledLink>
-        <List>Iniciar sesión</List>
+        <StyledLink to="/login">Iniciar sesión</StyledLink>
       </Session>
     </HeaderContainer>
   );
