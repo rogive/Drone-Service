@@ -44,7 +44,7 @@ class CitySearch extends React.Component{
                 {data.map((element)=>{
                   return(
                     <div>
-                      <input value={element} id={element.id} type="radio" onChange={this.props.handleChange} name="Department"/>
+                      <input key={element.id} value={element} id={element.id} type="radio" onChange={this.props.handleChange} name="Department"/>
                       <label htmlFor={element.id}>{element.label}</label>
                     </div>
                   )

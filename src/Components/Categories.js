@@ -21,7 +21,7 @@ class Categories extends React.Component{
           {categories.map((categorie)=>{
             return(
               <div>
-                <input id={categorie.id} type="radio" name="Categoria" onChange={this.props.categorieHandleChange}/>
+                <input key={categorie.id} id={categorie.id} type="radio" name="Categoria" onChange={this.props.categorieHandleChange}/>
                 <label htmlFor={categorie.id}>{categorie.label}</label>
               </div>)
               }
