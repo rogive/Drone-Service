@@ -13,9 +13,8 @@ function Results({info}){
       try{
         const result = await axios.get('http://localhost:8000/pilotos/listar')
         setPilotsDb(result.data)
-        console.log(result.data)
       }catch(error){
-        console.log(error)
+        alert(error)
       }      
     };
     fetchPilots();

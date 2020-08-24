@@ -55,7 +55,7 @@ const FormHook = () => {
         history.push("/login")
         return alert("Registro exitoso")
       })
-      .catch((error) => console.log(error))
+      .catch((error) => alert(error))
   }
 
   return(

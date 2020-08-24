@@ -98,7 +98,7 @@ class Portfolios extends React.Component{
     (snapshot) => {
     }, 
     (error) => {
-      console.log(error);
+      alert(error);
     },
     () => {
       storage.ref(`Pilots/Pilot-${this.state.pilotId}/`).child(this.state.name).getDownloadURL().then(url => {

@@ -51,7 +51,6 @@ const LoginForm = () => {
       data: data
     })
       .then(({data}) => {
-        console.log(data)
         localStorage.setItem('token', data.token)
         localStorage.setItem('pilot', data.pilot.name)
         history.push('/pilot-profile')
