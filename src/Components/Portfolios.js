@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { storage } from '../firebase';
 
 const IconContainer = styled.div`
   width: 100%;
@@ -52,7 +53,7 @@ function PortfoliosComponent({
   return portfolios.map((portfolio) => {
     return(
         <ImageContainer>
-          <img src="https://cdn.pixabay.com/photo/2020/08/09/15/43/tower-5475844_960_720.jpg" alt="Hola"></img>
+          <img src={portfolio.url}></img>
         </ImageContainer>
     );
   });
@@ -63,22 +64,53 @@ class Portfolios extends React.Component{
   state = {
     portfolios: [],
     name: "",
-    number: 0
+    id: 0,
+    selectedFile: null,
+    url: ''
   }
 
   handleChange = (event) => {
-    this.setState({ name: event.target.value})
+    console.dir(event.target)
+    this.setState({ 
+      name: event.target.files[0].name,
+      selectedFile: event.target.files[0]
+    })
 
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const newPortfolio = { name: this.state.name}
-    this.setState({
-      portfolios: this.state.portfolios.concat(newPortfolio),
-      number: this.state.number + 1
-    })
+    const uploadImage = storage.ref('Pilots/Pilot-x/' + this.state.name).put(this.state.selectedFile);
+
+    uploadImage.on('state_changed', 
+    (snapshot) => {
+      // progrss function ....
+/*       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      this.setState({progress}); */
+    }, 
+    (error) => {
+         // error function ....
+      console.log(error);
+    }, 
+  () => {
+      // complete function ....
+      storage.ref('Pilots/Pilot-x/').child(this.state.name).getDownloadURL().then(url => {
+          console.log(url);
+          this.setState({url},() => {
+            const newPortfolio = {
+              name: this.state.name,
+              id: this.state.id + 1,
+              url: this.state.url,
+              selectedFile: this.state.selectedFile
+            }
+            this.setState({
+              portfolios: this.state.portfolios.concat(newPortfolio),
+            });
+          });
+      })
+    });
   }
+
   render(){
     return(
       <ComponentContainer>
