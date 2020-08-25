@@ -7,7 +7,6 @@ import Explora from './Pages/Explora';
 import UserRegistry from './Pages/UserRegistry';
 import Error404 from './Pages/Error404';
 import Login from './Pages/Login'
-import Landing from './Pages/Landing'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
           <Route exact path="/pilot-profile" component={DronePilot} />
           <Route exact path="/user-registry" component={UserRegistry} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/landing" component={Landing} />
           <Route exact path="*" component={Error404}/>
         </Switch> 
     </BrowserRouter>  
