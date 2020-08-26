@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
@@ -70,6 +70,13 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
+  const [ pilot, setPilot ] = useState('')
+  
+  useEffect(() => {
+    const pilotName = localStorage.getItem('pilot')
+    setPilot(pilotName)
+  },[pilot])
+  
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
@@ -84,8 +91,8 @@ function Header() {
       </Ulist>
 
       <Session>
-        <StyledLink to="/user-registry">Registrarme</StyledLink>
-        <List>Iniciar sesión</List>
+        {pilot ? <h2>{pilot}</h2>: <div> <StyledLink to="/user-registry">Registrarme</StyledLink>
+        <StyledLink to="/login">Iniciar sesión</StyledLink> </div> }
       </Session>
     </HeaderContainer>
   );
