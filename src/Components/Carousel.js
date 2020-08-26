@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import hero from '../img/drone-hero.jpg';
 import Button from '../Components/Button';
+import { Link } from "react-router-dom";
 
 
 const CarouselContainer = styled.div`

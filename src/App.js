@@ -7,7 +7,7 @@ import Explora from './Pages/Explora';
 import UserRegistry from './Pages/UserRegistry';
 import Error404 from './Pages/Error404';
 import Login from './Pages/Login'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Link, Router, BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -24,5 +24,7 @@ function App() {
     </BrowserRouter>  
   );
 }
+
+
 
 export default App;

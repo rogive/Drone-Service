@@ -120,6 +120,8 @@ class UserForm extends Component {
             )
           })}
           <button>Continuar</button>
+          //<Button title={"Continuar"} linkto={"/pilot-profile"}/>
+
         </FormContainer>
       </FullContainer>
     )

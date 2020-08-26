@@ -76,7 +76,7 @@ function Header() {
     const pilotName = localStorage.getItem('pilot')
     setPilot(pilotName)
   },[pilot])
-
+  
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
