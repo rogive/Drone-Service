@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Departments from '../data/deparments.json'
 
 const FullContainer = styled.div `
   display: flex;
@@ -40,6 +41,8 @@ const FormInput = styled.input`
 `
 
 const FormHook = () => {
+  const [ currDepartment, setCurrDepartment ] = useState(0)
+  const [ city, setCity ] = useState('')
 
   const {register, errors, handleSubmit} = useForm()
   const history = useHistory()
@@ -56,6 +59,32 @@ const FormHook = () => {
         return alert("Registro exitoso")
       })
       .catch((error) => alert(error))
+  }
+
+  useEffect(() => {
+    setCurrDepartment(currDepartment)
+  },[])
+
+  const mapDepartments = (departments) => {
+
+    return departments.map( element => {
+      return(
+        <option value={element.id}>
+          {element.label}
+        </option>
+      )
+    })
+  }
+
+  const mapCities = (departments, depId) => {
+
+    return departments.filter(e => e.id === depId)[0].ciudades.map( element => {
+      return(
+        <option value={element}>
+          {element}
+        </option>
+      )
+    })
   }
 
   return(
@@ -127,24 +156,29 @@ const FormHook = () => {
         </FormFieldset>
         <FormFieldset>
           <FormLabel htmlFor="department">Departamento: </FormLabel>
-          <FormInput
+          <select
             id="department"
             name="department"
             type="text"
             ref={register({ required: { value:true, message: 'El campo departamento es requerido' }})}
-          />
+            onChange={ event => { setCurrDepartment(event.target.value)}}
+          >
+            {mapDepartments(Departments)}
+          </select>
           <span style={{color: "red"}}>
             {errors.department?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
           <FormLabel htmlFor="city">Ciudad: </FormLabel>
-          <FormInput
+          <select
             id="city"
             name="city"
             type="text"
             ref={register({ required: { value:true, message: 'El campo ciudad es requerido' }})}
-          />
+          >
+            {mapCities(Departments, currDepartment)}
+          </select>
           <span style={{color: "red"}}>
             {errors.city?.message}
           </span>
@@ -158,7 +192,6 @@ const FormHook = () => {
             {errors.userType?.message}
           </span>
         </FormFieldset>
-        
         <button>Enviar</button>
       </FormContainer>
     </FullContainer>
