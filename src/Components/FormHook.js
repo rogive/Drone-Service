@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import axios from 'axios';
@@ -42,7 +42,7 @@ const FormInput = styled.input`
 
 const FormHook = () => {
   const [ currDepartment, setCurrDepartment ] = useState(0)
-  const [ city, setCity ] = useState('')
+  const [ currCities, setCurrCities ] = useState([])
 
   const {register, errors, handleSubmit} = useForm()
   const history = useHistory()
@@ -61,10 +61,6 @@ const FormHook = () => {
       .catch((error) => alert(error))
   }
 
-  useEffect(() => {
-    setCurrDepartment(currDepartment)
-  },[])
-
   const mapDepartments = (departments) => {
 
     return departments.map( element => {
@@ -76,9 +72,9 @@ const FormHook = () => {
     })
   }
 
-  const mapCities = (departments, depId) => {
+  const mapCities = (cities) => {
 
-    return departments.filter(e => e.id === depId)[0].ciudades.map( element => {
+    return cities.map( element => {
       return(
         <option value={element}>
           {element}
@@ -161,7 +157,10 @@ const FormHook = () => {
             name="department"
             type="text"
             ref={register({ required: { value:true, message: 'El campo departamento es requerido' }})}
-            onChange={ event => { setCurrDepartment(event.target.value)}}
+            onChange={ event => { 
+              setCurrDepartment(event.target.value)
+              setCurrCities(Departments.filter(e => e.id === parseInt(event.target.value))[0].ciudades)
+            }}
           >
             {mapDepartments(Departments)}
           </select>
@@ -177,7 +176,7 @@ const FormHook = () => {
             type="text"
             ref={register({ required: { value:true, message: 'El campo ciudad es requerido' }})}
           >
-            {mapCities(Departments, currDepartment)}
+            {mapCities(currCities)}
           </select>
           <span style={{color: "red"}}>
             {errors.city?.message}
