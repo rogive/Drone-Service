@@ -192,6 +192,15 @@ const FormHook = () => {
             {mapCities(currCities)}
           </select>
         </FormFieldset>
+        <FormFieldset>
+          <select name="userType" ref={register({ required: true})}>
+            <option value="client">Cliente</option>
+            <option value="pilot">Piloto</option>
+          </select>
+          <span style={{color: "red"}}>
+            {errors.userType?.message}
+          </span>
+        </FormFieldset>
         <FormButton>Enviar</FormButton>
       </FormContainer>
     </FullContainer>
