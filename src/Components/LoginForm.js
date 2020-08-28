@@ -53,12 +53,14 @@ const LoginForm = () => {
       .then(({data}) => {
         localStorage.setItem('token', data.token)
         localStorage.setItem('pilot', data.pilot.name)
+        localStorage.setItem('pilotId', data.pilot._id)
         history.push('/pilot-profile')
       })
       .catch((error) => {
         alert(error.response.data.message)
         localStorage.removeItem('token')
         localStorage.removeItem('pilot')
+        localStorage.removeItem('pilotId')
       })
   }
 

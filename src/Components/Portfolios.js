@@ -63,7 +63,7 @@ function PortfoliosComponent({
 function Portfolios() {
   const [portfolios, setPortfolios] = useState([])
   const [name, setName] = useState("")
-  const [pilotId, setPilotid] = useState('5f431d3ebd64571f5e5d63b7')
+  const [pilotId, setPilotId] = useState(localStorage.getItem("pilotId"))
   const [urlImage, setUrlImage] = useState('')
   const [selectedFile, setSelectfile] = useState(null)
   const [error, setError] = useState(null)
@@ -75,7 +75,7 @@ function Portfolios() {
     })
       .then(({ data }) => setPortfolios( data ))
       .catch((error) => setError({ error }))
-  }, [])
+    }, [])
 
   function handleChange(event) {
     setName(event.target.files[0].name)
@@ -120,7 +120,11 @@ function Portfolios() {
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label>
-              <input type="file" onChange={handleChange}/>
+              <input htmlFor="file"
+                      type="file"
+                      id="file"
+                      accept="image/*"
+                      onChange={handleChange}/>
             </label>
             <br/>
           </fieldset>
