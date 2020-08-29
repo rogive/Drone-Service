@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
-import { useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { resetGlobalUser } from '../store'
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -71,7 +73,16 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
-  const pilotName = useSelector(state => state.userId)
+
+  const dispatch = useDispatch()
+  const pilotName = useSelector(state => state.userName)
+  const history = useHistory()
+
+  const handleClick = () => {
+    localStorage.removeItem('token')
+    dispatch(resetGlobalUser())
+    history.push('/login')
+  }
   
   return (
     <HeaderContainer>
@@ -87,8 +98,15 @@ function Header() {
       </Ulist>
 
       <Session>
-        {pilotName ? <h2>{pilotName}</h2>: <div> <StyledLink to="/user-registry">Registrarme</StyledLink>
-        <StyledLink to="/login">Iniciar sesión</StyledLink> </div> }
+        {pilotName ?
+        <div>
+          <h1>{pilotName}</h1>
+          <button onClick={handleClick}>Cerrar sesión</button>
+        </div> :
+        <div>
+          <StyledLink to="/user-registry">Registrarme</StyledLink>
+          <StyledLink to="/login">Iniciar sesión</StyledLink> 
+        </div> }
       </Session>
     </HeaderContainer>
   );

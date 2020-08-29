@@ -55,14 +55,12 @@ const LoginForm = () => {
     })
       .then(({data}) => {
         localStorage.setItem('token', data.token)
-        localStorage.setItem('pilot', data.pilot.name)
         history.push('/pilot-profile')
         dispatch(setGlobalUser(data.pilot))
       })
       .catch((error) => {
         alert(error.response.data.message)
         localStorage.removeItem('token')
-        localStorage.removeItem('pilot')
       })
   }
 
