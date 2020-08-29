@@ -1,18 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import ServicesList from '../data/categories.json'
 import axios from 'axios';
 
 const DocumentsContainer = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 9.5vw;
+  height: 30vh;
+  border: 1px solid black;
   background-color: #66b2ff;
   color: black;
-  border-radius: 2rem;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  p{
-    padding: 1rem;
-    text-align: left;
+  border-radius: 1rem;
+  align-items: center;
+  margin: 1rem;
+  .element{
+    font-size: 0.8vw;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 1rem;
   }
+  img{
+    margin: 1rem;
+    width: 8vw;
+    height: 8vw;
+    border-radius: 3rem;
+    border: 1px solid black;
+  }
+`
+
+const ServiceImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
 `
 
 const IconContainer = styled.div`
@@ -46,6 +71,7 @@ function ServicesComponent({
   return services.map((service) => {
     return(
       <DocumentsContainer>
+        <img src={service.url} alt="miniatura"></img>
         <p className="element">{service.name}</p>
       </DocumentsContainer>
 
@@ -56,15 +82,41 @@ function ServicesComponent({
   
 function Services() {
   const [services, setServices] = useState([])
-  const [name, setName] = useState([])
+  const [name, setName] = useState("Capacitación")
+  const [pilotId, setPilotid] = useState(localStorage.getItem("pilotId"))
+  const [url, setUrl] = useState(ServicesList[5].url)
+  const [error, setError] = useState(null)
+
+  useEffect( () => {
+    axios({
+      url: `http://localhost:8000/servicios/listar/piloto/${pilotId}`,
+      method: 'GET',
+    })
+      .then(({ data }) => setServices( data ))
+      .catch((error) => setError({ error }))
+  }, [])
 
   function handleChange(event) {
     setName(event.target.value)
+    ServicesList.map(service=>{
+      if(service.label === event.target.value ){
+        setUrl(service.url)
+      }
+    })
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    setServices(services.concat( { name } ))
+    axios({
+      url: 'http://localhost:8000/servicios/crear',
+      method: 'POST',
+      data: {
+        pilotId: pilotId,
+        name: name,
+        url: url,
+      }
+    }).then(({ data }) => setServices( services.concat(data) ))
+    .catch((error) => setError(error));
   }
 
     return(
@@ -97,7 +149,9 @@ function Services() {
           <button type="submit">Submit</button>
         </form>
         </AttachContainer>
-        <ServicesComponent services = {services}/>
+        <ServiceImageContainer>
+          <ServicesComponent services = {services}/>
+        </ServiceImageContainer>
       </ComponentContainer>
 
     )
