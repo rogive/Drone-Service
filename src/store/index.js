@@ -10,7 +10,7 @@ export function setGlobalUser(userData) {
   }
 }
 
-export function resetGlobalUser(userData) {
+export function resetGlobalUser() {
   return {
     type: RESET_GLOBAL_USER,
     payload: null

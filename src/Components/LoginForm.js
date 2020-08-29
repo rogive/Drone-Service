@@ -54,13 +54,14 @@ const LoginForm = () => {
       data: data
     })
       .then(({data}) => {
+        localStorage.setItem('userId', data.pilot._id)
         localStorage.setItem('token', data.token)
         history.push('/pilot-profile')
         dispatch(setGlobalUser(data.pilot))
       })
       .catch((error) => {
         alert(error.response.data.message)
-        localStorage.removeItem('token')
+        localStorage.clear()
       })
   }
 
@@ -97,5 +98,6 @@ const LoginForm = () => {
     </FullContainer>
   )
 }
+
 
 export default LoginForm

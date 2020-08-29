@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { resetGlobalUser } from '../store'
+import { resetGlobalUser, setGlobalUser } from '../store'
+import axios from 'axios';
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -78,8 +79,31 @@ function Header() {
   const pilotName = useSelector(state => state.userName)
   const history = useHistory()
 
+  useEffect(() => {
+
+    if(localStorage.getItem('token')) {
+      const userId = localStorage.getItem('userId')
+      
+      const fetchPilotData = async () => {
+        try{
+          const { data } = await axios({
+            method: 'GET',
+            url: `http://localhost:8000/pilotos/listar/${userId}`,
+            headers: {
+              'authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+          dispatch(setGlobalUser(data.pilot))
+        }catch(err){
+          localStorage.clear()
+        }
+      }
+      fetchPilotData()
+    }
+  }, []);
+
   const handleClick = () => {
-    localStorage.removeItem('token')
+    localStorage.clear()
     dispatch(resetGlobalUser())
     history.push('/login')
   }
