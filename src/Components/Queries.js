@@ -102,7 +102,7 @@ const FormHook = () => {
   return(
     <FullContainer>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <h1>Oferta de Servicio</h1>
+      <h1>Formulario</h1>
         <FormFieldset>
           <FormLabel htmlFor="name">Nombres: </FormLabel>
           <FormInput
