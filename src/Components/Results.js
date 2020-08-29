@@ -5,43 +5,35 @@ import axios from 'axios';
 function Results({info}){
 
   const [pilotsDb, setPilotsDb] = useState([]);
-
-  let foundData = []
-
+  
   useEffect(() => {
-    const fetchPilots = async () => {
+    
+    setPilotsDb([])
+    
+    const filterPilots = async () => {
       try{
-        const result = await axios.get('http://localhost:8000/pilotos/listar')
+        const result = await axios.post('http://localhost:8000/pilotos/filtrar',{info})
         setPilotsDb(result.data)
       }catch(error){
         alert(error)
-      }      
-    };
-    fetchPilots();
-  }, []);
-  
+      }
+    }
+    filterPilots()
+  }, [info])
 
-  if(info.categorie && info.departmentID && info.city){
-    foundData = pilotsDb.filter(pilot => pilot.departmentID == info.departmentID && pilot.city == info.city && pilot.categorie == info.categorie) 
-  }else if(info.categorie){
-    foundData = pilotsDb.filter(pilot => pilot.categorie == info.categorie)
-  }else if(info.departmentID){
-    foundData = pilotsDb.filter(pilot => pilot.departmentID == info.departmentID && pilot.city == info.city)
-  }
 
- 
   return(
     <div>
       <h2>Resultados</h2>
-      {
-        foundData.map((element)=>{
+      { pilotsDb ?
+        pilotsDb.map((element)=>{
           return <div key={element._id}>
                     <img src={element.image} alt=""/>
                     <h3>{element.name}</h3>
                     <p>{element.description}</p>
                  </div>
               }
-            )
+            ) : null
           }
     </div>
   )    
