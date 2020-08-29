@@ -8,20 +8,22 @@ import { setGlobalUser } from '../store'
 
 const FullContainer = styled.div `
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const FormContainer = styled.form`
-  display: block;
-  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 `
 
 const FormFieldset = styled.fieldset`
   display:flex;
-  width: 50%;
-  margin: 1rem auto;
+  width: 100%;
   float: left;
+  margin: 1rem;
 `
 
 const FormLabel = styled.label`
@@ -39,6 +41,23 @@ const FormInput = styled.input`
   float:left;
   padding:0.5rem;
   font-size: 1.2rem;
+`
+
+const FormButton = styled.button`
+    text-decoration: none;
+    padding: 1rem 1.6rem;
+    align-self: flex-start;
+    border-radius: 8px;
+    font-family: 'Montserrat';
+    font-size: 2rem;
+    color: white;
+    border: none;
+    background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));
+    cursor: pointer;
+
+    &:hover{
+        background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
+    }
 `
 
 const LoginForm = () => {
@@ -67,7 +86,6 @@ const LoginForm = () => {
 
   return(
     <FullContainer>
-      <h1>Iniciar Sesion</h1>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <FormFieldset>
           <FormLabel htmlFor="email">E-Mail: </FormLabel>
@@ -93,7 +111,7 @@ const LoginForm = () => {
             {errors.password?.message}
           </span>
         </FormFieldset>                 
-        <button>Enviar</button>
+        <FormButton>Iniciar sesión</FormButton>
       </FormContainer>
     </FullContainer>
   )
