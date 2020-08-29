@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { setGlobalUser } from '../store'
 
 const FullContainer = styled.div `
   display: flex;
@@ -43,6 +45,7 @@ const LoginForm = () => {
 
   const history = useHistory()
   const {register, errors, handleSubmit} = useForm()
+  const dispatch = useDispatch()
   
   const onSubmit = data => {
     axios({
@@ -54,6 +57,7 @@ const LoginForm = () => {
         localStorage.setItem('token', data.token)
         localStorage.setItem('pilot', data.pilot.name)
         history.push('/pilot-profile')
+        dispatch(setGlobalUser(data.pilot))
       })
       .catch((error) => {
         alert(error.response.data.message)
@@ -79,7 +83,7 @@ const LoginForm = () => {
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="password">Constraseña: </FormLabel>
+          <FormLabel htmlFor="password">Contraseña: </FormLabel>
           <FormInput
             id="password"
             name="password"

@@ -76,7 +76,7 @@ const FormHook = () => {
         history.push("/login")
         return alert("Registro exitoso")
       })
-      .catch((error) => alert(error))
+      .catch((error) => alert(error.response.data.message))
   }
 
   const mapDepartments = (departments) => {

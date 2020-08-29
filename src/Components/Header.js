@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
+import { useSelector } from 'react-redux'
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -70,12 +71,7 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
-  const [ pilot, setPilot ] = useState('')
-  
-  useEffect(() => {
-    const pilotName = localStorage.getItem('pilot')
-    setPilot(pilotName)
-  },[pilot])
+  const pilotName = useSelector(state => state.userId)
   
   return (
     <HeaderContainer>
@@ -91,7 +87,7 @@ function Header() {
       </Ulist>
 
       <Session>
-        {pilot ? <h2>{pilot}</h2>: <div> <StyledLink to="/user-registry">Registrarme</StyledLink>
+        {pilotName ? <h2>{pilotName}</h2>: <div> <StyledLink to="/user-registry">Registrarme</StyledLink>
         <StyledLink to="/login">Iniciar sesión</StyledLink> </div> }
       </Session>
     </HeaderContainer>
