@@ -75,6 +75,9 @@ const LoginForm = () => {
       .then(({data}) => {
         localStorage.setItem('userId', data.pilot._id)
         localStorage.setItem('token', data.token)
+        localStorage.setItem('pilot', data.pilot.name)
+        localStorage.setItem('pilotId', data.pilot._id)
+
         history.push('/pilot-profile')
         dispatch(setGlobalUser(data.pilot))
       })
