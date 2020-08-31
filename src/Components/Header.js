@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { resetGlobalUser, setGlobalUser } from '../store'
+import axios from 'axios';
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -70,12 +74,39 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
-  const [ pilot, setPilot ] = useState('')
-  
+
+  const dispatch = useDispatch()
+  const pilotName = useSelector(state => state.userName)
+  const history = useHistory()
+
   useEffect(() => {
-    const pilotName = localStorage.getItem('pilot')
-    setPilot(pilotName)
-  },[pilot])
+
+    if(localStorage.getItem('token')) {
+      const userId = localStorage.getItem('userId')
+      
+      const fetchPilotData = async () => {
+        try{
+          const { data } = await axios({
+            method: 'GET',
+            url: `http://localhost:8000/pilotos/listar/${userId}`,
+            headers: {
+              'authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+          dispatch(setGlobalUser(data.pilot))
+        }catch(err){
+          localStorage.clear()
+        }
+      }
+      fetchPilotData()
+    }
+  }, []);
+
+  const handleClick = () => {
+    localStorage.clear()
+    dispatch(resetGlobalUser())
+    history.push('/login')
+  }
   
   return (
     <HeaderContainer>
@@ -91,8 +122,15 @@ function Header() {
       </Ulist>
 
       <Session>
-        {pilot ? <h2>{pilot}</h2>: <div> <StyledLink to="/user-registry">Registrarme</StyledLink>
-        <StyledLink to="/login">Iniciar sesión</StyledLink> </div> }
+        {pilotName ?
+        <div>
+          <h1>{pilotName}</h1>
+          <button onClick={handleClick}>Cerrar sesión</button>
+        </div> :
+        <div>
+          <StyledLink to="/user-registry">Registrarme</StyledLink>
+          <StyledLink to="/login">Iniciar sesión</StyledLink> 
+        </div> }
       </Session>
     </HeaderContainer>
   );
