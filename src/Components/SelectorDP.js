@@ -5,7 +5,7 @@ import Certificates from '../Components/Certificates';
 import FlightLogs from '../Components/FlightLogs';
 import FlightLogsApp from '../Components/FlightLogsApp';
 import Equipments from '../Components/Equipments';
-import Technologies from '../Components/Technologies';
+import Services from '../Components/Services';
 import Others from '../Components/Others';
 import Portfolios from '../Components/Portfolios';
 
@@ -124,7 +124,7 @@ class SelectorDP extends React.Component{
             <button value="Certificates" onClick={this.handleClick}> Certificaciones </button>
             <button value="FlightLogs" onClick={this.handleClick}> Bitacoras de Vuelo </button>
             <button value="FlightLogsApp" onClick={this.handleClick}> Horas de Vuelo App </button>
-            <button value="Technologies" onClick={this.handleClick}> Tecnologías </button>
+            <button value="Services" onClick={this.handleClick}> Servicios </button>
             <button value="Equipments" onClick={this.handleClick}> Equipos </button>
             <button value="Others" onClick={this.handleClick}> Otros </button>
             <button value="Portfolios" onClick={this.handleClick}> Portafolío </button>
@@ -141,8 +141,8 @@ class SelectorDP extends React.Component{
                 <FlightLogs/> :
                 this.state.value === "FlightLogsApp" ?                        
                 <FlightLogsApp/> :
-                this.state.value === "Technologies" ?
-                <Technologies/> :
+                this.state.value === "Services" ?
+                <Services/> :
                 this.state.value === "Equipments" ?
                 <Equipments/> :
                 this.state.value === "Others" ?
