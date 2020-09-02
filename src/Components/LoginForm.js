@@ -75,15 +75,31 @@ const LoginForm = () => {
       .then(({data}) => {
         sessionStorage.setItem('userId', data.pilot._id)
         sessionStorage.setItem('token', data.token)
-        sessionStorage.setItem('pilot', data.pilot.name)
-        sessionStorage.setItem('pilotId', data.pilot._id)
+        sessionStorage.setItem('userName', data.pilot.name)
+        sessionStorage.setItem('userType', data.pilot.userType)
 
         history.push('/pilot-profile')
         dispatch(setGlobalUser(data.pilot))
       })
       .catch((error) => {
-        alert(error.response.data.message)
-        sessionStorage.clear()
+        axios({
+          method: 'post',
+          url: 'http://localhost:8000/client/login',
+          data: data
+        })
+          .then(({data}) => {
+            sessionStorage.setItem('userId', data.client._id)
+            sessionStorage.setItem('token', data.token)
+            sessionStorage.setItem('userName', data.client.name)
+            sessionStorage.setItem('userType', data.client.userType)
+
+            history.push('/')
+            dispatch(setGlobalUser(data.client))
+          })
+          .catch((error) => {
+            alert(error.response.data.message)
+            sessionStorage.clear()
+          })
       })
   }
 
@@ -113,7 +129,7 @@ const LoginForm = () => {
           <span style={{color: "red"}}>
             {errors.password?.message}
           </span>
-        </FormFieldset>                 
+        </FormFieldset>
         <FormButton>Iniciar sesión</FormButton>
       </FormContainer>
     </FullContainer>

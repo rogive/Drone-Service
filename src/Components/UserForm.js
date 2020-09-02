@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Departments from '../data/deparments.json'
-import { useSelector } from 'react-redux';
 
 const FullContainer = styled.div `
   display: flex;
@@ -62,30 +61,20 @@ const FormButton = styled.button`
 const FormHook = () => {
   
   const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
+  const [ userType ] = useState(sessionStorage.getItem('userType'))
   const {register, errors, handleSubmit} = useForm()
   const history = useHistory()
-  const userType = useSelector(state => state.userType)
   const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/
 
   const onSubmit = data => {
-    if (userType === 'pilot') {
-      axios({
-        method: 'post',
-        url: 'http://localhost:8000/pilotos/crear',
-        data: data
-      })
-      .then(() => {
-        history.push('/login')
-        return alert('Registro exitoso')
-      })
-      .catch((error) => alert(error.response.data.message))
+    let urlAux = (userType === 'pilot')?'pilotos':'client'
 
-    } else if (userType === 'client') {
+    if( userType ) {
       axios({
         method: 'post',
-        url: 'http://localhost:8000/clientes/crear',
-        data: data
+        url: `http://localhost:8000/${urlAux}/crear`,
+        data: {...data, userType}
       })
       .then(() => {
         history.push('/login')
@@ -93,7 +82,7 @@ const FormHook = () => {
       })
       .catch((error) => alert(error.response.data.message))
     } else {
-      alert('Error en el registro, intente nuevamente')
+      alert('Error en el registro, intente nuevamente por favor')
       history.push('/')
     }
   }
@@ -162,7 +151,7 @@ const FormHook = () => {
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor='password'>Constraseña: </FormLabel>
+          <FormLabel htmlFor='password'>Contraseña: </FormLabel>
           <FormInput
             id='password'
             name='password'
