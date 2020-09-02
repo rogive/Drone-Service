@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import Categories from '../data/categories.json'
 import { storage } from '../firebase';
+import Departments from '../data/deparments.json'
 import axios from 'axios';
 
 const FullContainer = styled.div `
@@ -124,6 +125,7 @@ function Queries() {
   const [images, setImages] = useState([])
   const [url,setUrl] = useState('')
   const [description,setDescription] = useState('')
+  const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
   const onSubmit = data => {
 
   }
@@ -165,13 +167,31 @@ function handleSubmitImage(event) {
   });
 }
 
-
-
   const mapCategories = (categories) => {
     return categories.map( element => {
       return(
         <option value={element.id} key={element.id}>
           {element.label}
+        </option>
+      )
+    })
+  }
+
+  const mapDepartments = (departments) => {
+    return departments.map( element => {
+      return(
+        <option value={element.id} key={element.id}>
+          {element.label}
+        </option>
+      )
+    })
+  }
+  
+  const mapCities = (cities) => {
+    return cities.map( element => {
+      return(
+        <option value={element} key={element}>
+          {element}
         </option>
       )
     })
@@ -268,6 +288,31 @@ function handleSubmitImage(event) {
               <span></span>
         }
         <FormFieldset>
+          <FormLabel htmlFor="department">Departamento del servicio</FormLabel>
+          <select
+            id="department"
+            name="department"
+            type="text"
+            className="input"
+            ref={register({ required: true })}
+            onChange={ event => setCurrCities(Departments.filter(e => e.id === parseInt(event.target.value))[0].ciudades)}
+          >
+            {mapDepartments(Departments)}
+          </select>
+        </FormFieldset>
+        <FormFieldset>
+          <FormLabel htmlFor="city">Ciudad del servicio </FormLabel>
+          <select
+            id="city"
+            name="city"
+            type="text"
+            className="input"
+            ref={register({ required: true })}
+          >
+            {mapCities(currCities)}
+          </select>
+        </FormFieldset>
+        <FormFieldset>
           <FormLabel htmlFor="dateservice">Fecha del servicio </FormLabel>
           <input type="date"
                  id="dateservice"
@@ -291,20 +336,20 @@ function handleSubmitImage(event) {
           </FullImageContainer>
         </FormFieldset>
         <FormFieldset>
-              <FormLabel htmlFor="description">Descripción del servicio </FormLabel>
-              <textarea
-                    id="description"
-                    name="description"
-                    rows="8"
-                    cols="50"
-                    className="inputtextarea"
-                    ref={register({ required: { value:true, message: 'El campo equipo es requerido' }})}
-                    onChange={ event => setDescription(event.target.value)}
-              />
-              <span style={{color: "red"}}>
-                {errors.name?.message}
-              </span>
-              </FormFieldset> 
+          <FormLabel htmlFor="description">Descripción del servicio </FormLabel>
+          <textarea
+                id="description"
+                name="description"
+                rows="8"
+                cols="50"
+                className="inputtextarea"
+                ref={register({ required: { value:true, message: 'El campo equipo es requerido' }})}
+                onChange={ event => setDescription(event.target.value)}
+          />
+          <span style={{color: "red"}}>
+            {errors.name?.message}
+          </span>
+        </FormFieldset> 
         <FormButton>Enviar</FormButton>
       </FormContainer>
     </FullContainer>
