@@ -79,8 +79,7 @@ function Header() {
   const history = useHistory()
 
   useEffect(() => {
-    dispatch(setGlobalUser({
-      name: sessionStorage.getItem('userName')}))
+    dispatch(setGlobalUser({name: sessionStorage.getItem('userName')}))
   },[])
 
   const handleLogout = () => {
