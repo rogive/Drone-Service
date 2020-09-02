@@ -73,17 +73,17 @@ const LoginForm = () => {
       data: data
     })
       .then(({data}) => {
-        localStorage.setItem('userId', data.pilot._id)
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('pilot', data.pilot.name)
-        localStorage.setItem('pilotId', data.pilot._id)
+        sessionStorage.setItem('userId', data.pilot._id)
+        sessionStorage.setItem('token', data.token)
+        sessionStorage.setItem('pilot', data.pilot.name)
+        sessionStorage.setItem('pilotId', data.pilot._id)
 
         history.push('/pilot-profile')
         dispatch(setGlobalUser(data.pilot))
       })
       .catch((error) => {
         alert(error.response.data.message)
-        localStorage.clear()
+        sessionStorage.clear()
       })
   }
 

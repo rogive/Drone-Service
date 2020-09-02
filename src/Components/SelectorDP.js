@@ -95,7 +95,7 @@ class SelectorDP extends React.Component{
   state = { value: "Profile", pilotName:"" }
 
   componentDidMount() {
-    const pilotName = localStorage.getItem("pilot")
+    const pilotName = sessionStorage.getItem("pilot")
     this.setState({ pilotName })
   }
 

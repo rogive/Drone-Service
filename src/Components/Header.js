@@ -81,8 +81,8 @@ function Header() {
 
   useEffect(() => {
 
-    if(localStorage.getItem('token')) {
-      const userId = localStorage.getItem('userId')
+    if(sessionStorage.getItem('token')) {
+      const userId = sessionStorage.getItem('userId')
       
       const fetchPilotData = async () => {
         try{
@@ -90,20 +90,20 @@ function Header() {
             method: 'GET',
             url: `http://localhost:8000/pilotos/listar/${userId}`,
             headers: {
-              'authorization': `Bearer ${localStorage.getItem('token')}`
+              'authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
           })
           dispatch(setGlobalUser(data.pilot))
         }catch(err){
-          localStorage.clear()
+          sessionStorage.clear()
         }
       }
       fetchPilotData()
     }
   }, []);
 
-  const handleClick = () => {
-    localStorage.clear()
+  const handleLogout = () => {
+    sessionStorage.clear()
     dispatch(resetGlobalUser())
     history.push('/login')
   }
@@ -125,10 +125,9 @@ function Header() {
         {pilotName ?
         <div>
           <h1>{pilotName}</h1>
-          <button onClick={handleClick}>Cerrar sesión</button>
+          <button onClick={handleLogout}>Cerrar sesión</button>
         </div> :
         <div>
-          <StyledLink to="/user-registry">Registrarme</StyledLink>
           <StyledLink to="/login">Iniciar sesión</StyledLink> 
         </div> }
       </Session>
