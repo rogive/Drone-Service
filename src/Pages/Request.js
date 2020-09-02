@@ -1,15 +1,15 @@
 import React from 'react';
-import Querie from '../Components/Querie'
+import Solicitudes from '../Components/Solicitudes'
 import GlobalContainer from '../utils/GlobalStyles'
 
 
-function Request(){
+function Solicitude(){
 
 return (
   <GlobalContainer>
-    <Querie/>
+    <Solicitude/>
   </GlobalContainer>
   )
 }
 
-export default Request
+export default Solicitude
