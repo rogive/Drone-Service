@@ -2,6 +2,7 @@ import { createStore } from 'redux'
 
 const SET_GLOBAL_USER = 'SET_GLOBAL_USER'
 const RESET_GLOBAL_USER = 'RESET_GLOBAL_USER'
+const SET_USER_TYPE = 'SET_USER_TYPE'
 
 export function setGlobalUser(userData) {
   return {
@@ -14,6 +15,13 @@ export function resetGlobalUser() {
   return {
     type: RESET_GLOBAL_USER,
     payload: null
+  }
+}
+
+export function setUserType(userType) {
+  return {
+    type: SET_USER_TYPE,
+    payload: userType
   }
 }
 
@@ -31,6 +39,11 @@ function reducer(state, action) {
         userName: action.payload,
         userId: action.payload
       }
+    case SET_USER_TYPE:
+      return {
+        ...state,
+        userType: action.payload,
+      }
       default:
         return state
   }
@@ -38,7 +51,8 @@ function reducer(state, action) {
 
 const initialState = {
   userName: null,
-  userId: null
+  userId: null,
+  userType: null
 }
 
 export const store = createStore(reducer, initialState)
