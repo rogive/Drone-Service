@@ -80,6 +80,8 @@ function Header() {
 
   useEffect(() => {
     dispatch(setGlobalUser({name: sessionStorage.getItem('userName')}))
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleLogout = () => {
