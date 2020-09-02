@@ -63,7 +63,7 @@ function PortfoliosComponent({
 function Portfolios() {
   const [portfolios, setPortfolios] = useState([])
   const [name, setName] = useState("")
-  const [pilotId, setPilotId] = useState(sessionStorage.getItem("pilotId"))
+  const [pilotId, setPilotId] = useState(sessionStorage.getItem("userId"))
   const [urlImage, setUrlImage] = useState('')
   const [selectedFile, setSelectfile] = useState(null)
   const [error, setError] = useState(null)
