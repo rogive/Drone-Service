@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { resetGlobalUser, setGlobalUser } from '../store'
-import axios from 'axios';
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -80,27 +79,9 @@ function Header() {
   const history = useHistory()
 
   useEffect(() => {
-
-    if(sessionStorage.getItem('token')) {
-      const userId = sessionStorage.getItem('userId')
-      
-      const fetchPilotData = async () => {
-        try{
-          const { data } = await axios({
-            method: 'GET',
-            url: `http://localhost:8000/pilotos/listar/${userId}`,
-            headers: {
-              'authorization': `Bearer ${sessionStorage.getItem('token')}`
-            }
-          })
-          dispatch(setGlobalUser(data.pilot))
-        }catch(err){
-          sessionStorage.clear()
-        }
-      }
-      fetchPilotData()
-    }
-  }, []);
+    dispatch(setGlobalUser({
+      name: sessionStorage.getItem('userName')}))
+  },[])
 
   const handleLogout = () => {
     sessionStorage.clear()
