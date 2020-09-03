@@ -45,7 +45,7 @@ function UpdateClientProfile() {
 
   return (
     <div>
-      <h2>Profile Update</h2>
+      <h2>Tu perfil</h2>
       <img
         width="100px"
         src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
@@ -66,7 +66,7 @@ function UpdateClientProfile() {
               },
             })}
             readOnly={unlockNameField}
-            className={unlockNameField || "unlock__field"}
+            className={unlockNameField ? "field" : "unlock__field"}
           />
           <CreateIcon
             className={unlockNameField || "unlock__iconField"}
@@ -85,7 +85,7 @@ function UpdateClientProfile() {
             placeholder="Palacio"
             value={unlockLastnameField ? "Palacio" : null}
             readOnly={unlockLastnameField}
-            className={unlockLastnameField || "unlock__field"}
+            className={unlockLastnameField ? "field" : "unlock__field"}
             name="lastname"
             ref={register({
               required: {
@@ -110,7 +110,7 @@ function UpdateClientProfile() {
           <input
             placeholder="jpalacio0612@gmail.com"
             readOnly={unlockEmailField}
-            className={unlockEmailField || "unlock__field"}
+            className={unlockEmailField ? "field" : "unlock__field"}
             id="email"
             name="email"
             type="email"
@@ -138,7 +138,7 @@ function UpdateClientProfile() {
           <label>Contraseña</label>
           <input
             readOnly={unlockPasswordField}
-            className={unlockPasswordField || "unlock__field"}
+            className={unlockPasswordField ? "field" : "unlock__field"}
             value={unlockPasswordField ? "colombia" : null}
             id="password"
             name="password"
@@ -179,7 +179,7 @@ function UpdateClientProfile() {
               },
             })}
             readOnly={unlockPhoneField}
-            className={unlockPhoneField || "unlock__field"}
+            className={unlockPhoneField ? "field" : "unlock__field"}
           />
           <CreateIcon
             className={unlockPhoneField || "unlock__iconField"}
@@ -199,7 +199,7 @@ function UpdateClientProfile() {
             name="department"
             type="text"
             ref={register({ required: true })}
-            className={unlockDepartmentField || "unlock__field"}
+            className={unlockDepartmentField ? "field" : "unlock__field"}
             value={unlockDepartmentField ? "29" : null}
             onChange={(event) =>
               setCurrCities(
@@ -228,7 +228,7 @@ function UpdateClientProfile() {
             id="city"
             name="city"
             type="text"
-            className={unlockCityField || "unlock__field"}
+            className={unlockCityField ? "field" : "unlock__field"}
             value={unlockCityField ? "Palmira" : null}
             ref={register({ required: true })}
           >
@@ -246,7 +246,7 @@ function UpdateClientProfile() {
             }}
           />
         </div>
-        <button>Actualizar datos</button>
+        <button className="update__button">Actualizar datos</button>
       </form>
     </div>
   );
