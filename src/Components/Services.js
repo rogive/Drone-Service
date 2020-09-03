@@ -83,7 +83,7 @@ function ServicesComponent({
 function Services() {
   const [services, setServices] = useState([])
   const [name, setName] = useState("Capacitación")
-  const [pilotId, setPilotid] = useState(localStorage.getItem("pilotId"))
+  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
   const [url, setUrl] = useState(ServicesList[5].url)
   const [error, setError] = useState(null)
 

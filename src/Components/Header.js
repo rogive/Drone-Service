@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { resetGlobalUser, setGlobalUser } from '../store'
-import axios from 'axios';
 
 const HeaderContainer = styled.div`
   width: 90%;
@@ -80,30 +79,13 @@ function Header() {
   const history = useHistory()
 
   useEffect(() => {
+    dispatch(setGlobalUser({name: sessionStorage.getItem('userName')}))
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
-    if(localStorage.getItem('token')) {
-      const userId = localStorage.getItem('userId')
-      
-      const fetchPilotData = async () => {
-        try{
-          const { data } = await axios({
-            method: 'GET',
-            url: `http://localhost:8000/pilotos/listar/${userId}`,
-            headers: {
-              'authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          })
-          dispatch(setGlobalUser(data.pilot))
-        }catch(err){
-          localStorage.clear()
-        }
-      }
-      fetchPilotData()
-    }
-  }, []);
-
-  const handleClick = () => {
-    localStorage.clear()
+  const handleLogout = () => {
+    sessionStorage.clear()
     dispatch(resetGlobalUser())
     history.push('/login')
   }
@@ -125,10 +107,9 @@ function Header() {
         {pilotName ?
         <div>
           <h1>{pilotName}</h1>
-          <button onClick={handleClick}>Cerrar sesión</button>
+          <button onClick={handleLogout}>Cerrar sesión</button>
         </div> :
         <div>
-          <StyledLink to="/user-registry">Registrarme</StyledLink>
           <StyledLink to="/login">Iniciar sesión</StyledLink> 
         </div> }
       </Session>

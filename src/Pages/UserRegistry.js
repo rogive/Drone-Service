@@ -1,5 +1,5 @@
 import React from 'react';
-import FormHook from '../Components/FormHook'
+import UserForm from '../Components/UserForm'
 import GlobalContainer from '../utils/GlobalStyles'
 
 
@@ -7,7 +7,7 @@ function ClientProfile(){
 
 return (
   <GlobalContainer>
-    <FormHook/>
+    <UserForm/>
   </GlobalContainer>
   )
 }
