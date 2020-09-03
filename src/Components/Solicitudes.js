@@ -194,7 +194,7 @@ const onSubmit = data => {
       return alert("Solicitud exitosa")
     })
     .catch((error) => alert(error.response.data.message)) */
-    console.dir(data)
+    console.dir({...data, images});
 }
 
   const mapCategories = (categories) => {
@@ -232,11 +232,11 @@ const onSubmit = data => {
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <h1 className="titleform" >Solicitud de Servicio</h1>
         <FormFieldset>
-          <FormLabel htmlFor="typeservice">Tipo de servicio </FormLabel>
+          <FormLabel htmlFor="servicetype">Tipo de servicio </FormLabel>
           <select
             type="text"
-            id="typeservice"
-            name="typeservice"
+            id="servicetype"
+            name="servicetype"
             className="input"
             ref={register({ required: true })}
             onChange={ event => setService(Categories.filter(e => e.id === event.target.value)[0].label)}
@@ -293,25 +293,6 @@ const onSubmit = data => {
                 <option value="No" key="nooptionrequireequipment"> No </option>
               </select>
             </FormFieldset>
-              
-              ) :
-              <span></span>
-        }
-        { 
-            requireequipment === "Si" ? (
-              <FormFieldset>
-              <FormLabel htmlFor="equipment">Cuál equipo? </FormLabel>
-              <input type="text"
-                    id="equipment"
-                    name="equipment"
-                    className="input"
-                    ref={register({ required: { value:true, message: 'El campo equipo es requerido' }})}
-                    onChange={ event => setEquipment(event.target.value)}
-              />
-              <span style={{color: "red"}}>
-                {errors.name?.message}
-              </span>
-              </FormFieldset> 
               ) :
               <span></span>
         }
