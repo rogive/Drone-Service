@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import Departments from '../data/deparments.json'
 
 const FullContainer = styled.div `
@@ -59,24 +59,32 @@ const FormButton = styled.button`
 `
 
 const FormHook = () => {
-
+  
   const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
+  const [ userType ] = useState(sessionStorage.getItem('userType'))
   const {register, errors, handleSubmit} = useForm()
   const history = useHistory()
-  const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
+  const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/
 
   const onSubmit = data => {
-    axios({
-      method: 'post',
-      url: 'http://localhost:8000/pilotos/crear',
-      data: data
-    })
+    let urlAux = (userType === 'pilot')?'pilotos':'client'
+
+    if( userType ) {
+      axios({
+        method: 'post',
+        url: `http://localhost:8000/${urlAux}/crear`,
+        data: {...data, userType}
+      })
       .then(() => {
-        history.push("/login")
-        return alert("Registro exitoso")
+        history.push('/login')
+        return alert('Registro exitoso')
       })
       .catch((error) => alert(error.response.data.message))
+    } else {
+      alert('Error en el registro, intente nuevamente por favor')
+      history.push('/')
+    }
   }
 
   const mapDepartments = (departments) => {
@@ -104,77 +112,77 @@ const FormHook = () => {
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <h1>Formulario</h1>
         <FormFieldset>
-          <FormLabel htmlFor="name">Nombres: </FormLabel>
+          <FormLabel htmlFor='name'>Nombres: </FormLabel>
           <FormInput
-            id="name"
-            name="name"
-            type="text"
+            id='name'
+            name='name'
+            type='text'
             ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
           />
-          <span style={{color: "red"}}>
+          <span style={{color: 'red'}}>
             {errors.name?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="lastName">Apellidos: </FormLabel>
+          <FormLabel htmlFor='lastName'>Apellidos: </FormLabel>
           <FormInput
-            id="lastName"
-            name="lastName"
-            type="text"
+            id='lastName'
+            name='lastName'
+            type='text'
             ref={register({ required: { value:true, message: 'El campo apellidos es requerido' }})}
           />
-          <span style={{color: "red"}}>
+          <span style={{color: 'red'}}>
             {errors.lastName?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="email">E-Mail: </FormLabel>
+          <FormLabel htmlFor='email'>E-Mail: </FormLabel>
           <FormInput
-            id="email"
-            name="email"
-            type="email"
+            id='email'
+            name='email'
+            type='email'
             ref={register({ 
               required: { value:true, message: 'El campo E-Mail es requerido' },
               pattern: {value: emailRegexp, message: 'E-mail inválido'}
             })}
           />
-          <span style={{color: "red"}}>
+          <span style={{color: 'red'}}>
             {errors.email?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="password">Constraseña: </FormLabel>
+          <FormLabel htmlFor='password'>Contraseña: </FormLabel>
           <FormInput
-            id="password"
-            name="password"
-            type="password"
+            id='password'
+            name='password'
+            type='password'
             ref={register({ required: { value:true, message: 'El campo contraseña es requerido' }})}
           />
-          <span style={{color: "red"}}>
+          <span style={{color: 'red'}}>
             {errors.password?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="phone">Celular: </FormLabel>
+          <FormLabel htmlFor='phone'>Celular: </FormLabel>
           <FormInput
-            id="phone"
-            name="phone"
-            type="text"
+            id='phone'
+            name='phone'
+            type='text'
             ref={register({
               pattern: {value: phoneRegexp, message: 'Número de celular inválido'},
               minLength: {value: 10, message: 'El número de celular debe tener mínimo 10 caracteres'}
             })}
           />
-          <span style={{color: "red"}}>
+          <span style={{color: 'red'}}>
             {errors.phone?.message}
           </span>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="department">Departamento: </FormLabel>
+          <FormLabel htmlFor='department'>Departamento: </FormLabel>
           <select
-            id="department"
-            name="department"
-            type="text"
+            id='department'
+            name='department'
+            type='text'
             ref={register({ required: true })}
             onChange={ event => setCurrCities(Departments.filter(e => e.id === parseInt(event.target.value))[0].ciudades)}
           >
@@ -182,24 +190,15 @@ const FormHook = () => {
           </select>
         </FormFieldset>
         <FormFieldset>
-          <FormLabel htmlFor="city">Ciudad: </FormLabel>
+          <FormLabel htmlFor='city'>Ciudad: </FormLabel>
           <select
-            id="city"
-            name="city"
-            type="text"
+            id='city'
+            name='city'
+            type='text'
             ref={register({ required: true })}
           >
             {mapCities(currCities)}
           </select>
-        </FormFieldset>
-        <FormFieldset>
-          <select name="userType" ref={register({ required: true})}>
-            <option value="client">Cliente</option>
-            <option value="pilot">Piloto</option>
-          </select>
-          <span style={{color: "red"}}>
-            {errors.userType?.message}
-          </span>
         </FormFieldset>
         <FormButton>Enviar</FormButton>
       </FormContainer>

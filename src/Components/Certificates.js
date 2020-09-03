@@ -77,7 +77,7 @@ function CertificatesComponent({
 function Certificates() {
   const [certificates, setCertificates] = useState([])
   const [name, setName] = useState('')
-  const [pilotId, setPilotid] = useState(localStorage.getItem("pilotId"))
+  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
   const [urlDocument, setUrlDocument] = useState('')
   const [selectedFile, setSelectfile] = useState(null)
   const [error, setError] = useState(null)

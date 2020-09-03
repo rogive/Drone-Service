@@ -32,21 +32,33 @@ const TextBox = styled.div`
 
   p{
     margin-top: 5rem;
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
     font-size: 1.8rem;
     line-height: 1.75;
   }
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 25vh;
+  align-content: center;
+  justify-content: space-around;
+  padding: 0rem 8rem;
+`
 
 function Carousel(){
+
   return(
       <CarouselContainer>
         <TextBox>
           <h1>Le damos <span>alas</span> a tus proyectos!!!</h1>
           <p>Contamos con personal experimentado y calificado y estamos listos 
              para poner tus ideas en el cielo.</p>
-          <Button title={"Registro"} linkto={"/user-registry"}/>
+          <ButtonContainer>
+            <Button onClick={() => sessionStorage.setItem('userType', 'client')} title={"Quiero encontrar un servicio"} linkto={"/user-registry"} />
+            <Button onClick={() => sessionStorage.setItem('userType', 'pilot')} title={"Quiero prestar mi servicio"} linkto={"/user-registry"}/>
+          </ButtonContainer>
         </TextBox>
       </CarouselContainer>
   )
