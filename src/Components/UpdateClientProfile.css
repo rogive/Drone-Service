@@ -1,0 +1,23 @@
+.fieldSet {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.fieldSet label {
+  width: 20%;
+}
+
+.fieldSet input {
+  width: 60%;
+}
+
+.unlock__field {
+  padding: 1px;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(10, 10, 200, 1);
+}
+
+.unlock__iconField {
+  color: rgba(10, 10, 200, 1);
+}

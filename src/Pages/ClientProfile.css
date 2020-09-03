@@ -1,0 +1,28 @@
+.title__clientProfile {
+  border: 1px solid gray;
+  padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1px;
+}
+
+.content__clientProfile {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid gray;
+  padding: 20px;
+}
+
+.solicitudes__clientProfile {
+  border: 1px solid gray;
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+}
+
+.Updateprofile__clientProfile {
+  border: 1px solid gray;
+  width: 70%;
+  text-align: center;
+  padding: 10px;
+}
