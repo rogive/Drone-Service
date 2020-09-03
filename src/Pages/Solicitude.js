@@ -7,7 +7,7 @@ function Solicitude(){
 
 return (
   <GlobalContainer>
-    <Solicitude/>
+    <Solicitudes/>
   </GlobalContainer>
   )
 }

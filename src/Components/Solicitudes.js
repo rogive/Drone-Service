@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Categories from '../data/categories.json'
 import { storage } from '../firebase';
 import Departments from '../data/deparments.json'
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 const FullContainer = styled.div `
@@ -15,11 +16,15 @@ const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40vw;
-  border: 2px solid gray;
+  width: 38vw;
   margin: 1rem 30rem 1rem 30rem;
+  padding-top: 2rem;
+  background-color: #EFEFEF;
+  border: 2px solid gray;
+  border-radius:5rem;
   .titleform{
     padding-top: 2rem;
+    padding-bottom: 1rem;
   }
 `
 
@@ -32,7 +37,11 @@ const FormFieldset = styled.fieldset`
   .input{
     width: 40%;
     height: 2rem;
-    margin-left: 1rem
+    margin-left: 1rem;
+    background-color: #E1E1E1;
+  }
+  .inputtextarea{
+    background-color: #E1E1E1;
   }
   .inputfile{
     height: 2rem;
@@ -41,10 +50,18 @@ const FormFieldset = styled.fieldset`
   select{
     height: 2rem;
   }
+
+  
 `
 const FormDiv = styled.div`
   display: flex;
   flex-direction: row;
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
   
 `
 
@@ -68,6 +85,7 @@ const FormButton = styled.button`
     text-decoration: none;
     margin: 2rem 0rem 2rem 0rem;
     padding: 1rem 1.6rem;
+    margin-top: 3rem;
     border-radius: 8px;
     font-family: 'Montserrat';
     font-size: 2rem;
@@ -112,7 +130,8 @@ function ServiceImagesComponent({
   });
 }
 
-function Queries() {
+function Solicitudes() {
+  const history = useHistory()
   const {register, errors, handleSubmit} = useForm()
   const [service, setService] = useState('Fotos')
   const [certifiedpilot, setCertifiedPilot] = useState('No Aplica')
@@ -126,9 +145,6 @@ function Queries() {
   const [url,setUrl] = useState('')
   const [description,setDescription] = useState('')
   const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
-  const onSubmit = data => {
-
-  }
 
 function handleChange(event) {
   setSelectedImage(event.target.files[0])
@@ -151,7 +167,7 @@ function handleSubmitImage(event) {
       setImages( images.concat({url}));
 
 /*         axios({
-          url: 'http://localhost:8000/media-querie/crear',
+          url: 'http://localhost:8000/media-solicitude/crear',
           method: 'POST',
           data: {
             clientId: clientId,
@@ -165,6 +181,20 @@ function handleSubmitImage(event) {
 
     })
   });
+}
+
+const onSubmit = data => {
+/*   axios({
+    method: 'post',
+    url: 'http://localhost:8000/solicitudes/crear',
+    data: data
+  })
+    .then(() => {
+      history.push("/explora")
+      return alert("Solicitud exitosa")
+    })
+    .catch((error) => alert(error.response.data.message)) */
+    console.dir(data)
 }
 
   const mapCategories = (categories) => {
@@ -200,7 +230,7 @@ function handleSubmitImage(event) {
   return(
     <FullContainer>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="titleform">Solicitud de Servicio</h1>
+      <h1 className="titleform" >Solicitud de Servicio</h1>
         <FormFieldset>
           <FormLabel htmlFor="typeservice">Tipo de servicio </FormLabel>
           <select
@@ -230,8 +260,6 @@ function handleSubmitImage(event) {
             <option value="No Aplica" key="noaplicaoptioncertified"> No Aplica </option>
           </select>
         </FormFieldset>
-
-
         <FormFieldset>
           <FormLabel htmlFor="ownequipment">Piloto con equipo propio </FormLabel>
           <select
@@ -317,16 +345,20 @@ function handleSubmitImage(event) {
           <input type="date"
                  id="dateservice"
                  name="dateservice"
-                 className="input"/>
+                 className="input"
+                 ref={register({ required: { value:true, message: 'Este campo es requerido' }})}/>
+          <span style={{color: "red"}}>
+            {errors.dateservice?.message}
+          </span>
         </FormFieldset>
         <FormFieldset>
           <FormLabel htmlFor="inputfile"> Imagenes acerca del servicio </FormLabel>
             <FormDiv>
               <input type="file"
-                    id="inputfile"
-                    name="inputfile"
-                    onChange={handleChange}
-                    className="inputfile"/>
+                  id="inputfile"
+                  name="inputfile"
+                  onChange={handleChange}
+                  className="inputfile"/>
               <button onClick={handleSubmitImage}>upload</button>
             </FormDiv>
         </FormFieldset>
@@ -343,17 +375,17 @@ function handleSubmitImage(event) {
                 rows="8"
                 cols="50"
                 className="inputtextarea"
-                ref={register({ required: { value:true, message: 'El campo equipo es requerido' }})}
+                ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
                 onChange={ event => setDescription(event.target.value)}
           />
           <span style={{color: "red"}}>
-            {errors.name?.message}
+            {errors.description?.message}
           </span>
-        </FormFieldset> 
+        </FormFieldset>
         <FormButton>Enviar</FormButton>
       </FormContainer>
     </FullContainer>
   )
 }
 
-export default Queries
+export default Solicitudes

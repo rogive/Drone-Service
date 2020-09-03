@@ -19,7 +19,7 @@ function App() {
           <Route exact path="/explora" component={Explora} />
           <Route exact path="/pilot-profile" component={DronePilot} />
           <Route exact path="/user-registry" component={UserRegistry} />
-          <Route exact path="/solicitude" component={Solicitude} />
+          <Route exact path="/solicitud" component={Solicitude} />
           <Route exact path="/login" component={Login} />
           <Route exact path="*" component={Error404}/>
         </Switch> 
