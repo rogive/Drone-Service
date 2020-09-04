@@ -16,8 +16,8 @@ const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 38vw;
-  margin: 1rem 30rem 1rem 30rem;
+  width: 50%;
+  margin: 1vw 15vw 1vw 15vw;
   padding-top: 2rem;
   background-color: #EFEFEF;
   border: 2px solid gray;
@@ -35,15 +35,22 @@ const FormFieldset = styled.fieldset`
   border: none;
   padding: 0.5rem 0rem 0.5rem 0rem;
   .input{
-    width: 40%;
+    width: 50%;
     height: 2rem;
     margin-left: 1rem;
     background-color: #E1E1E1;
+    border: 1px solid gray;
+  }
+  .servicetitle{
+    height: 1.8rem;
   }
   .inputtextarea{
     background-color: #E1E1E1;
+    width: 100%;
+    height: 20vh;
   }
   .inputfile{
+    width: 100%;
     height: 2rem;
     margin-left: 1rem
   }
@@ -133,20 +140,16 @@ function ServiceImagesComponent({
 function Solicitudes() {
   const history = useHistory()
   const {register, errors, handleSubmit} = useForm()
-  const [service, setService] = useState('Fotos')
-  const [certifiedpilot, setCertifiedPilot] = useState('No Aplica')
   const [ownequipment, setOwnEquipment] = useState('No Aplica')
   const [requireequipment, setRequireEquipment] = useState('No')
-  const [equipment, setEquipment] = useState('No Aplica')
   const [selectedImage, setSelectedImage] = useState(null)
   const [name, setName] = useState('')
-  const [clientId, setClientId] = useState('55asd26a6q52')
+  const clientId = sessionStorage.getItem("userId")
   const [images, setImages] = useState([])
-  const [url,setUrl] = useState('')
-  const [description,setDescription] = useState('')
   const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
 
 function handleChange(event) {
+  if(!event.target.files[0]) return
   setSelectedImage(event.target.files[0])
   setName(event.target.files[0].name)
 }
@@ -163,38 +166,22 @@ function handleSubmitImage(event) {
   },
   () => {
     storage.ref(`Clients/Client-${clientId}/`).child(name).getDownloadURL().then(url => {
-      setUrl(url)
       setImages( images.concat({url}));
-
-/*         axios({
-          url: 'http://localhost:8000/media-solicitude/crear',
-          method: 'POST',
-          data: {
-            clientId: clientId,
-            url: url,
-            type: "image",
-          }
-        })
-        .then(({ data }) => this.setState({ post: data }))
-        .catch((error) => this.setState({ error })); */
-
-
     })
   });
 }
 
 const onSubmit = data => {
-/*   axios({
+  axios({
     method: 'post',
     url: 'http://localhost:8000/solicitudes/crear',
-    data: data
+    data: {...data, images, clientId}
   })
     .then(() => {
-      history.push("/explora")
+      history.push("/")
       return alert("Solicitud exitosa")
     })
-    .catch((error) => alert(error.response.data.message)) */
-    console.dir({...data, images});
+    .catch((error) => alert(error.response.data.message))
 }
 
   const mapCategories = (categories) => {
@@ -232,6 +219,18 @@ const onSubmit = data => {
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <h1 className="titleform" >Solicitud de Servicio</h1>
         <FormFieldset>
+              <FormLabel htmlFor="servicetitle">Titulo del Servicio </FormLabel>
+              <input
+                id="servicetitle"
+                name="servicetitle"
+                className="input servicetitle"
+                ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
+              />
+          <span style={{color: "red"}}>
+            {errors.servicetitle?.message}
+          </span>
+        </FormFieldset>
+        <FormFieldset>
           <FormLabel htmlFor="servicetype">Tipo de servicio </FormLabel>
           <select
             type="text"
@@ -239,7 +238,6 @@ const onSubmit = data => {
             name="servicetype"
             className="input"
             ref={register({ required: true })}
-            onChange={ event => setService(Categories.filter(e => e.id === event.target.value)[0].label)}
           >
             {mapCategories(Categories)}
           </select>
@@ -251,9 +249,7 @@ const onSubmit = data => {
             id="certifiedpilot"
             name="certifiedpilot"
             className="input"
-            value= {certifiedpilot}
             ref={register({ required: true })}
-            onChange={ event => setCertifiedPilot(event.target.value)}
           >
             <option value="Si" key="sioptioncertified"> Si </option>
             <option value="No" key="nooptioncertified"> No </option>
@@ -292,6 +288,23 @@ const onSubmit = data => {
                 <option value="Si" key="sioptionrequireequipment"> Si </option>
                 <option value="No" key="nooptionrequireequipment"> No </option>
               </select>
+            </FormFieldset>
+              ) :
+              <span></span>
+        }
+        {
+          requireequipment === "Si" ? (
+            <FormFieldset>
+              <FormLabel htmlFor="equipment">¿Cuál equipo? </FormLabel>
+              <input
+                id="equipment"
+                name="equipment"
+                className="input"
+                ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
+              />
+          <span style={{color: "red"}}>
+            {errors.equipment?.message}
+          </span>
             </FormFieldset>
               ) :
               <span></span>
@@ -353,11 +366,8 @@ const onSubmit = data => {
           <textarea
                 id="description"
                 name="description"
-                rows="8"
-                cols="50"
                 className="inputtextarea"
                 ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
-                onChange={ event => setDescription(event.target.value)}
           />
           <span style={{color: "red"}}>
             {errors.description?.message}
