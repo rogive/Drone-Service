@@ -1,73 +1,59 @@
-import React from 'react';
-import Departments from '../data/deparments.json'
-import styled from 'styled-components'
-import Categories from './Categories'
-import CitySearch from './CitySearch'
-import Results from './Results'
-
+import React, { useState } from "react";
+import Departments from "../data/deparments.json";
+import styled from "styled-components";
+import Categories from "./Categories";
+import Results from "./Results";
+import LocationSearch from "./LocationSearch";
 
 const ExploraContainer = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-`
+  display: flex;
+  justify-content: space-evenly;
+`;
 
 const SearchContainer = styled.div`
-    border: 1px red solid;
-    padding: 30px;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-`
+  padding: 30px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+`;
 
 const ResultsContainer = styled.div`
-    border: 1px red solid;
-    padding: 30px;
-    width: 60%;
-    box-sizing: content-box;
-    display: flex;
-    flex-direction: column;
-    div h2{
-      text-align: center;
-    }
-    div div img{
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-    }
-`
-
-
-class Search extends React.Component{
-  
-  state = {
-    departmentID: "",
-    city: "",
-    categorie: ""
+  padding: 30px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  width: 60%;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  div h2 {
+    text-align: center;
   }
+`;
 
-  handleChange = (event) => this.setState({ departmentID : event.target.id, city:"" })
-  
-  cityHandleChange = (event) => this.setState({ city : event.target.value})
+const Search = () => {
+  const [departmentID, setDepartmentID] = useState("");
+  const [city, setCity] = useState("");
+  const [categorie, setCategorie] = useState("");
 
-  categorieHandleChange = (event) => this.setState({categorie: event.target.id})
+  return (
+    <ExploraContainer>
+      <SearchContainer>
+        <h2>Filtrar por</h2>
+        <Categories
+          categorieHandleChange={(event) => setCategorie(event.target.id)}
+        />
+        <LocationSearch
+          departments={Departments}
+          departmentHandleChange={(event) => setDepartmentID(event.target.id)}
+          cityHandleChange={(event) => setCity(event.target.value)}
+          departmentID={departmentID}
+          city={city}
+        />
+      </SearchContainer>
+      <ResultsContainer>
+        <Results info={{ departmentID, city, categorie }} />
+      </ResultsContainer>
+    </ExploraContainer>
+  );
+};
 
-  
-  render(){
-      return(
-        <ExploraContainer>
-          <SearchContainer>
-            <Categories categorieHandleChange={this.categorieHandleChange}/>
-            <CitySearch data={Departments} handleChange={this.handleChange} cityHandleChange={this.cityHandleChange} departmentID={this.state.departmentID} city={this.state.city}/>
-          </SearchContainer>
-          <ResultsContainer>
-            <Results info={this.state}/>
-          </ResultsContainer>
-        </ExploraContainer>
-     )
-  }
-}
-
-
-export default Search
+export default Search;
