@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
-import { resetGlobalUser, setGlobalUser } from '../store'
+import { useDispatch, useSelector } from "react-redux";
+import { resetGlobalUser, setGlobalUser } from "../store";
 
 const HeaderContainer = styled.div`
-  width: 90%;
-  margin: 1rem auto;
+  padding: 10px 40px;
   display: flex;
+  box-shadow: 0 1px 6px rgba(57, 73, 76, 0.35);
 `;
 
 const HeaderLogoContainer = styled.div`
   flex: 1 1 30%;
   img {
-    width: 16rem;
+    width: 10rem;
   }
 `;
 
@@ -73,23 +73,22 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
-
-  const dispatch = useDispatch()
-  const pilotName = useSelector(state => state.userName)
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const pilotName = useSelector((state) => state.userName);
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(setGlobalUser({name: sessionStorage.getItem('userName')}))
-    
+    dispatch(setGlobalUser({ name: sessionStorage.getItem("userName") }));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  }, []);
 
   const handleLogout = () => {
-    sessionStorage.clear()
-    dispatch(resetGlobalUser())
-    history.push('/login')
-  }
-  
+    sessionStorage.clear();
+    dispatch(resetGlobalUser());
+    history.push("/login");
+  };
+
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
@@ -104,14 +103,16 @@ function Header() {
       </Ulist>
 
       <Session>
-        {pilotName ?
-        <div>
-          <h1>{pilotName}</h1>
-          <button onClick={handleLogout}>Cerrar sesión</button>
-        </div> :
-        <div>
-          <StyledLink to="/login">Iniciar sesión</StyledLink> 
-        </div> }
+        {pilotName ? (
+          <div>
+            <h1>{pilotName}</h1>
+            <button onClick={handleLogout}>Cerrar sesión</button>
+          </div>
+        ) : (
+          <div>
+            <StyledLink to="/login">Iniciar sesión</StyledLink>
+          </div>
+        )}
       </Session>
     </HeaderContainer>
   );

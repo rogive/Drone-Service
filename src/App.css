@@ -1,13 +1,13 @@
 *::before,
 *::after,
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-html{
+html {
   font-size: 62.5%;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .App {
