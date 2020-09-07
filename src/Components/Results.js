@@ -12,8 +12,9 @@ function Results({ info }) {
       setSolicitudesDb([]);
       const solicitudes = async () => {
         try {
-          const result = await axios.get(
-            "http://localhost:8000/solicitudes/listar"
+          const result = await axios.post(
+            "http://localhost:8000/solicitudes/filtrar",
+            { info }
           );
           setSolicitudesDb(result.data);
         } catch (error) {
@@ -68,16 +69,16 @@ function Results({ info }) {
                 <h3>{element.name}</h3>
                 <p>{element.description}</p>
                 {element.media.map((image, index) => {
-                  if (index < 3){
+                  if (index < 3) {
                     return (
                       <img
                         className="image__solicitude"
                         src={image.url}
                         alt=""
                       />
-                    )
+                    );
                   }
-                  })}
+                })}
               </div>
             );
           })
