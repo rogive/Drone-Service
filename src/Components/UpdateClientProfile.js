@@ -28,7 +28,6 @@ function UpdateClientProfile() {
     const getClientData = async () => {
       const clientId = sessionStorage.getItem("userId");
       try {
-        console.log(clientId);
         const result = await axios.get(
           `http://localhost:8000/client/listar/${clientId}`
         );
@@ -41,7 +40,6 @@ function UpdateClientProfile() {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const clientId = sessionStorage.getItem("userId");
     try {
       const result = await axios.put(
