@@ -10,3 +10,10 @@
   object-fit: cover;
   margin-right: 5px;
 }
+
+.image__solicitude__clientProfile {
+  width: 7vw;
+  height: 7vw;
+  object-fit: cover;
+  margin-right: 5px;
+}

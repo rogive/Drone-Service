@@ -67,7 +67,17 @@ function Results({ info }) {
               <div className="solicitude" key={element._id}>
                 <h3>{element.name}</h3>
                 <p>{element.description}</p>
-                <img className="image__solicitude" src={element.image} alt="" />
+                {element.media.map((image, index) => {
+                  if (index < 3){
+                    return (
+                      <img
+                        className="image__solicitude"
+                        src={image.url}
+                        alt=""
+                      />
+                    )
+                  }
+                  })}
               </div>
             );
           })

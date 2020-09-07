@@ -89,6 +89,11 @@ function Header() {
     history.push("/login");
   };
 
+  const handleProfileRedirect = () => {
+    sessionStorage.getItem("userType") === "pilot"? history.push("/pilot-profile"): history.push("/client-profile")
+    
+  };
+
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
@@ -107,6 +112,7 @@ function Header() {
           <div>
             <h1>{pilotName}</h1>
             <button onClick={handleLogout}>Cerrar sesión</button>
+            <button onClick={handleProfileRedirect}>Mi perfil</button>
           </div>
         ) : (
           <div>
