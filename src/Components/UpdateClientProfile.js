@@ -3,8 +3,12 @@ import CreateIcon from "@material-ui/icons/Create";
 import "./UpdateClientProfile.css";
 import { useForm } from "react-hook-form";
 import Departments from "../data/deparments.json";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setGlobalUser } from "../store";
 
 function UpdateClientProfile() {
+  const dispatch = useDispatch();
   const [unlockNameField, setUnlockNameField] = useState(true);
   const [unlockLastnameField, setUnlockLastnameField] = useState(true);
   const [unlockEmailField, setUnlockEmailField] = useState(true);
@@ -12,6 +16,7 @@ function UpdateClientProfile() {
   const [unlockPhoneField, setUnlockPhoneField] = useState(true);
   const [unlockDepartmentField, setUnlockDepartmentField] = useState(true);
   const [unlockCityField, setUnlockCityField] = useState(true);
+  const [clientDataDb, setClientDataDb] = useState([]);
   const { register, errors, handleSubmit } = useForm();
   const [currCities, setCurrCities] = useState(
     Departments.filter((e) => e.id === 29)[0].ciudades
@@ -19,8 +24,36 @@ function UpdateClientProfile() {
   const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/;
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    const getClientData = async () => {
+      const clientId = sessionStorage.getItem("userId");
+      try {
+        const result = await axios.get(
+          `http://localhost:8000/client/listar/${clientId}`
+        );
+        setClientDataDb(result.data.client);
+      } catch (error) {
+        alert(error);
+      }
+    };
+    getClientData();
+  }, []);
+
+  const onSubmit = async (data) => {
+    const clientId = sessionStorage.getItem("userId");
+    try {
+      const result = await axios.put(
+        `http://localhost:8000/client/actualizar/${clientId}`,
+        {
+          data,
+        }
+      );
+      setClientDataDb(result.data);
+      sessionStorage.setItem("userName", result.data.name);
+      dispatch(setGlobalUser(result.data));
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const mapDepartments = (departments) => {
@@ -58,7 +91,7 @@ function UpdateClientProfile() {
             id="name"
             name="name"
             type="text"
-            value={unlockNameField ? "Jonathan" : null}
+            value={unlockNameField ? clientDataDb.name : null}
             ref={register({
               required: {
                 value: true,
@@ -82,11 +115,10 @@ function UpdateClientProfile() {
         <div className="fieldSet">
           <label>Apellido</label>
           <input
-            placeholder="Palacio"
-            value={unlockLastnameField ? "Palacio" : null}
+            value={unlockLastnameField ? clientDataDb.lastName : null}
             readOnly={unlockLastnameField}
             className={unlockLastnameField ? "field" : "unlock__field"}
-            name="lastname"
+            name="lastName"
             ref={register({
               required: {
                 value: true,
@@ -108,13 +140,12 @@ function UpdateClientProfile() {
         <div className="fieldSet">
           <label>E-mail</label>
           <input
-            placeholder="jpalacio0612@gmail.com"
             readOnly={unlockEmailField}
             className={unlockEmailField ? "field" : "unlock__field"}
             id="email"
             name="email"
             type="email"
-            value={unlockEmailField ? "jpalacio0612@gmail.com" : null}
+            value={unlockEmailField ? clientDataDb.email : null}
             ref={register({
               required: {
                 value: true,
@@ -139,14 +170,12 @@ function UpdateClientProfile() {
           <input
             readOnly={unlockPasswordField}
             className={unlockPasswordField ? "field" : "unlock__field"}
-            value={unlockPasswordField ? "colombia" : null}
-            id="password"
-            name="password"
+            placeholder="********"
+            name={unlockPasswordField ? "dummy" : "password"}
             type="password"
             ref={register({
               required: {
-                value: true,
-                message: "El campo contraseña es requerido",
+                value: false,
               },
             })}
           />
@@ -167,7 +196,7 @@ function UpdateClientProfile() {
             id="phone"
             name="phone"
             type="text"
-            value={unlockPhoneField ? "3183834202" : null}
+            value={unlockPhoneField ? clientDataDb.phone : null}
             ref={register({
               pattern: {
                 value: phoneRegexp,
@@ -200,7 +229,7 @@ function UpdateClientProfile() {
             type="text"
             ref={register({ required: true })}
             className={unlockDepartmentField ? "field" : "unlock__field"}
-            value={unlockDepartmentField ? "29" : null}
+            value={unlockDepartmentField ? clientDataDb.department : null}
             onChange={(event) =>
               setCurrCities(
                 Departments.filter(
@@ -229,7 +258,7 @@ function UpdateClientProfile() {
             name="city"
             type="text"
             className={unlockCityField ? "field" : "unlock__field"}
-            value={unlockCityField ? "Palmira" : null}
+            value={unlockCityField ? clientDataDb.city : null}
             ref={register({ required: true })}
           >
             {mapCities(currCities)}

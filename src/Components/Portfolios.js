@@ -78,6 +78,7 @@ function Portfolios() {
     }, [])
 
   function handleChange(event) {
+    if(!event.target.files[0]) return
     setName(event.target.files[0].name)
     setSelectfile(event.target.files[0])
   }
@@ -86,7 +87,7 @@ function Portfolios() {
     event.preventDefault();
     const uploadImage = storage.ref(`Pilots/Pilot-${pilotId}/Portfolio/` + name).put(selectedFile);
 
-    uploadImage.on('state_changed', 
+    uploadImage.on('state_changed',
       (snap) => {}, 
       (error) => {alert(error)},
       () => {

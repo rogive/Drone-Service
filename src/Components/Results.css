@@ -1,0 +1,19 @@
+.solicitude {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0 -30px;
+  padding: 20px 30px;
+}
+
+.image__solicitude {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+.image__solicitude__clientProfile {
+  width: 7vw;
+  height: 7vw;
+  object-fit: cover;
+  margin-right: 5px;
+}

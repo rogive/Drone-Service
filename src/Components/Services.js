@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ServicesList from '../data/categories.json'
+import ServicesList from '../data/categories.json';
 import axios from 'axios';
 
 const DocumentsContainer = styled.div`
@@ -83,8 +83,9 @@ function ServicesComponent({
 function Services() {
   const [services, setServices] = useState([])
   const [name, setName] = useState("Capacitación")
+  const [serviceId, setServiceId] = useState(ServicesList[0]._id)
   const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
-  const [url, setUrl] = useState(ServicesList[5].url)
+  const [url, setUrl] = useState(ServicesList[0].url)
   const [error, setError] = useState(null)
 
   useEffect( () => {
@@ -101,6 +102,7 @@ function Services() {
     ServicesList.map(service=>{
       if(service.label === event.target.value ){
         setUrl(service.url)
+        setServiceId(service._id)
       }
     })
   }
@@ -108,12 +110,10 @@ function Services() {
   function handleSubmit(event) {
     event.preventDefault();
     axios({
-      url: 'http://localhost:8000/servicios/crear',
-      method: 'POST',
+      url: `http://localhost:8000/servicios/actualizar/${serviceId}`,
+      method: 'PUT',
       data: {
         pilotId: pilotId,
-        name: name,
-        url: url,
       }
     }).then(({ data }) => setServices( services.concat(data) ))
     .catch((error) => setError(error));

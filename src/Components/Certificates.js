@@ -61,7 +61,7 @@ function CertificatesComponent({
       return(
         <DocumentsContainer>
           <p className="element">{certificate.name}</p>
-          <a href={certificate.url} target="_blank" className="url">
+          <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="url">
             <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
                  alt="pdfIcon"
                  className="icon"

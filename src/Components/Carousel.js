@@ -56,7 +56,7 @@ function Carousel(){
           <p>Contamos con personal experimentado y calificado y estamos listos 
              para poner tus ideas en el cielo.</p>
           <ButtonContainer>
-            <Button onClick={() => sessionStorage.setItem('userType', 'client')} title={"Quiero encontrar un servicio"} linkto={"/user-registry"} />
+            <Button onClick={() => sessionStorage.setItem('userType', 'client')} title={"Quiero encontrar un piloto"} linkto={"/user-registry"} />
             <Button onClick={() => sessionStorage.setItem('userType', 'pilot')} title={"Quiero prestar mi servicio"} linkto={"/user-registry"}/>
           </ButtonContainer>
         </TextBox>
