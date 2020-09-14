@@ -54,7 +54,7 @@ const ImageContainer = styled.div`
 function PortfoliosComponent({
   portfolios
 }) {
-  return portfolios.map((portfolio, index) => {
+  return portfolios.map((portfolio) => {
     return(
         <ImageContainer>
               <img src={portfolio.url} alt="images"/>
