@@ -1,138 +1,20 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import styled from 'styled-components'
 import Categories from '../data/categories.json'
 import { storage } from '../firebase';
 import Departments from '../data/deparments.json'
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import "./Solicitudes.css";
 
-const FullContainer = styled.div `
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
-  margin: 1vw 15vw 1vw 15vw;
-  padding-top: 2rem;
-  background-color: #EFEFEF;
-  border: 2px solid gray;
-  border-radius:5rem;
-  .titleform{
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-  }
-`
-
-const FormFieldset = styled.fieldset`
-  display:flex;
-  width: 70%;
-  float: left;
-  border: none;
-  padding: 0.5rem 0rem 0.5rem 0rem;
-  .input{
-    width: 50%;
-    height: 2rem;
-    margin-left: 1rem;
-    background-color: #E1E1E1;
-    border: 1px solid gray;
-  }
-  .servicetitle{
-    height: 1.8rem;
-  }
-  .inputtextarea{
-    background-color: #E1E1E1;
-    width: 100%;
-    height: 20vh;
-  }
-  .inputfile{
-    width: 100%;
-    height: 2rem;
-    margin-left: 1rem
-  }
-  select{
-    height: 2rem;
-  }
-
-  
-`
-const FormDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-  
-`
-
-const FormLabel = styled.label`
-  margin: 1rem 0 1rem 0rem;
-  font-size: 1.5rem;
-
-`
-
-const FormInput = styled.input`
-  display:flex;
-  width: 30%;
-  height: 7px;
-  margin: 1rem 0 0rem 1rem;
-  float:left;
-  padding:0.5rem;
-  font-size: 1.4rem;
-`
-
-const FormButton = styled.button`
-    text-decoration: none;
-    margin: 2rem 0rem 2rem 0rem;
-    padding: 1rem 1.6rem;
-    margin-top: 3rem;
-    border-radius: 8px;
-    font-family: 'Montserrat';
-    font-size: 2rem;
-    color: white;
-    border: none;
-    background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));
-    cursor: pointer;
-
-    &:hover{
-        background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
-    }
-`
-
-const ImageContainer = styled.div`
-  width: 17%;
-  border-radius: 1rem;
-  margin: 1rem;
-  img{
-    width: 4vw;
-    height: 4vw;
-    border-radius: 1rem;
-  }
-`
-
-const FullImageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-`
 function ServiceImagesComponent({
   images
 }) {
   return images.map((image) => {
     return(
-        <ImageContainer>
-          <img src={image.url}></img>
-        </ImageContainer>
+        <div className="imagecontainer">
+          <img className="imagesolicitude" src={image} alt=""></img>
+        </div>
     );
   });
 }
@@ -143,10 +25,18 @@ function Solicitudes() {
   const [ownequipment, setOwnEquipment] = useState('No Aplica')
   const [requireequipment, setRequireEquipment] = useState('No')
   const [selectedImage, setSelectedImage] = useState(null)
+  const [fullImage, setFullImage] = useState([])
   const [name, setName] = useState('')
   const clientId = sessionStorage.getItem("userId")
   const [images, setImages] = useState([])
+  const [imagespreview, setImagesPreview] = useState([])
   const [ currCities, setCurrCities ] = useState(Departments.filter(e => e.id === 0)[0].ciudades)
+
+function readFile(file) {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = e => setImagesPreview(imagespreview.concat(e.target.result))
+  }
 
 function handleChange(event) {
   if(!event.target.files[0]) return
@@ -156,11 +46,12 @@ function handleChange(event) {
 
 function handleSubmitImage(event) {
   event.preventDefault();
+  readFile(selectedImage)
+  setFullImage(fullImage.concat(selectedImage))
   const uploadImage = storage.ref(`Clients/Client-${clientId}/` + name).put(selectedImage);
 
   uploadImage.on('state_changed', 
-  (snapshot) => {
-  }, 
+  (snap) => {}, 
   (error) => {
     alert(error);
   },
@@ -168,7 +59,7 @@ function handleSubmitImage(event) {
     storage.ref(`Clients/Client-${clientId}/`).child(name).getDownloadURL().then(url => {
       setImages( images.concat({url}));
     })
-  });
+  })
 }
 
 const onSubmit = data => {
@@ -215,154 +106,242 @@ const onSubmit = data => {
   }
 
   return(
-    <FullContainer>
-      <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="titleform" >Solicitud de Servicio</h1>
-        <FormFieldset>
-              <FormLabel htmlFor="servicetitle">Titulo del Servicio </FormLabel>
+    <div className="fullcontainer">
+      <form className="formcontainer" onSubmit={handleSubmit(onSubmit)}>
+        <div className="boxtitleform">
+          <h1 className="titleform">Solicitud de Servicio</h1>
+        </div>
+        <fieldset className="formfieldset">
+          <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="servicetitle">Titulo:</label>
+            </div>
+            <div className="input-container">
               <input
                 id="servicetitle"
                 name="servicetitle"
-                className="input servicetitle"
+                className="input-title"
                 ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
               />
-          <span style={{color: "red"}}>
-            {errors.servicetitle?.message}
-          </span>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="servicetype">Tipo de servicio </FormLabel>
-          <select
-            type="text"
-            id="servicetype"
-            name="servicetype"
-            className="input"
-            ref={register({ required: true })}
-          >
-            {mapCategories(Categories)}
-          </select>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="certifiedpilot">Piloto certificado* </FormLabel>
-          <select
-            type="text"
-            id="certifiedpilot"
-            name="certifiedpilot"
-            className="input"
-            ref={register({ required: true })}
-          >
-            <option value="Si" key="sioptioncertified"> Si </option>
-            <option value="No" key="nooptioncertified"> No </option>
-            <option value="No Aplica" key="noaplicaoptioncertified"> No Aplica </option>
-          </select>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="ownequipment">Piloto con equipo propio </FormLabel>
-          <select
-            type="text"
-            id="ownequipment"
-            name="ownequipment"
-            className="input"
-            value= {ownequipment}
-            ref={register({ required: true })}
-            onChange={ event => setOwnEquipment(event.target.value)}
-          >
-            <option value="Si" key="sioptionownequipment"> Si </option>
-            <option value="No" key="nooptionownequipment"> No </option>
-            <option value="No Aplica" key="noaplicaoptionownequipment"> No Aplica </option>
-          </select>
-        </FormFieldset>
-        {
-            ownequipment === "Si" ? (
-            <FormFieldset>
-              <FormLabel htmlFor="requireequipment">¿Requiere algún equipo en especifico? </FormLabel>
+            </div>
+          </div>
+          <div>
+            <span className="error-input-container">
+              {errors.servicetitle?.message}
+            </span>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="servicetype">Servicio: </label>
+            </div>
+            <div className="input-container">
               <select
                 type="text"
-                id="requireequipment"
-                name="requireequipment"
+                id="servicetype"
+                name="servicetype"
                 className="input"
-                value= {requireequipment}
                 ref={register({ required: true })}
-                onChange={ event => setRequireEquipment(event.target.value)}
               >
-                <option value="Si" key="sioptionrequireequipment"> Si </option>
-                <option value="No" key="nooptionrequireequipment"> No </option>
+                {mapCategories(Categories)}
               </select>
-            </FormFieldset>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+        <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="certifiedpilot">¿Piloto certificado?</label>
+            </div>
+            <div className="input-container">
+              <select
+                type="text"
+                id="certifiedpilot"
+                name="certifiedpilot"
+                className="input"
+                ref={register({ required: true })}
+              >
+                <option value="Si" key="sioptioncertified"> Si </option>
+                <option value="No" key="nooptioncertified"> No </option>
+                <option value="No Aplica" key="noaplicaoptioncertified"> No Aplica </option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="ownequipment">¿Piloto con equipo?</label>
+            </div>
+            <div className="input-container">
+              <select
+                type="text"
+                id="ownequipment"
+                name="ownequipment"
+                className="input"
+                value= {ownequipment}
+                ref={register({ required: true })}
+                onChange={ event => setOwnEquipment(event.target.value)}
+              >
+                <option value="Si" key="sioptionownequipment"> Si </option>
+                <option value="No" key="nooptionownequipment"> No </option>
+                <option value="No Aplica" key="noaplicaoptionownequipment"> No Aplica </option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        {
+            ownequipment === "Si" ? (
+            <fieldset className="formfieldset">
+              <div className="input-full-container">
+                <div className="label-input-container">
+                  <label className="formlabel" htmlFor="requireequipment">¿Alguno en especifico? </label>
+                </div>
+                <div className="input-container">
+                  <select
+                    type="text"
+                    id="requireequipment"
+                    name="requireequipment"
+                    className="input"
+                    value= {requireequipment}
+                    ref={register({ required: true })}
+                    onChange={ event => setRequireEquipment(event.target.value)}
+                  >
+                    <option value="Si" key="sioptionrequireequipment"> Si </option>
+                    <option value="No" key="nooptionrequireequipment"> No </option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
               ) :
               <span></span>
         }
         {
           requireequipment === "Si" ? (
-            <FormFieldset>
-              <FormLabel htmlFor="equipment">¿Cuál equipo? </FormLabel>
-              <input
-                id="equipment"
-                name="equipment"
-                className="input"
-                ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
-              />
-          <span style={{color: "red"}}>
-            {errors.equipment?.message}
-          </span>
-            </FormFieldset>
+            <fieldset className="formfieldset">
+              <div>
+                <div className="input-full-container">
+                  <div className="label-input-container">
+                    <label className="formlabel" htmlFor="equipment">¿Cuál equipo?</label>
+                  </div>
+                  <div className="input-container">
+                    <input
+                      id="equipment"
+                      name="equipment"
+                      className="input-title"
+                      ref={register({ required: { value:true, message: 'Este campo es requerido' }})}
+                    />
+                  </div>
+                </div>
+                <div className="error-input-container">
+                  <span style={{color: "red"}}>
+                    {errors.equipment?.message}
+                  </span>
+                </div>
+              </div>
+            </fieldset>
               ) :
               <span></span>
         }
-        <FormFieldset>
-          <FormLabel htmlFor="department">Departamento del servicio</FormLabel>
-          <select
-            id="department"
-            name="department"
-            type="text"
-            className="input"
-            ref={register({ required: true })}
-            onChange={ event => setCurrCities(Departments.filter(e => e.id === parseInt(event.target.value))[0].ciudades)}
-          >
-            {mapDepartments(Departments)}
-          </select>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="city">Ciudad del servicio </FormLabel>
-          <select
-            id="city"
-            name="city"
-            type="text"
-            className="input"
-            ref={register({ required: true })}
-          >
-            {mapCities(currCities)}
-          </select>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="dateservice">Fecha del servicio </FormLabel>
-          <input type="date"
-                 id="dateservice"
-                 name="dateservice"
-                 className="input"
-                 ref={register({ required: { value:true, message: 'Este campo es requerido' }})}/>
-          <span style={{color: "red"}}>
-            {errors.dateservice?.message}
-          </span>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="inputfile"> Imagenes acerca del servicio </FormLabel>
-            <FormDiv>
-              <input type="file"
-                  id="inputfile"
-                  name="inputfile"
-                  onChange={handleChange}
-                  className="inputfile"/>
-              <button onClick={handleSubmitImage}>upload</button>
-            </FormDiv>
-        </FormFieldset>
-        <FormFieldset>
-          <FullImageContainer>
-            <ServiceImagesComponent images= {images}/>
-          </FullImageContainer>
-        </FormFieldset>
-        <FormFieldset>
-          <FormLabel htmlFor="description">Descripción del servicio </FormLabel>
+        <fieldset className="formfieldset">
+          <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="department">Departamento:</label>
+            </div>
+            <div className="input-container">
+              <select
+                id="department"
+                name="department"
+                type="text"
+                className="input"
+                ref={register({ required: true })}
+                onChange={ event => setCurrCities(Departments.filter(e => e.id === parseInt(event.target.value))[0].ciudades)}
+              >
+                {mapDepartments(Departments)}
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <div className="input-full-container">
+            <div className="label-input-container">
+              <label className="formlabel" htmlFor="city">Ciudad: </label>
+            </div>
+            <div className="input-container">
+              <select
+                id="city"
+                name="city"
+                type="text"
+                className="input"
+                ref={register({ required: true })}
+              >
+                {mapCities(currCities)}
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <div>
+            <div className="input-full-container">
+              <div className="label-input-container">
+                <label className="formlabel" htmlFor="dateservice">Fecha: </label>
+              </div>
+              <div className="input-container">
+                <input type="date"
+                      id="dateservice"
+                      name="dateservice"
+                      className="input-title date-input"
+                      ref={register({ required: { value:true, message: 'Este campo es requerido' }})}/>
+              </div>
+            </div>
+            <div className="error-input-container">
+              <span style={{color: "red"}}>
+              {errors.dateservice?.message}
+            </span>
+            </div>
+          </div>
+
+        </fieldset>
+        <fieldset className="formfieldset">
+          <label> Imagenes: </label>
+            <div className="fullcontaineruploadimage">
+              <div className="boxlabelnameimage">
+                <label htmlFor="inputfile"
+                       className="labelnameimage">{ name || "Adjuntar imagen"}
+                </label>
+              </div>
+              <div className="boxbuttonsimage">
+                <input type="file"
+                    id="inputfile"
+                    name="inputfile"
+                    onChange={handleChange}
+                    className="inputfile"
+                    style={{display: 'none'}}
+                    />
+                <label 
+                    htmlFor="inputfile" 
+                    className="labelbuttonaddimage"
+                    >Abrir</label>
+                <button type="button"
+                        id="buttonuploadimage"
+                        name="buttonuploadimage"
+                        className="buttonuploadimage" 
+                        onClick={handleSubmitImage}
+                        >subir</button>
+                <label htmlFor="buttonuploadimage" 
+                      className="labelbuttonuploadimage"
+                      >Cargar</label>
+              </div>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <div class="fullimagecontainer">
+            <ServiceImagesComponent images= {imagespreview}/>
+          </div>
+        </fieldset>
+        <fieldset className="formfieldset">
+          <label className="formlabel" htmlFor="description">Descripción:</label>
           <textarea
                 id="description"
                 name="description"
@@ -372,10 +351,10 @@ const onSubmit = data => {
           <span style={{color: "red"}}>
             {errors.description?.message}
           </span>
-        </FormFieldset>
-        <FormButton>Enviar</FormButton>
-      </FormContainer>
-    </FullContainer>
+        </fieldset>
+        <button className="formbutton">Enviar</button>
+      </form>
+    </div>
   )
 }
 
