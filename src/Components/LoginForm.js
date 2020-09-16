@@ -76,7 +76,7 @@ const LoginForm = () => {
   const onSubmit = (data) => {
     axios({
       method: "post",
-      url: "http://localhost:8000/pilotos/login",
+      url: "http://localhost:8000/pilot/login",
       data: data,
     })
       .then(({ data }) => {

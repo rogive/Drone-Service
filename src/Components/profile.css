@@ -1,0 +1,17 @@
+.imageprofilecontainer{
+  width: 100%;
+  text-align:center;
+  padding-top: 3rem;
+}
+.imagepilot{
+  width: 15rem;
+  height: 15rem;
+  border-radius: 3rem;
+}
+.componentcontainer{
+  font-size: 1.1vw;
+}
+.descriptionprofile {
+  padding-top: 2rem;
+  justify-content: space-between;
+}

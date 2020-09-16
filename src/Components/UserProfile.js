@@ -1,29 +1,13 @@
 import React, { useState, useEffect } from "react";
 import CreateIcon from "@material-ui/icons/Create";
-import "./profile.css";
+import "./UserProfile.css";
 import { useForm } from "react-hook-form";
 import Departments from "../data/deparments.json";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setGlobalUser } from "../store";
 
-function Profile(){
-  return(
-    <div className="componentcontainer">
-      <h2 className="titleprofile">Perfil</h2>
-      <div className="imageprofilecontainer">
-        <img className="imagepilot" src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM=" alt="Hola"></img>
-      </div>
-      <p className="descriptionprofile">Agrega una breve descripción de tus conocimientos, capacidades
-        y habilidades. Adiciona cualquier descripcion interesante para 
-        el cliente.
-      </p>
-    </div>
-  )
-}
-
-
-function UpdateClientProfile() {
+function UpdateUserProfile() {
   const dispatch = useDispatch();
   const [unlockNameField, setUnlockNameField] = useState(true);
   const [unlockLastnameField, setUnlockLastnameField] = useState(true);
@@ -32,7 +16,7 @@ function UpdateClientProfile() {
   const [unlockPhoneField, setUnlockPhoneField] = useState(true);
   const [unlockDepartmentField, setUnlockDepartmentField] = useState(true);
   const [unlockCityField, setUnlockCityField] = useState(true);
-  const [clientDataDb, setClientDataDb] = useState([]);
+  const [userDataDb, setUserDataDb] = useState([]);
   const { register, errors, handleSubmit } = useForm();
   const [currCities, setCurrCities] = useState(
     Departments.filter((e) => e.id === 29)[0].ciudades
@@ -41,30 +25,35 @@ function UpdateClientProfile() {
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/;
 
   useEffect(() => {
-    const getClientData = async () => {
-      const clientId = sessionStorage.getItem("userId");
+    const getUserData = async () => {
+      const userId = sessionStorage.getItem("userId");
+      const userType = sessionStorage.getItem("userType");
       try {
         const result = await axios.get(
-          `http://localhost:8000/client/listar/${clientId}`
+          `http://localhost:8000/${userType}/listar/${userId}`
         );
-        setClientDataDb(result.data.client);
+        (userType === "client" ?  
+        setUserDataDb(result.data.client) :
+        setUserDataDb(result.data.pilot) )
       } catch (error) {
         alert(error);
       }
     };
-    getClientData();
+    getUserData();
   }, []);
 
   const onSubmit = async (data) => {
-    const clientId = sessionStorage.getItem("userId");
+    console.log(userDataDb)
+    const userId = sessionStorage.getItem("userId");
+    const userType = sessionStorage.getItem("userType");
     try {
       const result = await axios.put(
-        `http://localhost:8000/client/actualizar/${clientId}`,
+        `http://localhost:8000/${userType}/actualizar/${userId}`,
         {
           data,
         }
       );
-      setClientDataDb(result.data);
+      setUserDataDb(result.data);
       sessionStorage.setItem("userName", result.data.name);
       dispatch(setGlobalUser(result.data));
     } catch (error) {
@@ -94,7 +83,7 @@ function UpdateClientProfile() {
 
   return (
     <div>
-      <h2>Tu perfil</h2>
+      { sessionStorage.getItem("userType") === "client" && (<h2>Tu perfil</h2>)}
       <img
         width="100px"
         src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
@@ -107,7 +96,7 @@ function UpdateClientProfile() {
             id="name"
             name="name"
             type="text"
-            value={unlockNameField ? clientDataDb.name : null}
+            value={unlockNameField ? userDataDb.name : null}
             ref={register({
               required: {
                 value: true,
@@ -131,7 +120,7 @@ function UpdateClientProfile() {
         <div className="fieldSet">
           <label>Apellido</label>
           <input
-            value={unlockLastnameField ? clientDataDb.lastName : null}
+            value={unlockLastnameField ? userDataDb.lastName : null}
             readOnly={unlockLastnameField}
             className={unlockLastnameField ? "field" : "unlock__field"}
             name="lastName"
@@ -161,7 +150,7 @@ function UpdateClientProfile() {
             id="email"
             name="email"
             type="email"
-            value={unlockEmailField ? clientDataDb.email : null}
+            value={unlockEmailField ? userDataDb.email : null}
             ref={register({
               required: {
                 value: true,
@@ -212,7 +201,7 @@ function UpdateClientProfile() {
             id="phone"
             name="phone"
             type="text"
-            value={unlockPhoneField ? clientDataDb.phone : null}
+            value={unlockPhoneField ? userDataDb.phone : null}
             ref={register({
               pattern: {
                 value: phoneRegexp,
@@ -245,7 +234,7 @@ function UpdateClientProfile() {
             type="text"
             ref={register({ required: true })}
             className={unlockDepartmentField ? "field" : "unlock__field"}
-            value={unlockDepartmentField ? clientDataDb.department : null}
+            value={unlockDepartmentField ? userDataDb.department : null}
             onChange={(event) =>
               setCurrCities(
                 Departments.filter(
@@ -274,7 +263,7 @@ function UpdateClientProfile() {
             name="city"
             type="text"
             className={unlockCityField ? "field" : "unlock__field"}
-            value={unlockCityField ? clientDataDb.city : null}
+            value={unlockCityField ? userDataDb.city : null}
             ref={register({ required: true })}
           >
             {mapCities(currCities)}
@@ -297,4 +286,4 @@ function UpdateClientProfile() {
   );
 }
 
-export default Profile
+export default UpdateUserProfile;

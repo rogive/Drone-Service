@@ -27,7 +27,7 @@ function Results({ info }) {
       const filterPilots = async () => {
         try {
           const result = await axios.post(
-            "http://localhost:8000/pilotos/filtrar",
+            "http://localhost:8000/pilot/filtrar",
             { info }
           );
           setPilotsDb(result.data);

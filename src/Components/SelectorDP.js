@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Profile from '../Components/Profile';
+import UserProfile from '../Components/UserProfile';
 import Certificates from '../Components/Certificates';
 import FlightLogs from '../Components/FlightLogs';
 import FlightLogsApp from '../Components/FlightLogsApp';
@@ -55,7 +56,7 @@ const BarBackgroundContainer = styled.div`
 const BarStateContainer = styled.div`
   width: 80%;
   border-radius: 1rem;
-  background-color: green;
+  background-color: rgb(0, 23, 105);
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -66,6 +67,12 @@ const ComponentBodyContainer = styled.div`
   border-style: solid;
   border-color: #f2f2f2;
   padding: 4rem;
+  .pilot-profile{
+  width: 80%;
+  text-align: center;
+  padding: 1rem 8rem;
+
+  }
 `
 
 const TabsContainer = styled.div`
@@ -134,7 +141,9 @@ class SelectorDP extends React.Component{
           <div>
               {
                 this.state.value === "Profile" ?
-                <Profile/> :
+                <div className="pilot-profile">
+                  <UserProfile />
+                </div> :
                 this.state.value === "Certificates" ?
                 <Certificates/> :
                 this.state.value === "FlightLogs" ?
@@ -145,7 +154,7 @@ class SelectorDP extends React.Component{
                 <Services/> :
                 this.state.value === "Equipments" ?
                 <Equipments/> :
-                this.state.value === "Others" ?
+                this.state.value === "Others"?
                 <Others/> :
                 this.state.value === "Portfolios" ?
                 <Portfolios/> :
