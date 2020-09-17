@@ -18,6 +18,9 @@ const IconContainer = styled.div`
 const AttachContainer = styled.div`
   padding-top:2rem;
   padding-bottom:2rem;
+  progress {
+    width: 100%;
+  }
 `
 
 const ComponentContainer = styled.div`
@@ -54,7 +57,7 @@ function PortfoliosComponent({
   return portfolios.map((portfolio) => {
     return(
         <ImageContainer>
-          <img src={portfolio.url} alt="images"></img>
+              <img src={portfolio.url} alt="images"/>
         </ImageContainer>
     );
   });
@@ -63,10 +66,10 @@ function PortfoliosComponent({
 function Portfolios() {
   const [portfolios, setPortfolios] = useState([])
   const [name, setName] = useState("")
-  const [pilotId, setPilotId] = useState(sessionStorage.getItem("userId"))
-  const [urlImage, setUrlImage] = useState('')
+  const pilotId = (sessionStorage.getItem("userId"))
   const [selectedFile, setSelectfile] = useState(null)
   const [error, setError] = useState(null)
+  const [progress, setProgress] = useState(0);
 
   useEffect( () => {
     axios({
@@ -75,7 +78,7 @@ function Portfolios() {
     })
       .then(({ data }) => setPortfolios( data ))
       .catch((error) => setError({ error }))
-    }, [])
+    }, [pilotId])
 
   function handleChange(event) {
     if(!event.target.files[0]) return
@@ -86,13 +89,16 @@ function Portfolios() {
   function handleSubmit(event) {
     event.preventDefault();
     const uploadImage = storage.ref(`Pilots/Pilot-${pilotId}/Portfolio/` + name).put(selectedFile);
-
     uploadImage.on('state_changed',
-      (snap) => {}, 
+      (snap) =>  {
+        const progress = Math.round(
+          (snap.bytesTransferred / snap.totalBytes) * 100
+        );
+        setProgress(progress);
+      }, 
       (error) => {alert(error)},
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/Portfolio/`).child(name).getDownloadURL().then(url => {
-          setUrlImage(url)
           axios({
             url: 'http://localhost:8000/media/crear',
             method: 'POST',
@@ -101,7 +107,10 @@ function Portfolios() {
               url: url,
               type: "image",
             }
-          }).then(({ data }) => setPortfolios( portfolios.concat(data) ))
+          }).then(({ data }) => {
+            setPortfolios( portfolios.concat(data) )
+            setProgress(0);
+          })
           .catch((error) => setError(error));
         });
       }
@@ -111,26 +120,34 @@ function Portfolios() {
       <ComponentContainer>
         <h2>Portafolio</h2>
         <IconContainer>
-          <img src="https://image.flaticon.com/icons/svg/1096/1096090.svg"></img>
+          <img src="https://image.flaticon.com/icons/svg/1096/1096090.svg" alt=""></img>
         </IconContainer>
         <p>Este espacio corresponde al material que te gustaria mostrar a
             los clientes. Relaciona todas tus mejores trabajos en fotos o
             pequeños videos que le den una idea de tu calidad al cliente.
         </p>
         <AttachContainer>
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <label>
-              <input htmlFor="file"
-                      type="file"
-                      id="file"
-                      accept="image/*"
-                      onChange={handleChange}/>
-            </label>
-            <br/>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="bar-update">
+              { progress > 0 ?
+                <progress value={progress} max="100">
+                </progress> 
+                :
+                <br/>
+              }
+            </div>
+            <fieldset>
+              <label>
+                <input htmlFor="file"
+                        type="file"
+                        id="file"
+                        accept="image/*"
+                        onChange={handleChange}/>
+              </label>
+              <br/>
+            </fieldset>
+            <button type="submit">Submit</button>
+          </form>
         </AttachContainer>
         <PortfolioImageContainer>
           <PortfoliosComponent portfolios = {portfolios}/>
