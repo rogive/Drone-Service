@@ -45,25 +45,25 @@ function Results({ info }) {
       {userType === "pilot"
         ? solicitudesDb
           ? solicitudesDb.map((element) => {
-              return (
-                <div className="solicitude" key={element._id}>
-                  <h3>{element.client.name}</h3>
-                  <p>{element.description}</p>
-                  {element.images.map((image) => {
-                    return (
-                      <img
-                        className="image__solicitude"
-                        src={image.url}
-                        alt=""
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })
+            return (
+              <div className="solicitude" key={element._id}>
+                <h3>{element.client.name}</h3>
+                <p>{element.description}</p>
+                {element.images.map((image) => {
+                  return (
+                    <img
+                      className="image__solicitude"
+                      src={image.url}
+                      alt=""
+                    />
+                  );
+                })}
+              </div>
+            );
+          })
           : null
         : pilotsDb
-        ? pilotsDb.map((element) => {
+          ? pilotsDb.map((element) => {
             return (
               <div className="solicitude" key={element._id}>
                 <h3>{element.name}</h3>
@@ -82,7 +82,7 @@ function Results({ info }) {
               </div>
             );
           })
-        : null}
+          : null}
     </div>
   );
 }
