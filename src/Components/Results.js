@@ -6,6 +6,8 @@ function Results({ info }) {
   const userType = sessionStorage.getItem("userType");
   const [pilotsDb, setPilotsDb] = useState([]);
   const [solicitudesDb, setSolicitudesDb] = useState([]);
+  const [payFlag, setPayFlag] = useState(0);
+  const pilotId = sessionStorage.getItem("userId");
 
   useEffect(() => {
     if (userType === "pilot") {
@@ -14,9 +16,10 @@ function Results({ info }) {
         try {
           const result = await axios.post(
             "http://localhost:8000/solicitudes/filtrar",
-            { info }
+            { info, pilotId }
           );
           setSolicitudesDb(result.data);
+          console.log(result.data)
         } catch (error) {
           alert(error);
         }
@@ -37,7 +40,27 @@ function Results({ info }) {
       };
       filterPilots();
     }
-  }, [info]);
+  }, [info, payFlag]);
+
+  let handlePayment = (e) => {
+    const solicitudeId = e.target.value;
+    
+    setPayFlag(payFlag + 1);
+    
+    const addPayedSolicitudes = async () => {
+      try {
+        const result = await axios({
+          method: "put",
+          url: "http://localhost:8000/solicitudes/pagarSolicitud",
+          data: {solicitudeId, pilotId}
+        });
+        // alert(result.data)
+      } catch (error) {
+        alert(error);
+      }
+    };
+    addPayedSolicitudes();
+  }
 
   return (
     <div>
@@ -58,6 +81,8 @@ function Results({ info }) {
                       />
                     );
                   })}
+                  {element.client.phone.includes("X")?<button onClick={handlePayment} value={element._id}>Pagar</button>:null}
+                  <p>{`Teléfono: ${element.client.phone}`}</p>
                 </div>
               );
             })
