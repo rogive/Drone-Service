@@ -10,6 +10,7 @@ import Error404 from './Pages/Error404';
 import Login from './Pages/Login'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ClientProfile from "./Pages/ClientProfile";
+import PaymentRespone from "./Pages/PaymentResponse";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/pilot-profile" component={DronePilot} />
         <Route exact path="/user-registry" component={UserRegistry} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/payment-response" component={PaymentRespone} />
         <Route exact path="*" component={Error404} />
       </Switch>
     </BrowserRouter>

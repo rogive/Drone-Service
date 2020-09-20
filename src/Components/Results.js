@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Results.css";
+import { Payment } from "./Payment"
 
 function Results({ info }) {
   const userType = sessionStorage.getItem("userType");
@@ -81,6 +82,7 @@ function Results({ info }) {
                       />
                     );
                   })}
+                  <Payment/>
                   {element.client.phone.includes("X")?<button onClick={handlePayment} value={element._id}>Pagar</button>:null}
                   <p>{`Teléfono: ${element.client.phone}`}</p>
                 </div>
