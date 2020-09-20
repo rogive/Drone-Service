@@ -134,7 +134,7 @@ class ActionProvider {
     const message = this.createChatBotMessage(
       "Permanece actualizado con todas las últimas noticias del mundo drone en nuestro blog, ingresa aquí",
       {
-        widget: "blogs",
+        widget: "blog",
       }
     );
 
