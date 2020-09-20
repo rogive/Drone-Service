@@ -66,7 +66,7 @@ function Results({ info }) {
             })
           : null
         : pilotsDb
-        ? pilotsDb.map((element) => {
+          ? pilotsDb.map((element) => {
             return (
               <div className="solicitude" key={element._id}>
                 <h3>{element.name}</h3>
@@ -85,7 +85,7 @@ function Results({ info }) {
               </div>
             );
           })
-        : null}
+          : null}
     </div>
   );
 }
