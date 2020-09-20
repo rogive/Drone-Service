@@ -7,7 +7,6 @@ function Results({ info }) {
   const userType = sessionStorage.getItem("userType");
   const [pilotsDb, setPilotsDb] = useState([]);
   const [solicitudesDb, setSolicitudesDb] = useState([]);
-  const [payFlag, setPayFlag] = useState(0);
   const pilotId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function Results({ info }) {
       };
       filterPilots();
     }
-  }, [info, payFlag]);
+  }, [info]);
 
   return (
     <div>
@@ -62,8 +61,8 @@ function Results({ info }) {
                       />
                     );
                   })}
-                  {element.client.phone.includes("X")?<Payment element={element}/>:null}
-                  <p>{`Teléfono: ${element.client.phone}`}</p>
+                  {element.phone.includes("X")?<Payment element={element}/>:null}
+                  <p>{`Teléfono: ${element.phone}`}</p>
                 </div>
               );
             })
