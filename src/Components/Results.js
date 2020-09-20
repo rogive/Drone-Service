@@ -43,26 +43,6 @@ function Results({ info }) {
     }
   }, [info, payFlag]);
 
-  let handlePayment = (e) => {
-    const solicitudeId = e.target.value;
-    
-    setPayFlag(payFlag + 1);
-    
-    const addPayedSolicitudes = async () => {
-      try {
-        const result = await axios({
-          method: "put",
-          url: "http://localhost:8000/solicitudes/pagarSolicitud",
-          data: {solicitudeId, pilotId}
-        });
-        // alert(result.data)
-      } catch (error) {
-        alert(error);
-      }
-    };
-    addPayedSolicitudes();
-  }
-
   return (
     <div>
       {userType === "pilot" ? <h2>Solicitudes</h2> : <h2>Pilotos</h2>}
@@ -82,8 +62,7 @@ function Results({ info }) {
                       />
                     );
                   })}
-                  <Payment/>
-                  {element.client.phone.includes("X")?<button onClick={handlePayment} value={element._id}>Pagar</button>:null}
+                  {element.client.phone.includes("X")?<Payment element={element}/>:null}
                   <p>{`Teléfono: ${element.client.phone}`}</p>
                 </div>
               );

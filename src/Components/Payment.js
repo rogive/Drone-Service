@@ -2,7 +2,27 @@ import React, { useEffect }from 'react'
 import axios from 'axios'
 
 export function Payment(props) {
-  function handlePayment() {
+  const pilotId = sessionStorage.getItem("userId");
+
+  function handlePaymentAxios(e) {
+    const solicitudeId = e.target.value;
+    
+    const addPayedSolicitudes = async () => {
+      try {
+        const result = await axios({
+          method: "put",
+          url: "http://localhost:8000/solicitudes/pagarSolicitud",
+          data: {solicitudeId, pilotId}
+        });
+        alert(result.data)
+      } catch (error) {
+        alert(error);
+      }
+    };
+    addPayedSolicitudes();
+  }
+
+  function handlePayment(e) {
     const paymentHandler = window.ePayco.checkout.configure({
       key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
       test: true
@@ -28,9 +48,12 @@ export function Payment(props) {
       mobilephone_billing: '3152375046',
       number_doc_billing: '1600463789'
     })
+    handlePaymentAxios(e)
   }
 
-  return <button onClick={handlePayment}>Real Payment</button>
+
+
+  return <button onClick={handlePayment} value={props.element._id}>Real Payment</button>
 }
 
 export function queryString(query) {
