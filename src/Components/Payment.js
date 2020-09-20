@@ -2,53 +2,35 @@ import React, { useEffect }from 'react'
 import axios from 'axios'
 
 export function Payment(props) {
-  const pilotId = sessionStorage.getItem("userId");
   const solicitudeId = props.element._id
 
-  function handlePaymentAxios() {
-
-    const addPayedSolicitudes = async () => {
-      try {
-        const result = await axios({
-          method: "put",
-          url: "http://localhost:8000/solicitudes/pagarSolicitud",
-          data: {solicitudeId, pilotId}
-        });
-        alert(result.data)
-      } catch (error) {
-        alert(error);
-      }
-    };
-    addPayedSolicitudes();
-  }
-
   function handlePayment() {
-    // const paymentHandler = window.ePayco.checkout.configure({
-    //   key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
-    //   test: true
-    // })
+    const paymentHandler = window.ePayco.checkout.configure({
+      key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
+      test: true
+    })
 
-    // paymentHandler.open({
-    //   external: 'false',
-    //   amount: '20000',
-    //   tax: '0',
-    //   tax_base: '0',
-    //   name: 'DroneService',
-    //   description: 'Pago de número telefónico en solicitud DroneService',
-    //   currency: 'cop',
-    //   country: 'CO',
-    //   lang: 'es',
-    //   invoice: '12345',
-    //   extra1: 'extra1',
-    //   response: `${process.env.REACT_APP_URL}/payment-response`,
-    //   autoclick: 'false',
-    //   name_billing: 'Simon Hoyos',
-    //   address_billing: 'Carrera 72 # 84 56',
-    //   type_doc_billing: 'cc',
-    //   mobilephone_billing: '3152375046',
-    //   number_doc_billing: '1600463789'
-    // })
-    handlePaymentAxios()
+    paymentHandler.open({
+      external: 'false',
+      amount: '20000',
+      tax: '0',
+      tax_base: '0',
+      name: 'DroneService',
+      description: 'Pago de número telefónico en solicitud DroneService',
+      currency: 'cop',
+      country: 'CO',
+      lang: 'es',
+      invoice: '12345',
+      response: `${process.env.REACT_APP_URL}/payment-response`,
+      autoclick: 'false',
+      name_billing: 'Simon Hoyos',
+      address_billing: 'Carrera 72 # 84 56',
+      type_doc_billing: 'cc',
+      mobilephone_billing: '3152375046',
+      number_doc_billing: '1600463789'
+    })
+
+    sessionStorage.setItem('solicitudeId', solicitudeId)
   }
 
   return <button onClick={handlePayment}>Pagar</button>
@@ -66,6 +48,26 @@ export function queryString(query) {
   return res
 }
 
+function handlePaymentAxios(x_cod_response) {
+  const pilotId = sessionStorage.getItem("userId")
+  const solicitudeId = sessionStorage.getItem('solicitudeId')
+
+  const addPayedSolicitudes = async () => {
+    try {
+      const result = await axios({
+        method: "put",
+        url: "http://localhost:8000/solicitudes/pagarSolicitud",
+        data: {solicitudeId, pilotId},
+        headers: {x_cod_response}
+      });
+      alert(result.data)
+    } catch (error) {
+      alert(error);
+    }
+  };
+  addPayedSolicitudes();
+}
+
 export function Response(props) {
   const { location } = props
   useEffect(() => {
@@ -75,8 +77,10 @@ export function Response(props) {
       method: 'GET',
       url: `https://api.secure.payco.co/validation/v1/reference/${ref_payco}`
     })
-      .then(({ data }) => console.log(data)) 
-
+      .then(({ data }) => {
+        console.log(data.data.x_cod_response)
+        return handlePaymentAxios(data.data.x_cod_response)
+      })
   }, [location])
 
   return <h1>Response</h1>

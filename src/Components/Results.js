@@ -19,7 +19,6 @@ function Results({ info }) {
             { info, pilotId }
           );
           setSolicitudesDb(result.data);
-          console.log(result.data)
         } catch (error) {
           alert(error);
         }
@@ -50,7 +49,6 @@ function Results({ info }) {
           ? solicitudesDb.map((element) => {
               return (
                 <div className="solicitude" key={element._id}>
-                  <h3>{element.client.name}</h3>
                   <p>{element.description}</p>
                   {element.images.map((image) => {
                     return (
