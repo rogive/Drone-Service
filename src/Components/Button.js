@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Button1 = styled(Link)`
     text-decoration: none;
+    margin: 10px;
     padding: 1rem 1.6rem;
     border-radius: 8px;
     font-family: 'Montserrat';
@@ -18,7 +19,7 @@ const Button1 = styled(Link)`
     }
 `
 
-function Button(props){
+function Button(props) {
     return (
         <Button1 onClick={props.onClick} to={props.linkto}>{props.title}</Button1>
     )

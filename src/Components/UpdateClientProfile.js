@@ -51,6 +51,7 @@ function UpdateClientProfile() {
       setClientDataDb(result.data);
       sessionStorage.setItem("userName", result.data.name);
       dispatch(setGlobalUser(result.data));
+      alert("Datos actualizados");
     } catch (error) {
       alert(error);
     }
@@ -261,7 +262,11 @@ function UpdateClientProfile() {
             value={unlockCityField ? clientDataDb.city : null}
             ref={register({ required: true })}
           >
-            {mapCities(currCities)}
+            {unlockCityField ? (
+              <option>{clientDataDb.city}</option>
+            ) : (
+              mapCities(currCities)
+            )}
           </select>
 
           <CreateIcon

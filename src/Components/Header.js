@@ -10,11 +10,20 @@ import { ActionProvider, MessageParser, config}  from './ChatBot/ChatBot';
 import { ConditionallyRender } from "react-util-kit";
 import droneboticon from "../img/dronebot-icon.png";
 import "./Header.css";
+import Modal from "./Modal";
+import LoginForm from "./LoginForm";
 
 const HeaderContainer = styled.div`
   padding: 10px 40px;
   display: flex;
   box-shadow: 0 1px 6px rgba(57, 73, 76, 0.35);
+`;
+
+const ModalContainer = styled.div`
+  height: 200px;
+  width: 200px;
+  border: none !important;
+  background-color: white;
 `;
 
 const HeaderLogoContainer = styled.div`
@@ -83,6 +92,7 @@ function Header() {
   const history = useHistory();
   const [showChatbot, toggleChatbot] = useState(false);
   const [showNotificationBot, toggleNotificationBot] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     dispatch(setGlobalUser({ name: sessionStorage.getItem("userName") }));
@@ -93,12 +103,17 @@ function Header() {
   const handleLogout = () => {
     sessionStorage.clear();
     dispatch(resetGlobalUser());
-    history.push("/login");
+    history.push("/");
   };
 
   const handleProfileRedirect = () => {
-    sessionStorage.getItem("userType") === "pilot"? history.push("/pilot-profile"): history.push("/client-profile")
-    
+    sessionStorage.getItem("userType") === "pilot"
+      ? history.push("/pilot-profile")
+      : history.push("/client-profile");
+  };
+
+  const hideModal = () => {
+    setShow(false);
   };
 
   return (
@@ -123,10 +138,13 @@ function Header() {
           </div>
         ) : (
           <div>
-            <StyledLink to="/login">Iniciar sesión</StyledLink>
+            <StyledLink to="" onClick={() => setShow(!show)}>
+              Iniciar sesión
+            </StyledLink>
           </div>
         )}
       </Session>
+
       <div className="chatbotcontainer">
         <ConditionallyRender
             ifTrue={showChatbot}
@@ -146,6 +164,9 @@ function Header() {
           <img src={droneboticon} alt="dronebot-icon"/>
         </div>
       </div>
+      <Modal show={show} handleClose={hideModal}>
+        <LoginForm handleClose={hideModal} />
+      </Modal>
     </HeaderContainer>
   );
 }
