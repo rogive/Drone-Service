@@ -110,7 +110,7 @@ class ActionProvider {
   
   handleRegister = () => {
     const message = this.createChatBotMessage(
-      "Genial, puedes ingresar aquí para realizar un registro. Solo recuerda que si eres piloto, debes ingresar en la segunda opción",
+      `Genial, aqui te dejo dos opciones de registro. \nLa primera corresponde a todo usuario que requiera un piloto para su servicio.\nLa segunda opción es para todo piloto que quiera ofrecer su servicio`,
       {
         widget: "registerLink",
       }

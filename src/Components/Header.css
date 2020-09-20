@@ -10,8 +10,19 @@
   border-radius: 5px;
 }
 
-.chatbotcontainer h2{
-  font-size:8rem;
+.chatbotcontainer span{
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+.react-chatbot-kit-user-chat-message{
+  font-size: 1.2rem;
+  background: #e3e8ed;
+  color: black;
+}
+
+.react-chatbot-kit-chat-input{
+  font-size: 1.2rem;
 }
 
 .chatbotbuttoncontainer{
