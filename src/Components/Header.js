@@ -1,15 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/Logo-Drone.png";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGlobalUser, setGlobalUser } from "../store";
+import Modal from "./Modal";
+import LoginForm from "./LoginForm";
 
 const HeaderContainer = styled.div`
   padding: 10px 40px;
   display: flex;
   box-shadow: 0 1px 6px rgba(57, 73, 76, 0.35);
+`;
+
+const ModalContainer = styled.div`
+  height: 200px;
+  width: 200px;
+  border: none !important;
+  background-color: white;
 `;
 
 const HeaderLogoContainer = styled.div`
@@ -76,6 +85,7 @@ function Header() {
   const dispatch = useDispatch();
   const pilotName = useSelector((state) => state.userName);
   const history = useHistory();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     dispatch(setGlobalUser({ name: sessionStorage.getItem("userName") }));
@@ -86,12 +96,17 @@ function Header() {
   const handleLogout = () => {
     sessionStorage.clear();
     dispatch(resetGlobalUser());
-    history.push("/login");
+    history.push("/");
   };
 
   const handleProfileRedirect = () => {
-    sessionStorage.getItem("userType") === "pilot"? history.push("/pilot-profile"): history.push("/client-profile")
-    
+    sessionStorage.getItem("userType") === "pilot"
+      ? history.push("/pilot-profile")
+      : history.push("/client-profile");
+  };
+
+  const hideModal = () => {
+    setShow(false);
   };
 
   return (
@@ -116,10 +131,16 @@ function Header() {
           </div>
         ) : (
           <div>
-            <StyledLink to="/login">Iniciar sesión</StyledLink>
+            <StyledLink to="" onClick={() => setShow(!show)}>
+              Iniciar sesión
+            </StyledLink>
           </div>
         )}
       </Session>
+
+      <Modal show={show} handleClose={hideModal}>
+        <LoginForm handleClose={hideModal} />
+      </Modal>
     </HeaderContainer>
   );
 }

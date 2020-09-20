@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import hero from '../img/drone-hero.jpg';
+import hero from '../img/Fondo.png';
 import Button from '../Components/Button';
 
 const CarouselContainer = styled.div`
@@ -15,9 +15,11 @@ const CarouselContainer = styled.div`
 const TextBox = styled.div`
   position: absolute;
   width: 40%;
+  padding: 20px;
   margin-left: 5%;  
-  margin-top: 14vh;
+  margin-top: 10vh;
   text-align: center;
+
 
   h1{
     text-transform: uppercase;
@@ -39,28 +41,27 @@ const TextBox = styled.div`
 `
 
 const ButtonContainer = styled.div`
+  margin : 0;
   display: flex;
-  flex-direction: column;
-  height: 25vh;
-  align-content: center;
-  justify-content: space-around;
+  /* align-content: center; */
+  /* justify-content: ; */
   padding: 0rem 8rem;
 `
 
-function Carousel(){
+function Carousel() {
 
-  return(
-      <CarouselContainer>
-        <TextBox>
-          <h1>Le damos <span>alas</span> a tus proyectos!!!</h1>
-          <p>Contamos con personal experimentado y calificado y estamos listos 
+  return (
+    <CarouselContainer>
+      <TextBox>
+        <h1>Le damos <span>alas</span> a tus proyectos!!!</h1>
+        <p>Contamos con personal experimentado y calificado y estamos listos
              para poner tus ideas en el cielo.</p>
-          <ButtonContainer>
-            <Button onClick={() => sessionStorage.setItem('userType', 'client')} title={"Quiero encontrar un piloto"} linkto={"/user-registry"} />
-            <Button onClick={() => sessionStorage.setItem('userType', 'pilot')} title={"Quiero prestar mi servicio"} linkto={"/user-registry"}/>
-          </ButtonContainer>
-        </TextBox>
-      </CarouselContainer>
+        <ButtonContainer>
+          <Button onClick={() => sessionStorage.setItem('userType', 'client')} title={"Quiero encontrar un piloto"} linkto={"/user-registry"} />
+          <Button onClick={() => sessionStorage.setItem('userType', 'pilot')} title={"Quiero prestar mi servicio"} linkto={"/user-registry"} />
+        </ButtonContainer>
+      </TextBox>
+    </CarouselContainer>
   )
 }
 
