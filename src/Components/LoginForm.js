@@ -22,7 +22,7 @@ const LoginForm = ({ handleClose }) => {
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("userName", data.pilot.name);
         sessionStorage.setItem("userType", data.pilot.userType);
-
+        handleClose();
         history.push("/pilot-profile");
         dispatch(setGlobalUser(data.pilot));
       })
