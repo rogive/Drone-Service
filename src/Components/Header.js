@@ -5,6 +5,11 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGlobalUser, setGlobalUser } from "../store";
+import Chatbot from 'react-chatbot-kit';
+import { ActionProvider, MessageParser, config}  from './ChatBot/ChatBot';
+import { ConditionallyRender } from "react-util-kit";
+import droneboticon from "../img/dronebot-icon.png";
+import "./Header.css";
 import Modal from "./Modal";
 import LoginForm from "./LoginForm";
 
@@ -85,6 +90,8 @@ function Header() {
   const dispatch = useDispatch();
   const pilotName = useSelector((state) => state.userName);
   const history = useHistory();
+  const [showChatbot, toggleChatbot] = useState(false);
+  const [showNotificationBot, toggleNotificationBot] = useState(true);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -137,7 +144,25 @@ function Header() {
           </div>
         )}
       </Session>
-
+      <div className="chatbotcontainer">
+        <ConditionallyRender
+            ifTrue={showChatbot}
+            show={
+              <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser}/>
+            }
+        />
+      </div>
+      <div className="chatbotbuttoncontainer">
+        <div className={showNotificationBot ? "chatbotnotification" : "chatbotnotification-hidden"}> 1 </div>
+        <div className="chatbotbutton" 
+             onClick={() => {
+               toggleChatbot((prev) => !prev)
+               toggleNotificationBot(false)
+             }}
+        >
+          <img src={droneboticon} alt="dronebot-icon"/>
+        </div>
+      </div>
       <Modal show={show} handleClose={hideModal}>
         <LoginForm handleClose={hideModal} />
       </Modal>
