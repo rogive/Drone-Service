@@ -6,9 +6,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGlobalUser, setGlobalUser } from "../store";
 import Chatbot from 'react-chatbot-kit';
-import { ActionProvider, MessageParser, config}  from './ChatBot';
+import { ActionProvider, MessageParser, config}  from './ChatBot/ChatBot';
 import { ConditionallyRender } from "react-util-kit";
 import droneboticon from "../img/dronebot-icon.png";
+import "./Header.css";
 
 const HeaderContainer = styled.div`
   padding: 10px 40px;
@@ -76,43 +77,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Chatbotcontainer = styled.div`
-  height: 40rem;
-  margin: 30px 0;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  right: 40px;
-  bottom: 40px;
-  z-index: 1;
-  box-shadow: 5px 5px 13px rgba(91, 81, 81, 0.4);
-  border-radius: 5px;
-`;
-
-const Chatbotbutton = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  background-color: #1f3646;
-  border: none;
-  position: fixed;
-  bottom: 15px;
-  z-index: 9999;
-  right: 40px;
-  img{
-    width: 50px;
-    height: 50px;
-    fill: #fff;
-    filter: brightness(0) invert(1);
-  }
-`;
-
-
 function Header() {
   const dispatch = useDispatch();
   const pilotName = useSelector((state) => state.userName);
   const history = useHistory();
   const [showChatbot, toggleChatbot] = useState(false);
+  const [showNotificationBot, toggleNotificationBot] = useState(true);
 
   useEffect(() => {
     dispatch(setGlobalUser({ name: sessionStorage.getItem("userName") }));
@@ -157,17 +127,25 @@ function Header() {
           </div>
         )}
       </Session>
-      <Chatbotcontainer>
+      <div className="chatbotcontainer">
         <ConditionallyRender
             ifTrue={showChatbot}
             show={
               <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser}/>
             }
         />
-      </Chatbotcontainer>
-      <Chatbotbutton onClick={() => toggleChatbot((prev) => !prev)}>
-        <img src={droneboticon}/>
-      </Chatbotbutton>
+      </div>
+      <div className="chatbotbuttoncontainer">
+        <div className={showNotificationBot ? "chatbotnotification" : "chatbotnotification-hidden"}> 1 </div>
+        <div className="chatbotbutton" 
+             onClick={() => {
+               toggleChatbot((prev) => !prev)
+               toggleNotificationBot(false)
+             }}
+        >
+          <img src={droneboticon} alt="dronebot-icon"/>
+        </div>
+      </div>
     </HeaderContainer>
   );
 }
