@@ -4,10 +4,10 @@ import "./UserProfile.css";
 import { useForm } from "react-hook-form";
 import Departments from "../data/deparments.json";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setGlobalUser } from "../store";
 
-function UpdateUserProfile() {
+function UserProfile() {
   const dispatch = useDispatch();
   const [unlockNameField, setUnlockNameField] = useState(true);
   const [unlockLastnameField, setUnlockLastnameField] = useState(true);
@@ -31,10 +31,11 @@ function UpdateUserProfile() {
       try {
         const result = await axios.get(
           `http://localhost:8000/${userType}/listar/${userId}`
-        );
-        (userType === "client" ?  
-        setUserDataDb(result.data.client) :
-        setUserDataDb(result.data.pilot) )
+          );
+          (userType === "client" ?  
+          setUserDataDb(result.data.client) :
+          setUserDataDb(result.data.pilot))
+
       } catch (error) {
         alert(error);
       }
@@ -43,7 +44,6 @@ function UpdateUserProfile() {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(userDataDb)
     const userId = sessionStorage.getItem("userId");
     const userType = sessionStorage.getItem("userType");
     try {
@@ -56,6 +56,7 @@ function UpdateUserProfile() {
       setUserDataDb(result.data);
       sessionStorage.setItem("userName", result.data.name);
       dispatch(setGlobalUser(result.data));
+      alert("Datos actualizados");
     } catch (error) {
       alert(error);
     }
@@ -266,7 +267,11 @@ function UpdateUserProfile() {
             value={unlockCityField ? userDataDb.city : null}
             ref={register({ required: true })}
           >
-            {mapCities(currCities)}
+            {unlockCityField ? (
+              <option>{userDataDb.city}</option>
+            ) : (
+              mapCities(currCities)
+            )}
           </select>
 
           <CreateIcon
@@ -286,4 +291,4 @@ function UpdateUserProfile() {
   );
 }
 
-export default UpdateUserProfile;
+export default UserProfile;
