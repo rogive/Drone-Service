@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { storage } from '../firebase';
 import axios from 'axios';
+import FileButton from './FileButton'
 
 const IconContainer = styled.div`
   width: 100%;
   text-align:center;
   padding-top: 3rem;
   img{
-    width: 15vw;
-    height: 15vw;
+    width: 15rem;
+    height: 15rem;
     border-radius: 3rem;
     filter: grayscale(100%);
   }
@@ -38,19 +39,17 @@ const PortfolioImageContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  justify-content: space-between;
   width: 100%;
 `
 
 const ImageContainer = styled.div`
-  width: 17%;
   border-radius: 1rem;
-  margin: 1rem;
   img{
-    width: 10vw;
-    height: 10vw;
+    width: 12rem;
+    height: 12rem;
     border-radius: 3rem;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
   }
 `
 
@@ -73,6 +72,7 @@ function Portfolios() {
   const [selectedFile, setSelectfile] = useState(null)
   const [error, setError] = useState(null)
   const [progress, setProgress] = useState(0);
+  const [urlImage, setUrlImage] = useState('')
 
   useEffect( () => {
     axios({
@@ -130,27 +130,7 @@ function Portfolios() {
             pequeños videos que le den una idea de tu calidad al cliente.
         </p>
         <AttachContainer>
-          <form onSubmit={handleSubmit}>
-            <div className="bar-update">
-              { progress > 0 ?
-                <progress value={progress} max="100">
-                </progress> 
-                :
-                <br/>
-              }
-            </div>
-            <fieldset>
-              <label>
-                <input htmlFor="file"
-                        type="file"
-                        id="file"
-                        accept="image/*"
-                        onChange={handleChange}/>
-              </label>
-              <br/>
-            </fieldset>
-            <button type="submit">Submit</button>
-          </form>
+          <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
         </AttachContainer>
         <PortfolioImageContainer>
           <PortfoliosComponent portfolios = {portfolios}/>

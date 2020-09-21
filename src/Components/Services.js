@@ -3,31 +3,31 @@ import styled from 'styled-components';
 import ServicesList from '../data/categories.json';
 import axios from 'axios';
 
-const DocumentsContainer = styled.div`
+const ServicesContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   width: 9.5vw;
   height: 30vh;
-  border: 1px solid black;
-  background-color: #66b2ff;
+  background-color: rgb(0, 23, 105);
   color: black;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   align-items: center;
   margin: 1rem;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   .element{
     font-size: 0.8vw;
     font-style: italic;
     text-align: center;
     margin-bottom: 1rem;
+    color: white;
   }
   img{
     margin: 1rem;
     width: 8vw;
     height: 8vw;
-    border-radius: 3rem;
-    border: 1px solid black;
+    border-radius: 1rem;
   }
 `
 
@@ -53,8 +53,11 @@ const IconContainer = styled.div`
 `
 
 const AttachContainer = styled.div`
+  display: flex;
+  justify-content: left;
   padding-top:2rem;
   padding-bottom:2rem;
+
 `
 
 const ComponentContainer = styled.div`
@@ -73,10 +76,10 @@ function ServicesComponent({
 }) {
   return services.map((service) => {
     return(
-      <DocumentsContainer>
+      <ServicesContainer>
         <img src={service.url} alt="miniatura"></img>
         <p className="element">{service.name}</p>
-      </DocumentsContainer>
+      </ServicesContainer>
 
     );
     });
@@ -133,7 +136,6 @@ function Services() {
         </p>
         <AttachContainer>
         <form onSubmit={handleSubmit}>
-          <fieldset>
             <label>
               <select name="services" onChange={handleChange}>
                 <option value="Capacitación">Capacitación</option> 
@@ -147,8 +149,6 @@ function Services() {
                 <option value="Agricultura de Precisión">Agricultura de Precisión</option>
               </select>
             </label>
-            <br/>
-          </fieldset>
           <button type="submit">Submit</button>
         </form>
         </AttachContainer>

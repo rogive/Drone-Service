@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-
+import FileButton from './FileButton'
 
 const DocumentsContainer = styled.div`
   width: 100%;
@@ -57,50 +57,62 @@ function OthersComponent({
   });
   
 }
-  
-class Others extends React.Component{
-  state = {
-    others: [],
-    name: "",
+
+function Others() {
+  const [certificates, setCertificates] = useState([])
+  const [name, setName] = useState('')
+  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
+  const [urlDocument, setUrlDocument] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [error, setError] = useState(null)
+
+  function handleChange(event) {
+    if(!event.target.files[0]) return
+    setSelectedFile(event.target.files[0])
+    setName(event.target.files[0].name)
   }
 
-  handleChange = (event) => {
-    this.setState({ name: event.target.value})
-  }
-
-  handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-    const newOther = { name: this.state.name}
-    this.setState({
-      others: this.state.others.concat(newOther)
-    })
+  /*  const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
+  
+       uploadDocument.on('state_changed', 
+        (snap) => {}, 
+        (error) => {alert(error)},
+        () => {
+          storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
+            setUrlDocument(url)
+            axios({
+              url: 'http://localhost:8000/certificados/crear',
+              method: 'POST',
+              data: {
+                pilotId: pilotId,
+                name: name,
+                url: url,
+                type: "document"
+              }
+            }).then(({ data }) => setCertificates( certificates.concat(data) ))
+            .catch((error) => setError(error));
+          });
+        }
+      ) */
   }
 
-  render(){
-    return(
-      <ComponentContainer>
-        <h2>Otros</h2>
-        <IconContainer>
-          <img src="https://cdn3.iconfinder.com/data/icons/election-world-1/64/senate-congress-government-senator-political-512.png" alt="Hola"></img>
-        </IconContainer>
-        <p>Este espacio corresponde a otros tipos de certificados generado en
-            la asistencia de eventos, congresos, seminarios o conferencias.
-        </p>
-        <AttachContainer>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <label>
-              <input type="file" ref={this.fileInput} onChange={this.handleChange}/>
-            </label>
-            <br/>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-        </AttachContainer>
-        <OthersComponent others = {this.state.others}/>
-      </ComponentContainer>
-    )
-  }
+  return(
+    <ComponentContainer>
+      <h2>Otros</h2>
+      <IconContainer>
+        <img src="https://cdn3.iconfinder.com/data/icons/election-world-1/64/senate-congress-government-senator-political-512.png" alt="Hola"></img>
+      </IconContainer>
+      <p>Este espacio corresponde a otros tipos de certificados generado en
+          la asistencia de eventos, congresos, seminarios o conferencias.
+      </p>
+      <AttachContainer>
+      <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+      </AttachContainer>
+      <OthersComponent others = {certificates}/>
+    </ComponentContainer>
+  )
 }
 
 export default Others

@@ -27,6 +27,8 @@ const IconContainer = styled.div`
 `
 
 const AttachContainer = styled.div`
+  display: flex;
+  justify-content: left;
   padding-top:2rem;
   padding-bottom:2rem;
 `
@@ -87,12 +89,9 @@ class Equipments extends React.Component{
         </p>
         <AttachContainer>
         <form onSubmit={this.handleSubmit}>
-          <fieldset>
             <label>
               <input type="text" onChange={this.handleChange}/>
             </label>
-            <br/>
-          </fieldset>
           <button type="submit">Submit</button>
         </form>
         </AttachContainer>

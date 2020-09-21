@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-
+import FileButton from './FileButton'
 
 const DocumentsContainer = styled.div`
   width: 100%;
@@ -59,49 +59,61 @@ function FlightLogsAppComponent({
   
   }
   
-class FlightLogsApp extends React.Component{
-  state = {
-    flightlogsApp: [],
-    name: ""
-  }
+function FlightLogsApp() {
+const [certificates, setCertificates] = useState([])
+const [name, setName] = useState('')
+const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
+const [urlDocument, setUrlDocument] = useState('')
+const [selectedFile, setSelectedFile] = useState(null)
+const [error, setError] = useState(null)
 
-  handleChange = (event) => {
-    this.setState({ name: event.target.value})
-  }
+function handleChange(event) {
+  if(!event.target.files[0]) return
+  setSelectedFile(event.target.files[0])
+  setName(event.target.files[0].name)
+}
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const newFlightLogApp = { name: this.state.name}
-    this.setState({
-      flightlogsApp: this.state.flightlogsApp.concat(newFlightLogApp)
-    })
-  }
+function handleSubmit(event) {
+  event.preventDefault();
+/*  const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
 
-  render(){
-    return(
-      <ComponentContainer>
-        <h2>Horas de Vuelo por Aplicación</h2>
-        <IconContainer>
-          <img src="https://cdn4.iconfinder.com/data/icons/web-mobile-round1/210/Untitled-35-512.png" alt="Hola"></img>
-        </IconContainer>
-        <p>Este espacio corresponde a las horas de vuelo que se registran
-            en las diferentes aplicaciones para operaciones Drone. 
-        </p>
-        <AttachContainer>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <label>
-              <input type="file" ref={this.fileInput} onChange={this.handleChange}/>
-            </label>
-            <br/>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-        </AttachContainer>
-        <FlightLogsAppComponent flightlogsApp = {this.state.flightlogsApp}/>
-      </ComponentContainer>
-    )
-  }
+     uploadDocument.on('state_changed', 
+      (snap) => {}, 
+      (error) => {alert(error)},
+      () => {
+        storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
+          setUrlDocument(url)
+          axios({
+            url: 'http://localhost:8000/certificados/crear',
+            method: 'POST',
+            data: {
+              pilotId: pilotId,
+              name: name,
+              url: url,
+              type: "document"
+            }
+          }).then(({ data }) => setCertificates( certificates.concat(data) ))
+          .catch((error) => setError(error));
+        });
+      }
+    ) */
+}
+
+  return(
+    <ComponentContainer>
+      <h2>Horas de Vuelo por Aplicación</h2>
+      <IconContainer>
+        <img src="https://cdn4.iconfinder.com/data/icons/web-mobile-round1/210/Untitled-35-512.png" alt="Hola"></img>
+      </IconContainer>
+      <p>Este espacio corresponde a las horas de vuelo que se registran
+          en las diferentes aplicaciones para operaciones Drone. 
+      </p>
+      <AttachContainer>
+        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+      </AttachContainer>
+      <FlightLogsAppComponent flightlogsApp = {certificates}/>
+    </ComponentContainer>
+  )
 }
 
 export default FlightLogsApp

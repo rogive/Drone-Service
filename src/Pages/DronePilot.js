@@ -21,7 +21,7 @@ const MainContainer = styled.div`
     color: white;
     .MyProfile{
       padding: 2rem;
-      font-size: 1.5vw;
+      font-size: 2rem;
     }
   }  
 `

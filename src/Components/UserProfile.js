@@ -46,8 +46,6 @@ function UserProfile() {
 
   const onSubmit = async (data) => {
     const userId = sessionStorage.getItem("userId");
-    console.log("Esta data se envia:");
-    console.dir(data);
     try {
       const result = await axios.put(
         `http://localhost:8000/${userType}/actualizar/${userId}`,
@@ -56,7 +54,6 @@ function UserProfile() {
         }
       );
       setUserDataDb(result.data);
-      console.log(result.data);
       sessionStorage.setItem("userName", result.data.name);
       dispatch(setGlobalUser(result.data));
       alert("Datos actualizados");
