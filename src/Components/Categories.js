@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import categories from "../data/categories.json";
 import "./Categories.css";
 
 const Categories = ({ categorieHandleChange }) => {
   return (
     <div className="categories">
-      <h3>Categorias</h3>
+      <h3>Servicios</h3>
       {categories.map((categorie) => {
         return (
           <div className="categorie">

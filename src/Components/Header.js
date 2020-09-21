@@ -12,6 +12,8 @@ import droneboticon from "../img/dronebot-icon.png";
 import "./Header.css";
 import Modal from "./Modal";
 import LoginForm from "./LoginForm";
+import "./Header.css";
+import avatar from "../img/img_avatar.png";
 
 const HeaderContainer = styled.div`
   padding: 10px 40px;
@@ -119,7 +121,9 @@ function Header() {
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
-        <img width="100px" src={logo} alt="logo_drone_services" />
+        <Link to="/">
+          <img width="100px" src={logo} alt="logo_drone_services" />
+        </Link>
       </HeaderLogoContainer>
       <Ulist>
         <StyledLink to="/">Home</StyledLink>
@@ -131,12 +135,31 @@ function Header() {
 
       <Session>
         {pilotName ? (
-          <div>
-            <h1>{pilotName}</h1>
-            <button onClick={handleLogout}>Cerrar sesión</button>
-            <button onClick={handleProfileRedirect}>Mi perfil</button>
+          <div className="dropmenu">
+            <nav role="navigation">
+              <ul>
+                <li>
+                  <a href="#">
+                    <img src={avatar} alt="Avatar" class="avatar" />
+                  </a>
+                  <ul class="dropdown">
+                    <li>
+                      <a onClick={handleProfileRedirect}>Mi perfil</a>
+                    </li>
+                    <li>
+                      <a onClick={handleLogout}>Cerrar sesión</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
           </div>
         ) : (
+          // <div>
+          //   <h1>{pilotName}</h1>
+          //   <button onClick={handleLogout}>Cerrar sesión</button>
+          //   <button onClick={handleProfileRedirect}>Mi perfil</button>
+          // </div>
           <div>
             <StyledLink to="" onClick={() => setShow(!show)}>
               Iniciar sesión
