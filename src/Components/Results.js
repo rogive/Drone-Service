@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Results.css";
+import { Payment } from "./Payment"
 
 import NewModal from "./NewModal";
 import PilotCard from "./PilotCard";
@@ -11,6 +12,7 @@ function Results({ info }) {
   const [solicitudesDb, setSolicitudesDb] = useState([]);
   const [modelToggle, setModelToggle] = useState(false);
   const [pilotCard, setPilotCard] = useState("");
+  const pilotId = sessionStorage.getItem("userId");
 
   useEffect(() => {
     if (userType === "pilot") {
@@ -19,7 +21,7 @@ function Results({ info }) {
         try {
           const result = await axios.post(
             "http://localhost:8000/solicitudes/filtrar",
-            { info }
+            { info, pilotId }
           );
           setSolicitudesDb(result.data);
         } catch (error) {
@@ -56,8 +58,7 @@ function Results({ info }) {
           ? solicitudesDb.map((element) => {
               return (
                 <div className="solicitude" key={element._id}>
-                  <h3>{element.client.name}</h3>
-                  <p>lorem</p>
+                  <p>{element.description}</p>
                   {element.images.map((image) => {
                     return (
                       <img
@@ -67,6 +68,8 @@ function Results({ info }) {
                       />
                     );
                   })}
+                  {element.phone.includes("X")?<Payment element={element}/>:null}
+                  <p>{`Teléfono: ${element.phone}`}</p>
                 </div>
               );
             })
@@ -74,7 +77,7 @@ function Results({ info }) {
         : pilotsDb
         ? pilotsDb.map((element) => {
             return (
-              // <div className="pilot-list-container">
+/*               // <div className="pilot-list-container">
               //   <h1>{element.name}</h1>
               //   <div>
               //     {element.media.map((image, index) => {
@@ -89,7 +92,7 @@ function Results({ info }) {
               //       }
               //     })}
               //   </div>
-              // </div>
+              // </div> */
               <div className="solicitude" key={element._id}>
                 <div>
                   {element.media.map((image, index) => {
