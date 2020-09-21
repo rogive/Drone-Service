@@ -85,12 +85,16 @@ function UserProfile() {
   return (
     <div>
       { sessionStorage.getItem("userType") === "client" && (<h2>Tu perfil</h2>)}
-      <img
-        className="image-profile"
-        width="100px"
-        src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
-        alt="profile-pic"
-      />
+      <div className="imageprofilecontainer">
+        <img
+          className="image-profile"
+          width="100px"
+          src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
+          alt="profile-pic"
+        />
+        <label></label>
+        <textarea className="description-input"/>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="fieldSet">
           <label>Nombre</label>
