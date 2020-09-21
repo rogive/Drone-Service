@@ -5,7 +5,10 @@ function Modal({ handleClose, show, children }) {
   useEffect(() => {
     let modal = document.getElementById("modal");
     window.onclick = function (event) {
-      if (event.target == modal) handleClose();
+      if (event.target == modal) {
+        console.log("entre aqui");
+        handleClose();
+      }
     };
   }, []);
 
