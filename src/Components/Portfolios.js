@@ -45,6 +45,7 @@ const PortfolioImageContainer = styled.div`
 
 const ImageContainer = styled.div`
   border-radius: 1rem;
+  margin-top: 2rem;
   img{
     width: 12rem;
     height: 12rem;

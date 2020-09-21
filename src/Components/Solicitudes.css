@@ -1,5 +1,6 @@
 .fullcontainer {
   width: 100%;
+  height: 85rem;
   display: flex;
   justify-content: center;
   align-items: center;

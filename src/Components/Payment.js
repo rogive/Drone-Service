@@ -82,7 +82,6 @@ export function Response(props) {
         return handlePaymentAxios(data.data.x_cod_response)
       })
   }, [location])
-
-  return <h1>Response</h1>
+  return <span></span>
 }
 
