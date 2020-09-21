@@ -6,13 +6,21 @@ import SelectorDP from '../Components/SelectorDP';
 const MainContainer = styled.div`
   padding-top: 1rem;
   .TitleDP{
-    margin: 0vw;
-    width: 100%;
-    border-style: solid;
-    border-color: #f2f2f2;
-    border-width: 2px;
+    border: 1px solid gray;
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(0, 23, 105);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 23, 105, 1) 0%,
+      rgba(0, 17, 78, 1) 52%,
+      rgba(0, 23, 105, 1) 100%
+    );
+    color: white;
     .MyProfile{
-      margin: 2rem;
+      padding: 2rem;
       font-size: 1.5vw;
     }
   }  

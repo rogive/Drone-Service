@@ -1,3 +1,74 @@
+.profiletopcontainerclient {
+  display: flex;
+  justify-content: center;
+}
+
+.profiletopcontainerpilot {
+  display: flex;
+  margin: 10px;
+}
+
+.image-profile-client{
+  display: flex;
+}
+
+.image-profile-pilot{
+  display: flex;
+}
+
+.image-profile-box-client{
+  display: flex;
+}
+
+.image-profile-box-pilot{
+  display: flex;
+  width: 25%;
+  justify-content: center;
+}
+
+.description-container{
+  display: flex;
+  width: 75%;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.description-icon-box{
+  display: flex;
+  justify-content: space-between;
+}
+
+.field-description {
+  width: 80%;
+  height: 5rem;
+  border: none;
+  border: 1px lightgray solid;
+  padding: 5px;
+  transition: 0.5s;
+  resize: none;
+}
+
+.unlock__field-description {
+  width: 80%;
+  height: 5rem;
+  padding: 5px;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  border: none;
+  border: 2px solid rgba(10, 10, 200, 1);
+  transition: 0.5s;
+  resize: none;
+}
+
+.description-label{
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.title-profile{
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
 .fieldSet {
   display: flex;
   justify-content: space-between;
@@ -6,7 +77,8 @@
 }
 
 .fieldSet label {
-  width: 20%;
+  width: 25%;
+  font-size: 1.2rem;
 }
 
 .fieldSet input {
@@ -28,7 +100,20 @@
   transition: 0.5s;
 }
 
+.input-icon{
+  width: 15%;
+}
+
+
+.input-icon-description{
+  width: 20%;
+}
+
 .unlock__iconField {
+  color: rgba(10, 10, 200, 1);
+}
+
+.unlock__iconField-description {
   color: rgba(10, 10, 200, 1);
 }
 

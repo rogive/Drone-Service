@@ -33,10 +33,13 @@ const AttachContainer = styled.div`
 `
 
 const ComponentContainer = styled.div`
-  font-size: 1.1vw;
   p{
     padding-top: 2rem;
-    justify-content: space-between;
+    text-align: justify;
+    font-size: 1.2rem;
+  }
+  h2{
+    font-size: 2rem;
   }
 `
 

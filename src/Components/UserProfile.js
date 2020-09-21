@@ -11,6 +11,7 @@ function UserProfile() {
   const dispatch = useDispatch();
   const [unlockNameField, setUnlockNameField] = useState(true);
   const [unlockLastnameField, setUnlockLastnameField] = useState(true);
+  const [unlockDescriptionField, setUnlockDescriptionField] = useState(true);
   const [unlockEmailField, setUnlockEmailField] = useState(true);
   const [unlockPasswordField, setUnlockPasswordField] = useState(true);
   const [unlockPhoneField, setUnlockPhoneField] = useState(true);
@@ -23,11 +24,11 @@ function UserProfile() {
   );
   const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/;
+  const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
     const getUserData = async () => {
       const userId = sessionStorage.getItem("userId");
-      const userType = sessionStorage.getItem("userType");
       try {
         const result = await axios.get(
           `http://localhost:8000/${userType}/listar/${userId}`
@@ -45,7 +46,8 @@ function UserProfile() {
 
   const onSubmit = async (data) => {
     const userId = sessionStorage.getItem("userId");
-    const userType = sessionStorage.getItem("userType");
+    console.log("Esta data se envia:");
+    console.dir(data);
     try {
       const result = await axios.put(
         `http://localhost:8000/${userType}/actualizar/${userId}`,
@@ -54,6 +56,7 @@ function UserProfile() {
         }
       );
       setUserDataDb(result.data);
+      console.log(result.data);
       sessionStorage.setItem("userName", result.data.name);
       dispatch(setGlobalUser(result.data));
       alert("Datos actualizados");
@@ -84,16 +87,48 @@ function UserProfile() {
 
   return (
     <div>
-      { sessionStorage.getItem("userType") === "client" && (<h2>Tu perfil</h2>)}
-      <div className="imageprofilecontainer">
-        <img
-          className="image-profile"
-          width="100px"
-          src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
-          alt="profile-pic"
-        />
-        <label></label>
-        <textarea className="description-input"/>
+      { userType === "client" ? (<h2>Tu perfil</h2>) : <h2 className="title-profile">Perfil</h2>}
+      <div className={userType === "client" ? "profiletopcontainerclient" : "profiletopcontainerpilot"}>
+        <div className={ userType === "client" ? "image-profile-box-client" : "image-profile-box-pilot"}>
+          <img
+            className={ userType === "client" ? "image-profile-client" : "image-profile-pilot"}
+            width="100px"
+            src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
+            alt="profile-pic"
+          />
+        </div>
+        {userType === "client" ?
+          <span></span> :
+          <div className="description-container">
+            <label className="description-label">Acerca de</label>
+            <div className="description-icon-box">
+              <textarea className={unlockDescriptionField ? "field-description" : "unlock__field-description"}
+                        id="descriptionpilot"
+                        value={unlockDescriptionField ? userDataDb.description : null}
+                        readOnly={unlockDescriptionField}
+                        name="description"
+                        ref={register({
+                          required: {
+                            value: false
+                          },
+                        })}
+              />
+              <div className="input-icon-description">
+                <CreateIcon
+                  className={unlockDescriptionField || "unlock__iconField-description"}
+                  onClick={(event) => {
+                    if (unlockDescriptionField) {
+                      setUnlockDescriptionField(false);
+                    } else {
+                      setUnlockDescriptionField(true);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="fieldSet">
@@ -112,16 +147,18 @@ function UserProfile() {
             readOnly={unlockNameField}
             className={unlockNameField ? "field" : "unlock__field"}
           />
-          <CreateIcon
-            className={unlockNameField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockNameField) {
-                setUnlockNameField(false);
-              } else {
-                setUnlockNameField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockNameField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockNameField) {
+                  setUnlockNameField(false);
+                } else {
+                  setUnlockNameField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>Apellido</label>
@@ -137,16 +174,18 @@ function UserProfile() {
               },
             })}
           />
-          <CreateIcon
-            className={unlockLastnameField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockLastnameField) {
-                setUnlockLastnameField(false);
-              } else {
-                setUnlockLastnameField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockLastnameField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockLastnameField) {
+                  setUnlockLastnameField(false);
+                } else {
+                  setUnlockLastnameField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>E-mail</label>
@@ -165,16 +204,18 @@ function UserProfile() {
               pattern: { value: emailRegexp, message: "E-mail inválido" },
             })}
           />
-          <CreateIcon
-            className={unlockEmailField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockEmailField) {
-                setUnlockEmailField(false);
-              } else {
-                setUnlockEmailField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockEmailField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockEmailField) {
+                  setUnlockEmailField(false);
+                } else {
+                  setUnlockEmailField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>Contraseña</label>
@@ -190,16 +231,18 @@ function UserProfile() {
               },
             })}
           />
-          <CreateIcon
-            className={unlockPasswordField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockPasswordField) {
-                setUnlockPasswordField(false);
-              } else {
-                setUnlockPasswordField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockPasswordField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockPasswordField) {
+                  setUnlockPasswordField(false);
+                } else {
+                  setUnlockPasswordField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>Celular</label>
@@ -221,16 +264,18 @@ function UserProfile() {
             readOnly={unlockPhoneField}
             className={unlockPhoneField ? "field" : "unlock__field"}
           />
-          <CreateIcon
-            className={unlockPhoneField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockPhoneField) {
-                setUnlockPhoneField(false);
-              } else {
-                setUnlockPhoneField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockPhoneField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockPhoneField) {
+                  setUnlockPhoneField(false);
+                } else {
+                  setUnlockPhoneField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>Departamento</label>
@@ -251,16 +296,18 @@ function UserProfile() {
           >
             {mapDepartments(Departments)}
           </select>
-          <CreateIcon
-            className={unlockDepartmentField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockDepartmentField) {
-                setUnlockDepartmentField(false);
-              } else {
-                setUnlockDepartmentField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockDepartmentField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockDepartmentField) {
+                  setUnlockDepartmentField(false);
+                } else {
+                  setUnlockDepartmentField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="fieldSet">
           <label>Ciudad</label>
@@ -279,16 +326,18 @@ function UserProfile() {
             )}
           </select>
 
-          <CreateIcon
-            className={unlockCityField || "unlock__iconField"}
-            onClick={(event) => {
-              if (unlockCityField) {
-                setUnlockCityField(false);
-              } else {
-                setUnlockCityField(true);
-              }
-            }}
-          />
+          <div className="input-icon">
+            <CreateIcon
+              className={unlockCityField || "unlock__iconField"}
+              onClick={(event) => {
+                if (unlockCityField) {
+                  setUnlockCityField(false);
+                } else {
+                  setUnlockCityField(true);
+                }
+              }}
+            />
+          </div>
         </div>
         <button className="update__button">Actualizar datos</button>
       </form>

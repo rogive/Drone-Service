@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { storage } from '../firebase';
 import axios from 'axios';
+import "./Certificates.css"
 
 const DocumentsContainer = styled.div`
   width: 100%;
@@ -47,10 +48,12 @@ const AttachContainer = styled.div`
 const ComponentContainer = styled.div`
   font-size: 1.1vw;
   h2{
+    font-size: 2rem;
   }
   .description{
     padding-top: 2rem;
-    justify-content: space-between;
+    text-align: justify;
+    font-size: 1.2rem;
   }
 `
 
@@ -133,15 +136,44 @@ function Certificates() {
         en algun área específica.
       </p>
       <AttachContainer>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <label>
-            <input type="file" onChange={handleChange}/>
-          </label>
-          <br/>
-        </fieldset>
-        <button type="submit">Submit</button>
-      </form>
+        <form onSubmit={handleSubmit}>
+  {/*         <fieldset>
+            <label>
+              <input type="file" onChange={handleChange}/>
+            </label>
+            <br/>
+          </fieldset>
+          <button type="submit">Submit</button> */}
+            <div className="fullcontaineruploadimage">
+              <div className="boxlabelnameimage">
+                <label htmlFor="inputfile"
+                        className="labelnameimage">{ name || "Adjuntar imagen"}
+                </label>
+              </div>
+              <div className="boxbuttonsimagecertificate">
+                <input type="file"
+                    id="inputfile"
+                    name="inputfile"
+                    onChange={handleChange}
+                    className="inputfile"
+                    style={{display: 'none'}}
+                    />
+                <label 
+                    htmlFor="inputfile" 
+                    className="labelbuttonaddimagecertificate"
+                    >Abrir</label>
+                <button type="button"
+                        id="buttonuploadimagecertificate"
+                        name="buttonuploadimagecertificate"
+                        className="buttonuploadimagecertificate" 
+                        onClick={handleSubmit}
+                        >subir</button>
+                <label htmlFor="buttonuploadimagecertificate" 
+                      className="labelbuttonuploadimagecertificate"
+                      >Cargar</label>
+              </div>
+            </div>
+        </form>
       </AttachContainer>
       <CertificatesComponent certificates = {certificates}/>
     </ComponentContainer>
