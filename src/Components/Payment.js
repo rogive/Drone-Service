@@ -23,11 +23,11 @@ export function Payment(props) {
       invoice: '12345',
       response: `${process.env.REACT_APP_URL}/payment-response`,
       autoclick: 'false',
-      name_billing: 'Simon Hoyos',
+      name_billing: '',
       address_billing: 'Carrera 72 # 84 56',
       type_doc_billing: 'cc',
       mobilephone_billing: '3152375046',
-      number_doc_billing: '1600463789'
+      number_doc_billing: ''
     })
 
     sessionStorage.setItem('solicitudeId', solicitudeId)

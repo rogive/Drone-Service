@@ -1,0 +1,18 @@
+.solicitude-historial{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  margin: 2px;
+}
+
+.image__solicitude__clientProfile__historial{
+  width: 10rem;
+  object-fit: cover;
+  margin: 1rem;
+}
+
+.image-container-historial{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

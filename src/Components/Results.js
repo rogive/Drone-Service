@@ -58,18 +58,24 @@ function Results({ info }) {
           ? solicitudesDb.map((element) => {
               return (
                 <div className="solicitude" key={element._id}>
-                  <p>{element.description}</p>
-                  {element.images.map((image) => {
-                    return (
-                      <img
-                        className="image__solicitude"
-                        src={image.url}
-                        alt=""
-                      />
-                    );
-                  })}
-                  {element.phone.includes("X")?<Payment element={element}/>:null}
-                  <p>{`Teléfono: ${element.phone}`}</p>
+                  <div>
+                    {element.images.map((image, index) => {
+                      if (index < 1) {
+                        return (
+                          <img
+                            className="image__solicitude"
+                            src={image.url}
+                            alt=""
+                          />
+                        );
+                      }
+                    })}
+                  </div>
+                  <div className="solicitude-right">
+                    <p>{element.description}</p>
+                    {element.phone.includes("X")?<Payment element={element}/>:null}
+                    <h2>{`Teléfono: ${element.phone}`}</h2>
+                  </div>
                 </div>
               );
             })
@@ -77,22 +83,6 @@ function Results({ info }) {
         : pilotsDb
         ? pilotsDb.map((element) => {
             return (
-/*               // <div className="pilot-list-container">
-              //   <h1>{element.name}</h1>
-              //   <div>
-              //     {element.media.map((image, index) => {
-              //       if (index < 3) {
-              //         return (
-              //           <img
-              //             className="image__solicitude"
-              //             src={image.url}
-              //             alt=""
-              //           />
-              //         );
-              //       }
-              //     })}
-              //   </div>
-              // </div> */
               <div className="solicitude" key={element._id}>
                 <div>
                   {element.media.map((image, index) => {
