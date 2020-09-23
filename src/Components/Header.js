@@ -155,11 +155,6 @@ function Header() {
             </nav>
           </div>
         ) : (
-          // <div>
-          //   <h1>{pilotName}</h1>
-          //   <button onClick={handleLogout}>Cerrar sesión</button>
-          //   <button onClick={handleProfileRedirect}>Mi perfil</button>
-          // </div>
           <div>
             <StyledLink to="" onClick={() => setShow(!show)}>
               Iniciar sesión
