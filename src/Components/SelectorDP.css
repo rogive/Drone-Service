@@ -1,0 +1,94 @@
+.SecondaryContainer {
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  padding: 40px 0px;
+}
+
+.LateralContainer {
+  width: 30%;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  padding-left: 2rem;
+  padding-right: 1rem;
+}
+
+.Indicador{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.TuPerfil {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.2vw;
+}
+
+.Bienvenido {
+  padding-top: 2rem;
+}
+
+.Bienvenido-Pilot-Profile {
+  font-size: 1.5vw;
+}
+
+.BarBoxContainer {
+  display: flex;
+  width: 100%;
+}
+
+.LabelBar{
+  margin-left: 1rem;
+  width: 10%;
+}
+
+.BarBackgroundContainer {
+  width: 80%;
+  border-radius: 1rem;
+  background-color: #ddd;
+}
+
+.BarStateContainer {
+  width: 80%;
+  border-radius: 1rem;
+  background-color: rgb(0, 23, 105);
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ComponentBodyContainer {
+  width: 60%;
+  padding: 4rem 0rem;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+}
+
+.component-pilot{
+  width: 80%;
+  text-align: center;
+  }
+
+.TabsContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.TabsContainer button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 1rem;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5vw;
+}
+
+.TabsContainer button:hover {
+  background-color: rgba(237, 237, 237, 1);
+  color: black;
+  border-style: none;
+  border: none;
+}
