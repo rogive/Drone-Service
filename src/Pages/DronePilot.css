@@ -1,0 +1,32 @@
+.MainDronePilotContainer{
+  background-image: url("https://i.blogs.es/85175c/mavic-2-enterprise-7/1366_2000.jpg");
+}
+
+.ContainerMain{
+  width: 90rem;
+}
+
+.subContainer {
+  width: 100%;
+}
+
+.TitleDP{
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 23, 105, 1) 0%,
+    rgba(0, 17, 78, 1) 52%,
+    rgba(0, 23, 105, 1) 100%
+  );
+  color: white;
+  opacity: 0.9;
+}
+
+.MyProfile{
+  padding: 2rem;
+  font-size: 2rem;
+}

@@ -1,0 +1,75 @@
+.ServicesContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 12rem;
+  height: 15rem;
+  color: black;
+  border-radius: 0.5rem;
+  align-items: center;
+  margin: 1rem;
+}
+
+.ServicesContainer img{
+  margin: 1rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.element{
+  font-size: 1.3rem;
+  font-style: italic;
+  text-align: center;
+  padding: 0.7rem;
+  color: white;
+  background-color: rgb(0, 23, 105);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.ServiceImageContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+.IconContainer {
+  width: 100%;
+  text-align:center;
+  padding-top: 1rem;
+}
+
+.IconContainer img{
+  width: 15rem;
+  height: 15rem;
+  border-radius: 3rem;
+  filter: grayscale(100%);
+}
+
+.description-service{
+  padding-top: 2rem;
+  text-align: justify;
+  font-size: 1.2rem;
+}
+
+.ComponentContainer h2{
+    font-size: 2rem;
+}
+
+.ComponentContainer p{
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+.AttachContainer {
+  display: flex;
+  justify-content: left;
+  padding-top:2rem;
+  padding-bottom:2rem;
+}

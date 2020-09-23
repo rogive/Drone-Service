@@ -90,7 +90,7 @@ function UserProfile() {
           <img
             className={ userType === "client" ? "image-profile-client" : "image-profile-pilot"}
             width="100px"
-            src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
+            src="https://www.shareicon.net/data/512x512/2016/07/26/802026_man_512x512.png"
             alt="profile-pic"
           />
         </div>
