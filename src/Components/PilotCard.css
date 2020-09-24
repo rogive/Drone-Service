@@ -1,0 +1,65 @@
+.pilotcard-container {
+  /* position: fixed;
+  z-index: 500; */
+  background-color: white;
+  width: 70%;
+  box-shadow: 1px 1px 1px black;
+
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .pilotcard-container {
+    width: 500px;
+    left: calc(50% - 250px);
+  }
+}
+
+.pilotcard-photos {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.pilotcard-photo {
+  object-fit: cover;
+  width: 100%;
+  max-height: 600px;
+  margin-right: 10px;
+  transition: transform 450ms;
+}
+
+.pilotcard-photos::-webkit-scrollbar {
+  display: none;
+}
+
+.buttons button {
+  background: rgb(179, 195, 255);
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: -1px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: rgb(0, 23, 105);
+  transition: all 0.4s ease-in-out;
+}
+
+.pilotcard-description {
+  padding: 20px;
+}
+
+.pilotcard-description h1 {
+  margin-bottom: 5px;
+}
+
+.pilotcard-description p {
+  margin-bottom: 5px;
+}

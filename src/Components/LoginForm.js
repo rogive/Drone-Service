@@ -14,7 +14,7 @@ const LoginForm = ({ handleClose }) => {
   const onSubmit = (data) => {
     axios({
       method: "post",
-      url: "http://localhost:8000/pilotos/login",
+      url: "http://localhost:8000/pilot/login",
       data: data,
     })
       .then(({ data }) => {
@@ -42,7 +42,7 @@ const LoginForm = ({ handleClose }) => {
             dispatch(setGlobalUser(data.client));
           })
           .catch((error) => {
-            alert(error.response.data.message);
+/*             alert(error.response.data.message); */
             sessionStorage.clear();
           });
       });

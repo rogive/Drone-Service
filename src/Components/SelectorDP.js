@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Profile from '../Components/Profile';
+import UserProfile from './UserProfile';
 import Certificates from '../Components/Certificates';
 import FlightLogs from '../Components/FlightLogs';
 import FlightLogsApp from '../Components/FlightLogsApp';
@@ -8,16 +8,18 @@ import Equipments from '../Components/Equipments';
 import Services from '../Components/Services';
 import Others from '../Components/Others';
 import Portfolios from '../Components/Portfolios';
+import './SelectorDP.css'
 
 const SecondaryContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  padding: 40px 0px;
 `
 
 const LateralContainer = styled.div`
   width: 30%;
-  border-style: solid;
-  border-color: #f2f2f2;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
   padding-left: 2rem;
   padding-right: 1rem;
   .Indicador{
@@ -55,17 +57,22 @@ const BarBackgroundContainer = styled.div`
 const BarStateContainer = styled.div`
   width: 80%;
   border-radius: 1rem;
-  background-color: green;
+  background-color: rgb(0, 23, 105);
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 `
 
 const ComponentBodyContainer = styled.div`
-  width: 70%;
-  border-style: solid;
-  border-color: #f2f2f2;
-  padding: 4rem;
+  width: 60%;
+  padding: 4rem 0rem;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  .component-pilot{
+  width: 80%;
+  text-align: center;
+  }
 `
 
 const TabsContainer = styled.div`
@@ -131,27 +138,41 @@ class SelectorDP extends React.Component{
           </TabsContainer>
         </LateralContainer>
         <ComponentBodyContainer>
-          <div>
               {
                 this.state.value === "Profile" ?
-                <Profile/> :
+                <div className="component-pilot">
+                  <UserProfile />
+                </div> :
                 this.state.value === "Certificates" ?
-                <Certificates/> :
+                  <div className="component-pilot">
+                    <Certificates/>
+                  </div> :
                 this.state.value === "FlightLogs" ?
-                <FlightLogs/> :
-                this.state.value === "FlightLogsApp" ?                        
-                <FlightLogsApp/> :
+                  <div className="component-pilot">
+                    <FlightLogs/>
+                  </div> :
+                this.state.value === "FlightLogsApp" ?
+                  <div className="component-pilot">
+                    <FlightLogsApp/> 
+                  </div> :
                 this.state.value === "Services" ?
-                <Services/> :
+                  <div className="component-pilot">
+                    <Services/>
+                  </div> :
                 this.state.value === "Equipments" ?
-                <Equipments/> :
-                this.state.value === "Others" ?
-                <Others/> :
+                  <div className="component-pilot">
+                    <Equipments/>
+                  </div> :
+                this.state.value === "Others"?
+                  <div className="component-pilot">
+                    <Others/>
+                  </div> :
                 this.state.value === "Portfolios" ?
-                <Portfolios/> :
+                  <div className="component-pilot">
+                    <Portfolios/>
+                  </div> :
                 <span></span>
               }
-          </div>
         </ComponentBodyContainer>
       </SecondaryContainer>
     )

@@ -1,0 +1,5 @@
+.response-container-sucessfull{
+  display: flex;
+  justify-content: center;
+  padding: 12rem;
+}

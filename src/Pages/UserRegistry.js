@@ -6,9 +6,7 @@ import GlobalContainer from '../utils/GlobalStyles'
 function ClientProfile(){
 
 return (
-  <GlobalContainer>
     <UserForm/>
-  </GlobalContainer>
   )
 }
 

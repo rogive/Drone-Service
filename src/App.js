@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
-import DronePilot from './Pages/DronePilot'; 
-import Home from './Pages/Home';
-import Header from './Components/Header';
-import Solicitude from './Pages/Solicitude';
-import Explora from './Pages/Explora';
-import UserRegistry from './Pages/UserRegistry';
-import Error404 from './Pages/Error404';
-import Login from './Pages/Login'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import DronePilot from "./Pages/DronePilot";
+import Home from "./Pages/Home";
+import Header from "./Components/Header";
+import Solicitude from "./Pages/Solicitude";
+import Explora from "./Pages/Explora";
+import UserRegistry from "./Pages/UserRegistry";
+import Error404 from "./Pages/Error404";
+import Login from "./Pages/Login";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ClientProfile from "./Pages/ClientProfile";
+import Footer from "./Pages/Footer";
+import PaymentResponse from "./Pages/PaymentResponse";
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
         <Route exact path="/pilot-profile" component={DronePilot} />
         <Route exact path="/user-registry" component={UserRegistry} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/payment-response" component={PaymentResponse} />
         <Route exact path="*" component={Error404} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

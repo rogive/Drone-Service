@@ -1,0 +1,85 @@
+
+.fullcontaineruploadimagecertificate{
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  border-right: 1px solid gray;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+.boxlabelnameimagecertificate {
+  width: 80%;
+  background-color: white;
+  border: 1px solid gray;
+}
+.boxbuttonsimagecertificate{
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.labelbuttonaddimagecertificate,
+.labelbuttonuploadimagecertificate {
+  display: flex;
+  width: 5rem;
+  padding: 0.2rem 0rem 0.2rem 0rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid gray;
+  background-color: #D9DFEE;
+}
+
+.labelnameimagecertificate {
+  display: flex;
+  height: 2rem;
+  justify-content: left;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.inputfile{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.buttonuploadimagecertificate{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.inputfile:focus, .labelbuttonaddimagecertificate:hover,
+.buttonuploadimagecertificate:focus, .labelbuttonuploadimagecertificate:hover {
+  background-color: #D1D7E8;
+}
+
+.fullimagecertificatecontainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+.imagecertificatecontainer{
+  width: 17%;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.imagecertificatesolicitude{
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1rem;
+}

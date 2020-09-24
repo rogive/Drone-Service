@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./ClientSolicitudes.css"
 
 function ClientSolicitudes() {
   const [solicitudesDb, setSolicitudesDb] = useState([])
@@ -25,19 +26,21 @@ function ClientSolicitudes() {
     <div>
       {solicitudesDb.map((element) => {
         return (
-          <div className="solicitude" key={element._id}>
+          <div className="solicitude-historial" key={element._id}>
             <h3>{element.client.name}</h3>
             <strong>{element.servicetitle}</strong>
             <p>{element.description}</p>
+            <div className="image-container-historial">
             {element.images.map((image) => {
               return (
                 <img
-                  className="image__solicitude__clientProfile"
+                  className="image__solicitude__clientProfile__historial"
                   src={image.url}
                   alt=""
                 />
               );
             })}
+            </div>
           </div>
         );
       })}

@@ -1,7 +1,7 @@
 import React from "react";
 import GlobalContainer from "../utils/GlobalStyles";
 import "./ClientProfile.css";
-import UpdateClientProfile from "../Components/UpdateClientProfile";
+import UserProfile from "../Components/UserProfile";
 import { useSelector } from "react-redux";
 import Button from "../Components/Button"
 import ClientSolicitudes from "../Components/ClientSolicitudes";
@@ -22,7 +22,7 @@ function ClientProfile() {
             <ClientSolicitudes/>
           </div>
           <div className="Updateprofile__clientProfile">
-            <UpdateClientProfile />
+            <UserProfile />
           </div>
         </div>
       </div>

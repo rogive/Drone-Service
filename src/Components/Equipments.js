@@ -27,15 +27,20 @@ const IconContainer = styled.div`
 `
 
 const AttachContainer = styled.div`
+  display: flex;
+  justify-content: left;
   padding-top:2rem;
   padding-bottom:2rem;
 `
 
 const ComponentContainer = styled.div`
-  font-size: 1.1vw;
   p{
     padding-top: 2rem;
-    justify-content: space-between;
+    text-align: justify;
+    font-size: 1.2rem;
+  }
+  h2{
+    font-size: 2rem;
   }
 `
 
@@ -84,12 +89,9 @@ class Equipments extends React.Component{
         </p>
         <AttachContainer>
         <form onSubmit={this.handleSubmit}>
-          <fieldset>
             <label>
               <input type="text" onChange={this.handleChange}/>
             </label>
-            <br/>
-          </fieldset>
           <button type="submit">Submit</button>
         </form>
         </AttachContainer>

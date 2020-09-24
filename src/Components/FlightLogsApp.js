@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-
+import FileButton from './FileButton'
 
 const DocumentsContainer = styled.div`
   width: 100%;
@@ -33,10 +33,13 @@ const AttachContainer = styled.div`
 `
 
 const ComponentContainer = styled.div`
-  font-size: 1.1vw;
   p{
     padding-top: 2rem;
-    justify-content: space-between;
+    text-align: justify;
+    font-size: 1.2rem;
+  }
+  h2{
+    font-size: 2rem;
   }
 `
 
@@ -56,49 +59,39 @@ function FlightLogsAppComponent({
   
   }
   
-class FlightLogsApp extends React.Component{
-  state = {
-    flightlogsApp: [],
-    name: ""
-  }
+function FlightLogsApp() {
+const [certificates, setCertificates] = useState([])
+const [name, setName] = useState('')
+const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
+const [urlDocument, setUrlDocument] = useState('')
+const [selectedFile, setSelectedFile] = useState(null)
+const [error, setError] = useState(null)
 
-  handleChange = (event) => {
-    this.setState({ name: event.target.value})
-  }
+function handleChange(event) {
+  if(!event.target.files[0]) return
+  setSelectedFile(event.target.files[0])
+  setName(event.target.files[0].name)
+}
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const newFlightLogApp = { name: this.state.name}
-    this.setState({
-      flightlogsApp: this.state.flightlogsApp.concat(newFlightLogApp)
-    })
-  }
+function handleSubmit(event) {
+  event.preventDefault();
+}
 
-  render(){
-    return(
-      <ComponentContainer>
-        <h2>Horas de Vuelo por Aplicación</h2>
-        <IconContainer>
-          <img src="https://cdn4.iconfinder.com/data/icons/web-mobile-round1/210/Untitled-35-512.png" alt="Hola"></img>
-        </IconContainer>
-        <p>Este espacio corresponde a las horas de vuelo que se registran
-            en las diferentes aplicaciones para operaciones Drone. 
-        </p>
-        <AttachContainer>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <label>
-              <input type="file" ref={this.fileInput} onChange={this.handleChange}/>
-            </label>
-            <br/>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-        </AttachContainer>
-        <FlightLogsAppComponent flightlogsApp = {this.state.flightlogsApp}/>
-      </ComponentContainer>
-    )
-  }
+  return(
+    <ComponentContainer>
+      <h2>Horas de Vuelo por Aplicación</h2>
+      <IconContainer>
+        <img src="https://cdn4.iconfinder.com/data/icons/web-mobile-round1/210/Untitled-35-512.png" alt="Hola"></img>
+      </IconContainer>
+      <p>Este espacio corresponde a las horas de vuelo que se registran
+          en las diferentes aplicaciones para operaciones Drone. 
+      </p>
+      <AttachContainer>
+        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+      </AttachContainer>
+      <FlightLogsAppComponent flightlogsApp = {certificates}/>
+    </ComponentContainer>
+  )
 }
 
 export default FlightLogsApp

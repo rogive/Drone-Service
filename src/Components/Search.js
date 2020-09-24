@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Categories from "./Categories";
 import Results from "./Results";
 import LocationSearch from "./LocationSearch";
+import SlideShow from "./SlideShow";
 
 const ExploraContainer = styled.div`
   display: flex;
@@ -18,21 +19,25 @@ const SearchContainer = styled.div`
 `;
 
 const ResultsContainer = styled.div`
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
-  width: 60%;
+  width: 80%;
   box-sizing: content-box;
   display: flex;
-  flex-direction: column;
-  div h2 {
-    text-align: center;
-  }
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 `;
 
 const Search = () => {
   const [departmentID, setDepartmentID] = useState("");
   const [city, setCity] = useState("");
   const [categorie, setCategorie] = useState("");
+  const [show, setShow] = useState(false);
+  const [modelToggle, setModelToggle] = useState(false);
+
+  const handleClose = () => {
+    setModelToggle(false);
+  };
 
   return (
     <ExploraContainer>
