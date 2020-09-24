@@ -3,7 +3,6 @@ import GlobalContainer from '../utils/GlobalStyles';
 import SelectorDP from '../Components/SelectorDP';
 import "./DronePilot.css"
 
-
 function DronePilot(){
 
 return (

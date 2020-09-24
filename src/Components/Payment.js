@@ -78,7 +78,6 @@ export function Response(props) {
       url: `https://api.secure.payco.co/validation/v1/reference/${ref_payco}`
     })
       .then(({ data }) => {
-        console.log(data.data.x_cod_response)
         return handlePaymentAxios(data.data.x_cod_response)
       })
   }, [location])

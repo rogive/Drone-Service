@@ -75,28 +75,6 @@ function handleChange(event) {
 
 function handleSubmit(event) {
   event.preventDefault();
-/*  const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
-
-     uploadDocument.on('state_changed', 
-      (snap) => {}, 
-      (error) => {alert(error)},
-      () => {
-        storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
-          setUrlDocument(url)
-          axios({
-            url: 'http://localhost:8000/certificados/crear',
-            method: 'POST',
-            data: {
-              pilotId: pilotId,
-              name: name,
-              url: url,
-              type: "document"
-            }
-          }).then(({ data }) => setCertificates( certificates.concat(data) ))
-          .catch((error) => setError(error));
-        });
-      }
-    ) */
 }
 
   return(
