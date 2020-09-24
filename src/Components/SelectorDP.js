@@ -128,7 +128,7 @@ class SelectorDP extends React.Component{
           </div>
           <TabsContainer>
             <button value="Profile" onClick={this.handleClick}> Perfil </button>
-            <button value="Certificates" onClick={this.handleClick}> Certificaciones </button>
+            <button value="Certificates" onClick={this.handleClick}> Certificados </button>
             <button value="FlightLogs" onClick={this.handleClick}> Bitacoras de Vuelo </button>
             <button value="FlightLogsApp" onClick={this.handleClick}> Horas de Vuelo App </button>
             <button value="Services" onClick={this.handleClick}> Servicios </button>

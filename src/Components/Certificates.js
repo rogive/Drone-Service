@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form'
 import styled from 'styled-components';
 import { storage } from '../firebase';
 import axios from 'axios';
@@ -94,7 +95,10 @@ function Certificates() {
   const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
   const [urlDocument, setUrlDocument] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
+  const [showadd, setShowAdd] = useState(false)
   const [error, setError] = useState(null)
+  const { register, errors, handleSubmit } = useForm();
+
 
   useEffect( () => {
     axios({
@@ -111,7 +115,7 @@ function Certificates() {
     setName(event.target.files[0].name)
   }
 
-  function handleSubmit(event) {
+  function handleSubmitImage(event) {
     event.preventDefault();
     const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
 
@@ -137,19 +141,113 @@ function Certificates() {
     )
   }
 
+
+  const onSubmit = data => {
+/*     axios({
+        method: 'post',
+        url: `http://localhost:8000/pilot/crear`,
+        data: {...data, userType}
+      })
+      .then(() => {
+        history.push('/login')
+        return alert('Registro exitoso')
+      })
+      .catch((error) => alert(error.response.data.message)) */
+  }
   return(
     <ComponentContainer>
       <h2>Certificados</h2>
       <IconContainer>
         <img src="https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310__340.png" alt="iconCertificates"></img>
       </IconContainer>
-      <p className="description">Este espacio corresponde a las certificaciones que relacionan
-        la cantidad de horas, conocimiento o experiencia que hayas tenido
-        en algun área específica.
+      <p className="description">
+        Aca podras incluir todos los certificados que te han permitido aprender, conocer y obtener experiencia
+        en alguna area especifica. Recuerda que solo se muestra el título del documento, ademas los documentos
+        son validados y se les asigna un logo especial para darle un valor agregado al mostrar tu perfil a los clientes.
       </p>
-      <AttachContainer>
-        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
-      </AttachContainer>
+      <br/>
+      <button id="add-certificate"
+              onClick={()=>setShowAdd(!showadd)}
+              >Añadir certificado</button>
+      {showadd && (
+        <AttachContainer>
+          <form className="certificateformcontainer" onSubmit={handleSubmit(onSubmit)}>
+            <div className="certificateboxtitleform">
+              <h1 className="certificatetitleform">Certificado</h1>
+            </div>
+            <fieldset className="certificateformfieldset">
+              <div className="certificateinput-full-container">
+                <div className="certificate-label-input-container">
+                  <label className="certificateformlabel" htmlFor='certificatename'>Título: </label>
+                </div>
+                <div className="certificate-input-container">
+                  <input
+                    id='titlecertificate'
+                    name='titlecertificate'
+                    type='text'
+                    className="certificate-input-title"
+                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
+                  />
+                </div>
+              </div>
+              <div className="error-input-container">
+                <span style={{color: "red"}}>
+                  {errors.name?.message}
+                </span>
+              </div>
+            </fieldset>
+            <fieldset className="certificateformfieldset">
+              <div className="certificateinput-full-container">
+                <div className="certificate-label-input-container">
+                  <label className="certificateformlabel" htmlFor='certificatecompany'>Empresa emisora: </label>
+                </div>
+                <div className="certificate-input-container">
+                  <input
+                    id='certificatecompany'
+                    name='certificatecompany'
+                    type='text'
+                    className="certificate-input-title"
+                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
+                  />
+                </div>
+              </div>
+              <div className="error-input-container">
+                <span style={{color: "red"}}>
+                  {errors.name?.message}
+                </span>
+              </div>
+            </fieldset>
+            <fieldset className="certificateformfieldset">
+              <div className="certificateinput-full-container">
+                <div className="certificate-label-input-container">
+                  <label className="certificateformlabel" htmlFor='certificateid'>ID de la credencial: </label>
+                </div>
+                <div className="certificate-input-container">
+                  <input
+                    id='certificateid'
+                    name='certificateid'
+                    type='text'
+                    className="certificate-input-title"
+                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
+                  />
+                </div>
+              </div>
+              <div className="error-input-container">
+                <span style={{color: "red"}}>
+                  {errors.name?.message}
+                </span>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div className="certicateinputcontainer">
+                <label>Adjuntar documento</label>
+                <FileButton onChange={handleChange} onSubmit={handleSubmitImage} name={name}/>
+              </div>
+            </fieldset>
+            <button className="formbutton">Añadir</button>
+          </form>
+        </AttachContainer>
+      )}
       <CertificatesComponentContainer>
         <CertificatesComponent certificates = {certificates}/>
       </CertificatesComponentContainer>
