@@ -1,10 +1,10 @@
-.fullcontaineruploadimage{
+.fullcontainerupload {
   width:100%;
   height: 2rem;
   display: flex;
   flex-direction: row;
-  border-right: 1px solid gray;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border-right: none;
 }
 
 .labelnameimage {
@@ -25,24 +25,24 @@
 }
 
 .boxlabelnameimage1 {
-  width: 90%;
-  background-color: white;
-  border: 1px solid gray;
-}
-
-.boxlabelnameimage2 {
   width: 80%;
   background-color: white;
   border: 1px solid gray;
 }
 
+.boxlabelnameimage2 {
+  width: 70%;
+  background-color: white;
+  border: 1px solid gray;
+}
+
 .boxbuttonsimage1 {
-  width: 10%;
+  width: 20%;
   display: flex;
 }
 
 .boxbuttonsimage2 {
-  width: 20%;
+  width: 30%;
   display: flex;
   flex-direction: row;
 }
@@ -58,8 +58,6 @@
   justify-content: center;
   text-align: center;
   border: 1px solid gray;
-  border-right: 0px;
-  border-left: 0px;
   background-color: #D9DFEE;
 }
 

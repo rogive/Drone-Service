@@ -3,7 +3,7 @@ import "./FileButton.css"
 
 function Button(props) {
   return (
-    <div className="fullcontaineruploadimage">
+    <div className="fullcontainerupload">
       <div className={ props.number === 1 ? "boxlabelnameimage1" : "boxlabelnameimage2"}>
         <label htmlFor="inputfileadd"
                className="labelnameimage">{ props.name || "Adjuntar un documento"}

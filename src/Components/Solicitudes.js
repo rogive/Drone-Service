@@ -5,6 +5,7 @@ import { storage } from '../firebase';
 import Departments from '../data/deparments.json'
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import FileButton from './FileButton'
 import "./Solicitudes.css";
 
 function ServiceImagesComponent({
@@ -305,35 +306,7 @@ const onSubmit = data => {
         </fieldset>
         <fieldset className="formfieldset">
           <label> Imagenes: </label>
-            <div className="fullcontaineruploadimage">
-              <div className="boxlabelnameimage">
-                <label htmlFor="inputfile"
-                       className="labelnameimage">{ name || "Adjuntar imagen"}
-                </label>
-              </div>
-              <div className="boxbuttonsimage">
-                <input type="file"
-                    id="inputfile"
-                    name="inputfile"
-                    onChange={handleChange}
-                    className="inputfile"
-                    style={{display: 'none'}}
-                    />
-                <label 
-                    htmlFor="inputfile" 
-                    className="labelbuttonaddimage"
-                    >Abrir</label>
-                <button type="button"
-                        id="buttonuploadimage"
-                        name="buttonuploadimage"
-                        className="buttonuploadimage" 
-                        onClick={handleSubmitImage}
-                        >subir</button>
-                <label htmlFor="buttonuploadimage" 
-                      className="labelbuttonuploadimage"
-                      >Cargar</label>
-              </div>
-          </div>
+            <FileButton onChange={handleChange} onSubmit={handleSubmitImage} name={name} number={2}/>
         </fieldset>
         <fieldset className="formfieldset">
           <div class="fullimagecontainer">
