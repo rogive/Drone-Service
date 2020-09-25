@@ -306,7 +306,7 @@ const onSubmit = data => {
         </fieldset>
         <fieldset className="formfieldset">
           <label> Imagenes: </label>
-            <FileButton onChange={handleChange} onSubmit={handleSubmitImage} name={name} number={2}/>
+            <FileButton onChange={handleChange} onSubmit={handleSubmitImage} name={name} number={2} type="image"/>
         </fieldset>
         <fieldset className="formfieldset">
           <div class="fullimagecontainer">

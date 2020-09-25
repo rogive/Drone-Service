@@ -219,7 +219,7 @@ function Certificates() {
           </fieldset>
           <fieldset className="certificateformfieldset">
             <div className="certicateinputcontainer">
-              <FileButton onChange={handleChange} name={name} number={1}/>
+              <FileButton onChange={handleChange} name={name} number={1} type="document"/>
             </div>
           </fieldset>
           <button className="formbuttoncertificate">Añadir</button>

@@ -6,7 +6,7 @@ function Button(props) {
     <div className="fullcontainerupload">
       <div className={ props.number === 1 ? "boxlabelnameimage1" : "boxlabelnameimage2"}>
         <label htmlFor="inputfileadd"
-               className="labelnameimage">{ props.name || "Adjuntar un documento"}
+               className="labelnameimage">{ props.name || `Adjuntar ${props.type==="document"? "un documento" : "una imagen"}`}
         </label>
       </div>
       <div className={ props.number === 1 ? "boxbuttonsimage1" : "boxbuttonsimage2"}>
@@ -16,6 +16,7 @@ function Button(props) {
             onChange={props.onChange}
             className="inputfileadd"
             style={{display: 'none'}}
+            accept={props.type==="document"? "pdf" : ".jpg, .jpeg, .png"}
             />
         <label 
             htmlFor="inputfileadd" 

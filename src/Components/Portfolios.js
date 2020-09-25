@@ -132,7 +132,7 @@ function Portfolios() {
             pequeños videos que le den una idea de tu calidad al cliente.
         </p>
         <AttachContainer>
-          <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={2}/>
+          <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={2} type="image"/>
         </AttachContainer>
         <PortfolioImageContainer>
           <PortfoliosComponent portfolios = {portfolios}/>
