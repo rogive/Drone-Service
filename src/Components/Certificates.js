@@ -10,10 +10,12 @@ import "./Certificates.css"
 const CertificatesComponentContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  padding: 3rem 0rem;
 `
 
 const DocumentsContainer = styled.div`
-  width: 70%;
+  width: 80%;
   height: 3rem;
   display: flex;
   justify-content: space-between;
@@ -25,7 +27,7 @@ const DocumentsContainer = styled.div`
   margin-bottom: 2rem;
   .element{
     width: 80%;
-    padding: 1rem 1rem 1rem 3rem;
+    padding: 1rem 1rem 1rem 1.5rem;
     font-size: 1.4rem;;
     text-align: left;
     font-style: italic;
@@ -54,7 +56,7 @@ const IconContainer = styled.div`
 `
 
 const AttachContainer = styled.div`
-  padding-top:2rem;
+  padding-top: 1rem;
   padding-bottom:2rem;
 `
 
@@ -75,7 +77,7 @@ function CertificatesComponent({
     return certificates.map((certificate) => {
       return(
         <DocumentsContainer>
-          <p className="element">{certificate.name}</p>
+          <p className="element">{certificate.title}</p>
           <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="url">
             <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
                  alt="pdfIcon"
@@ -102,7 +104,7 @@ function Certificates() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/certificados/listar/piloto/${pilotId}`,
+      url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setCertificates( data ))
@@ -115,10 +117,8 @@ function Certificates() {
     setName(event.target.files[0].name)
   }
 
-  function handleSubmitImage(event) {
-    event.preventDefault();
+  function onSubmit( data ) {
     const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
-
     uploadDocument.on('state_changed', 
       (snap) => {}, 
       (error) => {alert(error)},
@@ -126,34 +126,25 @@ function Certificates() {
         storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
           setUrlDocument(url)
           axios({
-            url: 'http://localhost:8000/certificados/crear',
+            url: 'http://localhost:8000/certificates/crear',
             method: 'POST',
-            data: {
-              pilotId: pilotId,
-              name: name,
-              url: url,
+            data: { ...data,
+              pilotId,
+              name,
+              url,
               type: "document"
             }
-          }).then(({ data }) => setCertificates( certificates.concat(data) ))
+          }).then(({ data }) => {
+            setCertificates( certificates.concat(data) )
+            setShowAdd(!showadd)
+          }
+          )
           .catch((error) => setError(error));
         });
       }
     )
   }
 
-
-  const onSubmit = data => {
-/*     axios({
-        method: 'post',
-        url: `http://localhost:8000/pilot/crear`,
-        data: {...data, userType}
-      })
-      .then(() => {
-        history.push('/login')
-        return alert('Registro exitoso')
-      })
-      .catch((error) => alert(error.response.data.message)) */
-  }
   return(
     <ComponentContainer>
       <h2>Certificados</h2>
@@ -161,92 +152,78 @@ function Certificates() {
         <img src="https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310__340.png" alt="iconCertificates"></img>
       </IconContainer>
       <p className="description">
-        Aca podras incluir todos los certificados que te han permitido aprender, conocer y obtener experiencia
-        en alguna area especifica. Recuerda que solo se muestra el título del documento, ademas los documentos
+        Aca podras incluir todos los certificados que te han permitido conocer, aprender o obtener experiencia
+        en algún area especifica. Recuerda que solo se muestra el título del documento, ademas los documentos
         son validados y se les asigna un logo especial para darle un valor agregado al mostrar tu perfil a los clientes.
       </p>
       <br/>
-      <button id="add-certificate"
+      <button className="add-certificate"
+              id="add-certificate"
               onClick={()=>setShowAdd(!showadd)}
-              >Añadir certificado</button>
+              >+ Añadir certificado</button>
       {showadd && (
-        <AttachContainer>
-          <form className="certificateformcontainer" onSubmit={handleSubmit(onSubmit)}>
-            <div className="certificateboxtitleform">
-              <h1 className="certificatetitleform">Certificado</h1>
+        <form className="certificateformcontainer" onSubmit={handleSubmit(onSubmit)}>
+          <div className="certificateboxtitleform">
+            <p className="certificatetitleform">Nuevo certificado</p>
+          </div>
+          <fieldset className="certificateformfieldset">
+            <div className="certificateinput-full-container">
+                <label className="certificateformlabel" htmlFor='certificatename'>Título: </label>
+                <input
+                  id='titlecertificate'
+                  name='title'
+                  type='text'
+                  className="certificate-input-title"
+                  ref={register({ required: { value:true, message: 'El campo titulo es requerido' }})}
+                />
             </div>
-            <fieldset className="certificateformfieldset">
-              <div className="certificateinput-full-container">
-                <div className="certificate-label-input-container">
-                  <label className="certificateformlabel" htmlFor='certificatename'>Título: </label>
-                </div>
-                <div className="certificate-input-container">
-                  <input
-                    id='titlecertificate'
-                    name='titlecertificate'
-                    type='text'
-                    className="certificate-input-title"
-                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
-                  />
-                </div>
-              </div>
-              <div className="error-input-container">
-                <span style={{color: "red"}}>
-                  {errors.name?.message}
-                </span>
-              </div>
-            </fieldset>
-            <fieldset className="certificateformfieldset">
-              <div className="certificateinput-full-container">
-                <div className="certificate-label-input-container">
-                  <label className="certificateformlabel" htmlFor='certificatecompany'>Empresa emisora: </label>
-                </div>
-                <div className="certificate-input-container">
-                  <input
-                    id='certificatecompany'
-                    name='certificatecompany'
-                    type='text'
-                    className="certificate-input-title"
-                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
-                  />
-                </div>
-              </div>
-              <div className="error-input-container">
-                <span style={{color: "red"}}>
-                  {errors.name?.message}
-                </span>
-              </div>
-            </fieldset>
-            <fieldset className="certificateformfieldset">
-              <div className="certificateinput-full-container">
-                <div className="certificate-label-input-container">
-                  <label className="certificateformlabel" htmlFor='certificateid'>ID de la credencial: </label>
-                </div>
-                <div className="certificate-input-container">
-                  <input
-                    id='certificateid'
-                    name='certificateid'
-                    type='text'
-                    className="certificate-input-title"
-                    ref={register({ required: { value:true, message: 'El campo nombres es requerido' }})}
-                  />
-                </div>
-              </div>
-              <div className="error-input-container">
-                <span style={{color: "red"}}>
-                  {errors.name?.message}
-                </span>
-              </div>
-            </fieldset>
-            <fieldset>
-              <div className="certicateinputcontainer">
-                <label>Adjuntar documento</label>
-                <FileButton onChange={handleChange} onSubmit={handleSubmitImage} name={name}/>
-              </div>
-            </fieldset>
-            <button className="formbutton">Añadir</button>
-          </form>
-        </AttachContainer>
+            <div className="error-input-container-certificate">
+              <span style={{color: "red"}}>
+                {errors.title?.message}
+              </span>
+            </div>
+          </fieldset>
+          <fieldset className="certificateformfieldset">
+            <div className="certificateinput-full-container">
+                <label className="certificateformlabel" htmlFor='certificatecompany'>Empresa emisora: </label>
+                <input
+                  id='certificatecompany'
+                  name='company'
+                  type='text'
+                  className="certificate-input-title"
+                  ref={register({ required: { value:true, message: 'El campo empresa emisora es requerido' }})}
+                />
+            </div>
+            <div className="error-input-container-certificate">
+              <span style={{color: "red"}}>
+                {errors.company?.message}
+              </span>
+            </div>
+          </fieldset>
+          <fieldset className="certificateformfieldset">
+            <div className="certificateinput-full-container">
+                <label className="certificateformlabel" htmlFor='certificateid'>ID de la credencial: </label>
+                <input
+                  id='certificateid'
+                  name='credential'
+                  type='text'
+                  className="certificate-input-title"
+                  ref={register({ required: { value:true, message: 'El campo credencial es requerido' }})}
+                />
+            </div>
+            <div className="error-input-container-certificate">
+              <span style={{color: "red"}}>
+                {errors.credential?.message}
+              </span>
+            </div>
+          </fieldset>
+          <fieldset className="certificateformfieldset">
+            <div className="certicateinputcontainer">
+              <FileButton onChange={handleChange} name={name} number={1}/>
+            </div>
+          </fieldset>
+          <button className="formbuttoncertificate">Añadir</button>
+        </form>
       )}
       <CertificatesComponentContainer>
         <CertificatesComponent certificates = {certificates}/>

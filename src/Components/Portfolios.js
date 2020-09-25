@@ -39,16 +39,17 @@ const PortfolioImageContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   width: 100%;
 `
 
 const ImageContainer = styled.div`
   border-radius: 1rem;
   margin-top: 2rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
   img{
-    width: 12rem;
-    height: 12rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 3rem;
     box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
   }
@@ -131,7 +132,7 @@ function Portfolios() {
             pequeños videos que le den una idea de tu calidad al cliente.
         </p>
         <AttachContainer>
-          <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+          <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={2}/>
         </AttachContainer>
         <PortfolioImageContainer>
           <PortfoliosComponent portfolios = {portfolios}/>

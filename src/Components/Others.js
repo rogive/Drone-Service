@@ -86,7 +86,7 @@ function Others() {
           la asistencia de eventos, congresos, seminarios o conferencias.
       </p>
       <AttachContainer>
-      <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+      <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={1}/>
       </AttachContainer>
       <OthersComponent others = {certificates}/>
     </ComponentContainer>

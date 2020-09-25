@@ -87,7 +87,7 @@ function handleSubmit(event) {
           en las diferentes aplicaciones para operaciones Drone. 
       </p>
       <AttachContainer>
-        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={1}/>
       </AttachContainer>
       <FlightLogsAppComponent flightlogsApp = {certificates}/>
     </ComponentContainer>
