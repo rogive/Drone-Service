@@ -1,0 +1,80 @@
+.add-document{
+  background-color: white;
+  border: none;
+  font-size: 1.6rem;
+  color: rgba(10,10,200, 1);
+  margin: 1rem 0rem 2rem 0rem;
+}
+
+.documentformcontainer {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 2rem 3rem;
+  margin-bottom: 4rem;
+}
+
+.documentformfieldset {
+  border: none;
+  padding: 0.7rem 0rem;
+}
+
+.documentinput-full-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+.documenttitleform {
+  text-align: left;
+  font-size: 1.8rem;
+  padding: 1rem 0rem;
+}
+
+.documentformlabel {
+  font-size: 1.4rem;
+}
+
+.formbuttondocument {
+  text-decoration: none;
+  margin: 2rem 0rem 0rem 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Montserrat';
+  font-size: 1.6rem;
+  color: white;
+  border: none;
+  background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));
+  cursor: pointer;
+}
+
+.formbuttondocument:hover {
+  background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
+}
+
+.document-input-title{
+  width: 60%;
+  height: 1.8rem;
+  padding-left: 0.2rem;
+}
+
+.document-inputtextarea {
+  width: 60%;
+  height: 4.5rem;
+  padding-left: 0.2rem;
+}
+
+.documentformlabel {
+  width: 40%;
+  text-align: left;
+}
+
+.error-input-container-document{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.documentscomponentcontainer{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 3rem 0rem;
+}

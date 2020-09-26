@@ -1,6 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import FileButton from './FileButton'
+import { storage } from '../firebase';
+import FileForm from './FileForm';
+import axios from 'axios';
+import "./Others.css"
 
 const DocumentsContainer = styled.div`
   width: 100%;
@@ -59,21 +62,55 @@ function OthersComponent({
 }
 
 function Others() {
-  const [certificates, setCertificates] = useState([])
+  const [documents, setDocuments] = useState([])
   const [name, setName] = useState('')
-  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
-  const [urlDocument, setUrlDocument] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [error, setError] = useState(null)
+  const [showadd, setShowAdd] = useState(false)
+  const pilotId = useState(sessionStorage.getItem("userId"))
+
+  useEffect( () => {
+    axios({
+      url: `http://localhost:8000/others/listar/piloto/${pilotId}`,
+      method: 'GET',
+    })
+      .then(({ data }) => setDocuments( data ))
+      .catch((error) => setError({ error }))
+  }, [])
 
   function handleChange(event) {
     if(!event.target.files[0]) return
+    console.log("hola")
     setSelectedFile(event.target.files[0])
     setName(event.target.files[0].name)
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function onSubmit( data ) {
+    const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Others/` + name).put(selectedFile);
+    uploadDocument.on('state_changed', 
+      (snap) => {}, 
+      (error) => {alert(error)},
+      () => {
+        storage.ref(`Pilots/Pilot-${pilotId}/Others/`).child(name).getDownloadURL().then(url => {
+          axios({
+            url: 'http://localhost:8000/others/crear',
+            method: 'POST',
+            data: { ...data,
+              pilotId,
+              name,
+              url,
+              type: "document"
+            }
+          }).then(({ data }) => {
+            setDocuments( documents.concat(data) )
+            setShowAdd(!showadd)
+            console.log(data)
+          }
+          )
+          .catch((error) => setError(error));
+        });
+      }
+    )
   }
 
   return(
@@ -82,13 +119,22 @@ function Others() {
       <IconContainer>
         <img src="https://cdn3.iconfinder.com/data/icons/election-world-1/64/senate-congress-government-senator-political-512.png" alt="Hola"></img>
       </IconContainer>
-      <p>Este espacio corresponde a otros tipos de certificados generado en
-          la asistencia de eventos, congresos, seminarios o conferencias.
+      <p className="description-other">
+        Aca podras incluir todos los certificados que te han permitido conocer, aprender o obtener experiencia
+        en algún area especifica. Recuerda que solo se muestra el título del documento, ademas los documentos
+        son validados y se les asigna un logo especial para darle un valor agregado al mostrar tu perfil a los clientes.
       </p>
-      <AttachContainer>
-      <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
-      </AttachContainer>
-      <OthersComponent others = {certificates}/>
+      <br/>
+      <button className="add-document"
+              id="add-document"
+              onClick={()=>setShowAdd(!showadd)}
+              >+ Añadir documento</button>
+      {showadd && (
+        <FileForm onChange={handleChange} onSubmit={onSubmit} name={name} type="others"/>
+      )}
+      <div className="documentscomponentcontainer">
+        <OthersComponent others = {documents}/>
+      </div>
     </ComponentContainer>
   )
 }

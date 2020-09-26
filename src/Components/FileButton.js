@@ -5,7 +5,6 @@ import { storage } from '../firebase';
 import "./FileButton.css"
 
 function Button(props) {
-  const [selectedImage, setSelectedImage] = useState(null)
   return (
     <div className="fullcontaineruploadimage">
       <div className="boxlabelnameimage">
