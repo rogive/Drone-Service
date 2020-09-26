@@ -13,7 +13,7 @@ const CertificatesComponentContainer = styled.div`
 
 const DocumentsContainer = styled.div`
   width: 70%;
-  height: 3rem;
+  height: 3.5rem;
   display: flex;
   justify-content: space-between;
   background-color: rgb(0, 23, 105);
@@ -23,6 +23,7 @@ const DocumentsContainer = styled.div`
   align-items: center;
   margin-bottom: 2rem;
   .element{
+    background: none;
     width: 80%;
     padding: 1rem 1rem 1rem 3rem;
     font-size: 1.4rem;;

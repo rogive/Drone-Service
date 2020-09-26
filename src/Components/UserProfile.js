@@ -90,7 +90,7 @@ function UserProfile() {
           <img
             className={ userType === "client" ? "image-profile-client" : "image-profile-pilot"}
             width="100px"
-            src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?b=1&k=6&m=476085198&s=170667a&w=0&h=ZHUgkr2TYixVu_Nny3XpsfmTdInPtEp1-PpO9MuQwYM="
+            src="https://www.shareicon.net/data/512x512/2016/07/26/802026_man_512x512.png"
             alt="profile-pic"
           />
         </div>
@@ -99,17 +99,19 @@ function UserProfile() {
           <div className="description-container">
             <label className="description-label">Acerca de</label>
             <div className="description-icon-box">
-              <textarea className={unlockDescriptionField ? "field-description" : "unlock__field-description"}
-                        id="descriptionpilot"
-                        value={unlockDescriptionField ? userDataDb.description : null}
-                        readOnly={unlockDescriptionField}
-                        name="description"
-                        ref={register({
-                          required: {
-                            value: false
-                          },
-                        })}
-              />
+              <div className="descriptiontextarea">
+                <textarea className={unlockDescriptionField ? "field-description" : "unlock__field-description"}
+                          id="descriptionpilot"
+                          value={unlockDescriptionField ? userDataDb.description : null}
+                          readOnly={unlockDescriptionField}
+                          name="description"
+                          ref={register({
+                            required: {
+                              value: false
+                            },
+                          })}
+                />
+              </div>  
               <div className="input-icon-description">
                 <CreateIcon
                   className={unlockDescriptionField || "unlock__iconField-description"}
@@ -129,21 +131,25 @@ function UserProfile() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="fieldSet">
-          <label>Nombre</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={unlockNameField ? userDataDb.name : null}
-            ref={register({
-              required: {
-                value: true,
-                message: "El campo nombres es requerido",
-              },
-            })}
-            readOnly={unlockNameField}
-            className={unlockNameField ? "field" : "unlock__field"}
-          />
+          <div className="fieldsetlabel">
+            <label>Nombre</label>
+          </div>
+          <div className="fieldsetinput">
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={unlockNameField ? userDataDb.name : null}
+              ref={register({
+                required: {
+                  value: true,
+                  message: "El campo nombres es requerido",
+                },
+              })}
+              readOnly={unlockNameField}
+              className={unlockNameField ? "field" : "unlock__field"}
+            />
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockNameField || "unlock__iconField"}
@@ -158,19 +164,23 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>Apellido</label>
-          <input
-            value={unlockLastnameField ? userDataDb.lastName : null}
-            readOnly={unlockLastnameField}
-            className={unlockLastnameField ? "field" : "unlock__field"}
-            name="lastName"
-            ref={register({
-              required: {
-                value: true,
-                message: "El campo apellido es requerido",
-              },
-            })}
-          />
+          <div className="fieldsetlabel">
+            <label>Apellido</label>
+          </div>
+          <div className="fieldsetinput">
+            <input
+              value={unlockLastnameField ? userDataDb.lastName : null}
+              readOnly={unlockLastnameField}
+              className={unlockLastnameField ? "field" : "unlock__field"}
+              name="lastName"
+              ref={register({
+                required: {
+                  value: true,
+                  message: "El campo apellido es requerido",
+                },
+              })}
+            />
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockLastnameField || "unlock__iconField"}
@@ -185,22 +195,26 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>E-mail</label>
-          <input
-            readOnly={unlockEmailField}
-            className={unlockEmailField ? "field" : "unlock__field"}
-            id="email"
-            name="email"
-            type="email"
-            value={unlockEmailField ? userDataDb.email : null}
-            ref={register({
-              required: {
-                value: true,
-                message: "El campo E-Mail es requerido",
-              },
-              pattern: { value: emailRegexp, message: "E-mail inválido" },
-            })}
-          />
+          <div className="fieldsetlabel">
+            <label>E-mail</label>
+          </div>
+          <div className="fieldsetinput">
+            <input
+              readOnly={unlockEmailField}
+              className={unlockEmailField ? "field" : "unlock__field"}
+              id="email"
+              name="email"
+              type="email"
+              value={unlockEmailField ? userDataDb.email : null}
+              ref={register({
+                required: {
+                  value: true,
+                  message: "El campo E-Mail es requerido",
+                },
+                pattern: { value: emailRegexp, message: "E-mail inválido" },
+              })}
+            />
+          </div>  
           <div className="input-icon">
             <CreateIcon
               className={unlockEmailField || "unlock__iconField"}
@@ -215,19 +229,23 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>Contraseña</label>
-          <input
-            readOnly={unlockPasswordField}
-            className={unlockPasswordField ? "field" : "unlock__field"}
-            placeholder="********"
-            name={unlockPasswordField ? "dummy" : "password"}
-            type="password"
-            ref={register({
-              required: {
-                value: false,
-              },
-            })}
-          />
+          <div className="fieldsetlabel">
+            <label>Contraseña</label>
+          </div>
+            <div className="fieldsetinput">
+            <input
+              readOnly={unlockPasswordField}
+              className={unlockPasswordField ? "field" : "unlock__field"}
+              placeholder="********"
+              name={unlockPasswordField ? "dummy" : "password"}
+              type="password"
+              ref={register({
+                required: {
+                  value: false,
+                },
+              })}
+            />
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockPasswordField || "unlock__iconField"}
@@ -242,25 +260,29 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>Celular</label>
-          <input
-            id="phone"
-            name="phone"
-            type="text"
-            value={unlockPhoneField ? userDataDb.phone : null}
-            ref={register({
-              pattern: {
-                value: phoneRegexp,
-                message: "Número de celular inválido",
-              },
-              minLength: {
-                value: 10,
-                message: "El número de celular debe tener mínimo 10 caracteres",
-              },
-            })}
-            readOnly={unlockPhoneField}
-            className={unlockPhoneField ? "field" : "unlock__field"}
-          />
+          <div className="fieldsetlabel">
+            <label>Celular</label>
+          </div>
+          <div className="fieldsetinput">
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              value={unlockPhoneField ? userDataDb.phone : null}
+              ref={register({
+                pattern: {
+                  value: phoneRegexp,
+                  message: "Número de celular inválido",
+                },
+                minLength: {
+                  value: 10,
+                  message: "El número de celular debe tener mínimo 10 caracteres",
+                },
+              })}
+              readOnly={unlockPhoneField}
+              className={unlockPhoneField ? "field" : "unlock__field"}
+            />
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockPhoneField || "unlock__iconField"}
@@ -275,24 +297,28 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>Departamento</label>
-          <select
-            id="department"
-            name="department"
-            type="text"
-            ref={register({ required: true })}
-            className={unlockDepartmentField ? "field" : "unlock__field"}
-            value={unlockDepartmentField ? userDataDb.department : null}
-            onChange={(event) =>
-              setCurrCities(
-                Departments.filter(
-                  (e) => e.id === parseInt(event.target.value)
-                )[0].ciudades
-              )
-            }
-          >
-            {mapDepartments(Departments)}
-          </select>
+          <div className="fieldsetlabel">
+            <label>Departamento</label>
+          </div>
+          <div className="fieldsetinput">
+            <select
+              id="department"
+              name="department"
+              type="text"
+              ref={register({ required: true })}
+              className={unlockDepartmentField ? "field" : "unlock__field"}
+              value={unlockDepartmentField ? userDataDb.department : null}
+              onChange={(event) =>
+                setCurrCities(
+                  Departments.filter(
+                    (e) => e.id === parseInt(event.target.value)
+                  )[0].ciudades
+                )
+              }
+            >
+              {mapDepartments(Departments)}
+            </select>
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockDepartmentField || "unlock__iconField"}
@@ -307,22 +333,25 @@ function UserProfile() {
           </div>
         </div>
         <div className="fieldSet">
-          <label>Ciudad</label>
-          <select
-            id="city"
-            name="city"
-            type="text"
-            className={unlockCityField ? "field" : "unlock__field"}
-            value={unlockCityField ? userDataDb.city : null}
-            ref={register({ required: true })}
-          >
-            {unlockCityField ? (
-              <option>{userDataDb.city}</option>
-            ) : (
-              mapCities(currCities)
-            )}
-          </select>
-
+          <div className="fieldsetlabel">
+            <label>Ciudad</label>
+          </div>
+          <div className="fieldsetinput">
+            <select
+              id="city"
+              name="city"
+              type="text"
+              className={unlockCityField ? "field" : "unlock__field"}
+              value={unlockCityField ? userDataDb.city : null}
+              ref={register({ required: true })}
+            >
+              {unlockCityField ? (
+                <option>{userDataDb.city}</option>
+              ) : (
+                mapCities(currCities)
+              )}
+            </select>
+          </div>
           <div className="input-icon">
             <CreateIcon
               className={unlockCityField || "unlock__iconField"}

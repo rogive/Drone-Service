@@ -15,6 +15,10 @@
   text-align: justify;
 }
 
+.dropdown{
+  z-index:20;
+}
+
 .react-chatbot-kit-user-chat-message{
   font-size: 1.2rem;
   background: #e3e8ed;
