@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 import { storage } from '../firebase';
 import "./FileButton.css"
 
-function Button(props) {
+function Button({onChange, name, onSubmit}) {
   return (
     <div className="fullcontaineruploadimage">
       <div className="boxlabelnameimage">
         <label htmlFor="inputfile"
-               className="labelnameimage">{ props.name || "Adjuntar un documento"}
+               className="labelnameimage">{ name || "Adjuntar un documento"}
         </label>
       </div>
       <div className="boxbuttonsimage">
         <input type="file"
             id="inputfile"
             name="inputfile"
-            onChange={props.onChange}
+            onChange={onChange}
             className="inputfile"
             style={{display: 'none'}}
             />
@@ -28,7 +28,7 @@ function Button(props) {
                 id="buttonuploadimage"
                 name="buttonuploadimage"
                 className="buttonuploadimage" 
-                onClick={props.onSubmit}
+                onClick={onSubmit}
                 >subir</button>
         <label htmlFor="buttonuploadimage" 
               className="labelbuttonuploaddocument"

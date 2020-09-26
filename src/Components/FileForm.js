@@ -2,14 +2,15 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import FileButton from './FileButton'
 import './FileForm.css'
-function FileForm (props) {
+
+function FileForm ({onChange, onSubmit, name, type}) {
   const { register, errors, handleSubmit } = useForm();
 
 
   return (
-    <form className="documentformcontainer" onSubmit={handleSubmit(props.onSubmit)}>
+    <form className="documentformcontainer" onSubmit={handleSubmit(onSubmit)}>
       <div className="documentboxtitleform">
-        <p className="documenttitleform">Nuevo  {props.type === "certificado" ? "certificado" : "documento"}</p>
+        <p className="documenttitleform">Nuevo  {type === "certificado" ? "certificado" : "documento"}</p>
       </div>
       <fieldset className="documentformfieldset">
         <div className="documentinput-full-container">
@@ -30,7 +31,7 @@ function FileForm (props) {
       </fieldset>
       <fieldset className="documentformfieldset">
         <div className="documentinput-full-container">
-            <label className="documentformlabel" htmlFor='documentcompany'>{props.type === "certificado" ? "Empresa emisora:" : "Entidad:"} </label>
+            <label className="documentformlabel" htmlFor='documentcompany'>{type === "certificado" ? "Empresa emisora:" : "Entidad:"} </label>
             <input
               id='documentcompany'
               name='company'
@@ -46,7 +47,7 @@ function FileForm (props) {
         </div>
       </fieldset>
       <fieldset className="documentformfieldset">
-        { props.type === "certificado" ? 
+        { type === "certificado" ? 
           <>
             <div className="documentinput-full-container">
               <label className="documentformlabel" htmlFor='documentid'>ID de la credencial:</label>
@@ -86,7 +87,7 @@ function FileForm (props) {
       </fieldset>
       <fieldset className="documentformfieldset">
         <div className="certicateinputcontainer">
-          <FileButton onChange={props.handleChange} name={props.name} number={1} type="document"/>
+          <FileButton onChange={onChange} name={name} number={1} type="document" onSubmit={onSubmit}/>
         </div>
       </fieldset>
       <button className="formbuttondocument">Añadir</button>
