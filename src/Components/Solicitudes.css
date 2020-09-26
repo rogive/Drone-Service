@@ -118,13 +118,6 @@ progress{
   cursor: pointer;    
 }
 
-.fullcontaineruploadimage{
-  height: 2rem;
-  display: flex;
-  flex-direction: row;
-  border-right: 1px solid gray;
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
-}
 .boxlabelnameimage {
   width: 80%;
   background-color: white;

@@ -1,39 +1,40 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from "react-router-dom";
-import { storage } from '../firebase';
+import React from 'react'
 import "./FileButton.css"
 
 function Button(props) {
-  const [selectedImage, setSelectedImage] = useState(null)
   return (
-    <div className="fullcontaineruploadimage">
-      <div className="boxlabelnameimage">
-        <label htmlFor="inputfile"
-               className="labelnameimage">{ props.name || "Adjuntar un documento"}
+    <div className="fullcontainerupload">
+      <div className={ props.number === 1 ? "boxlabelnameimage1" : "boxlabelnameimage2"}>
+        <label htmlFor="inputfileadd"
+               className="labelnameimage">{ props.name || `Adjuntar ${props.type==="document"? "un documento" : "una imagen"}`}
         </label>
       </div>
-      <div className="boxbuttonsimage">
+      <div className={ props.number === 1 ? "boxbuttonsimage1" : "boxbuttonsimage2"}>
         <input type="file"
-            id="inputfile"
-            name="inputfile"
+            id="inputfileadd"
+            name="inputfileadd"
             onChange={props.onChange}
-            className="inputfile"
+            className="inputfileadd"
             style={{display: 'none'}}
+            accept={props.type==="document"? "pdf" : ".jpg, .jpeg, .png"}
             />
         <label 
-            htmlFor="inputfile" 
-            className="labelbuttonadddocument"
-            >Abrir</label>
-        <button type="button"
-                id="buttonuploadimage"
-                name="buttonuploadimage"
-                className="buttonuploadimage" 
-                onClick={props.onSubmit}
-                >subir</button>
-        <label htmlFor="buttonuploadimage" 
-              className="labelbuttonuploaddocument"
-              >Cargar</label>
+            htmlFor="inputfileadd" 
+            className={ props.number === 1 ? "labelbuttonadddocument1" : "labelbuttonadddocument2"}
+            >Examinar</label>
+        {props.number === 2 && (
+          <>
+            <button type="button"
+                    id="buttonuploadimage"
+                    name="buttonuploadimage"
+                    className="buttonuploadimage" 
+                    onClick={props.onSubmit}
+                    >subir</button>
+            <label htmlFor="buttonuploadimage" 
+                    className={"labelbuttonuploaddocument"}
+                  >Cargar</label>
+          </>
+        )}
       </div>
     </div>
   )
