@@ -29,7 +29,6 @@ function Others() {
   const pilotId = sessionStorage.getItem("userId")
 
   useEffect( () => {
-    console.log("data: ")
     axios({
       url: `http://localhost:8000/others/listar/piloto/${pilotId}`,
       method: 'GET',
@@ -63,7 +62,6 @@ function Others() {
           }).then(({ data }) => {
             setDocuments( documents.concat(data) )
             setShowAdd(!showadd)
-            console.log(data)
           }
           )
           .catch((error) => setError(error));
