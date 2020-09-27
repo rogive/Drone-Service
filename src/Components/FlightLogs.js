@@ -88,7 +88,7 @@ function handleSubmit(event) {
           en las bitacoras añadidas.
       </p>
       <AttachContainer>
-        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name}/>
+        <FileButton onChange={handleChange} onSubmit={handleSubmit} name={name} number={1} type="document"/>
       </AttachContainer>
       <FlightLogsComponent flightlogs = {certificates}/>
     </ComponentContainer>
