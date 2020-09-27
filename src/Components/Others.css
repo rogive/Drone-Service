@@ -1,0 +1,50 @@
+.documentscontainerothers {
+  width: 80%;
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(0, 23, 105);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  color: black;
+  border-radius: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.elementothers{
+  width: 80%;
+  padding: 1rem 1rem 1rem 1.5rem;
+  font-size: 1.4rem;;
+  text-align: left;
+  font-style: italic;
+  color: white;
+}
+.iconothers{
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
+}
+.urlothers{
+  margin-right: 1.5rem;
+}
+
+.iconcontainerothers {
+  width: 100%;
+  text-align:center;
+  padding-top: 3rem;
+}
+.imagecontentothers{
+  width: 15rem;
+  height: 15rem;
+  border-radius: 3rem;
+  filter: grayscale(100%);
+}
+
+.description-other{
+  padding-top: 2rem;
+  text-align: justify;
+  font-size: 1.2rem;
+}
+.titleothers{
+  font-size: 2rem;
+}
