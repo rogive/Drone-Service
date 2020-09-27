@@ -34,8 +34,8 @@ function FlightLogs() {
   const [error, setError] = useState(null)
   const { register, errors, handleSubmit } = useForm()
   const pilotId = sessionStorage.getItem("userId")
-  const timeflightRegexp = /^([0-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|10000)$/
-  const takeoffsRegexp = /^([0-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1][0-9][0-9][0-9][0-9]|20000)$/
+  const timeflightRegexp = /^([1-9][0-9]{0,2}|1000)$/
+  const takeoffsRegexp = /^([1-9][0-9]{0,3}|10000)$/
 
   useEffect( () => {
     axios({
