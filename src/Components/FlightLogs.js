@@ -64,18 +64,11 @@ function FlightLogs() {
 
   function onSubmit( data ) {
     const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/FlightLogs/` + name).put(selectedFile);
-    console.log(data)
     uploadDocument.on('state_changed', 
       (snap) => {}, 
       (error) => {alert(error)},
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/FlightLogs/`).child(name).getDownloadURL().then(url => {
-          console.log({ ...data,
-            pilotId,
-            name,
-            url,
-            type: "document"
-          })
           axios({
             url: 'http://localhost:8000/flightlogs/crear',
             method: 'POST',
