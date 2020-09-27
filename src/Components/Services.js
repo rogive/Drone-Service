@@ -1,85 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import ServicesList from '../data/categories.json';
 import axios from 'axios';
-
-const ServicesContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 9.5vw;
-  height: 30vh;
-  background-color: rgb(0, 23, 105);
-  color: black;
-  border-radius: 0.5rem;
-  align-items: center;
-  margin: 1rem;
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
-  .element{
-    font-size: 0.8vw;
-    font-style: italic;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: white;
-  }
-  img{
-    margin: 1rem;
-    width: 8vw;
-    height: 8vw;
-    border-radius: 1rem;
-  }
-`
-
-const ServiceImageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-`
-
-const IconContainer = styled.div`
-  width: 100%;
-  text-align:center;
-  padding-top: 3rem;
-  img{
-    width: 15rem;
-    height: 15rem;
-    border-radius: 3rem;
-    filter: grayscale(100%);
-  }
-`
-
-const AttachContainer = styled.div`
-  display: flex;
-  justify-content: left;
-  padding-top:2rem;
-  padding-bottom:2rem;
-
-`
-
-const ComponentContainer = styled.div`
-  p{
-    padding-top: 2rem;
-    text-align: justify;
-    font-size: 1.2rem;
-  }
-  h2{
-    font-size: 2rem;
-  }
-`
+import "./Services.css"
 
 function ServicesComponent({
   services
 }) {
   return services.map((service) => {
     return(
-      <ServicesContainer>
+      <div className="ServicesContainer">
         <img src={service.url} alt="miniatura"></img>
         <p className="element">{service.name}</p>
-      </ServicesContainer>
+      </div>
 
     );
     });
@@ -126,15 +58,15 @@ function Services() {
   }
 
     return(
-      <ComponentContainer>
+      <div className="ComponentContainer">
         <h2>Servicios</h2>
-        <IconContainer>
-          <img src="https://support.parrot.com/files/s3fs-public/images/support/dYU04cxUUqZVMAsQwudw-czYU9lM8dD5w8eFWZPVzeC1F9Xs81_un2ikfcdqqArRW8Hrzx2s9QmRw7KBPwnoLMYxRUuMjJUj6DtNCOX1p25vuehtjvoRMGkLxwt7eyIrTe4DpcI6TdVEfAG71A" alt="Hola"></img>
-        </IconContainer>
-        <p>Este espacio corresponde a los servicios que puedes 
+        <div className="IconContainer">
+          <img src="https://deveronuas.com/wp-content/uploads/2019/09/Deveron-icons_Site-Survey.png" alt="drone-service"></img>
+        </div>
+        <p className="">Este espacio corresponde a los servicios que puedes 
             brindar con tus conocimientos, experiencia y equipos.
         </p>
-        <AttachContainer>
+        <div className="AttachContainer">
         <form onSubmit={handleSubmit}>
             <label>
               <select name="services" onChange={handleChange}>
@@ -151,12 +83,11 @@ function Services() {
             </label>
           <button type="submit">Submit</button>
         </form>
-        </AttachContainer>
-        <ServiceImageContainer>
+        </div>
+        <div className="ServiceImageContainer">
           <ServicesComponent services = {services}/>
-        </ServiceImageContainer>
-      </ComponentContainer>
-
+        </div>
+      </div>
     )
 }
 
