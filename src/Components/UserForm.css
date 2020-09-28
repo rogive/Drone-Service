@@ -27,7 +27,15 @@
   width: 75%;
   float: left;
   border: none;
-  padding: 0.5rem 0rem 0.5rem 0rem;
+  padding: 0.85rem 0rem 0.85rem 0rem;
+}
+
+.formfieldset-password{
+  display:flex;
+  flex-direction: row;
+  width: 91%;
+  float: left;
+  border: none;
 }
 
 .formbutton {
@@ -70,10 +78,26 @@
 }
 .label-input-container{
   width: 55%;
+  align-self: center;
+}
+.label-input-container-password{
+  width: 47%;
+  align-self: center;
+  padding-left: 4rem;
 }
 .input-container{
   float: right;
   width: 45%;
+}
+.password-container{
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  width: 45%;
+  align-items: center;
+}
+.icon-container{
+
 }
 .error-input-container{
   color: red;

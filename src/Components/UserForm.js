@@ -133,12 +133,12 @@ const FormHook = () => {
             </span>
           </div>
         </fieldset>
-        <fieldset className="formfieldset">
+        <fieldset className="formfieldset-password">
           <div className="input-full-container">
-            <div className="label-input-container">
+            <div className="label-input-container-password">
               <label className="formlabel" htmlFor='password'>Contraseña: </label>
             </div>
-            <div className="input-container">
+            <div className="password-container">
               <input
                 id='password'
                 name='password'
@@ -146,12 +146,14 @@ const FormHook = () => {
                 className="input-title"
                 ref={register({ required: { value:true, message: 'El campo contraseña es requerido' }})}
               />
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-              >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
+              <div className='icon-container'>
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </div>
             </div>
           </div>
           <div className="error-input-container">
