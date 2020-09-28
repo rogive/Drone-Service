@@ -1,0 +1,240 @@
+.equipments-full-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.equipmentscontainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: black;
+  border-radius: 2rem;
+  align-items: center;
+  margin: 2rem;
+  width: 12rem;
+}
+
+.element-equipment-container{
+  display: flex;
+  padding: 1rem 1rem 1rem 1rem;
+  align-items: center;
+  font-style: italic;
+  color: white;
+  background-color: rgb(0, 23, 105);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 3rem;
+  height: 3rem;
+}
+
+
+
+.element-equipment{
+  font-size: 1.1rem;;
+  text-align: center;
+}
+
+.image-equipment{
+  width: 12rem;
+  height: 12rem;
+  background-color: white;
+  border-radius: 6rem;
+  margin-bottom: 2rem;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.fullcontaineruploadimageequipment{
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  border-right: 1px solid gray;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+.boxlabelnameimageequipment {
+  width: 80%;
+  background-color: white;
+  border: 1px solid gray;
+}
+.boxbuttonsimageequipment{
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.labelbuttonaddimageequipment,
+.labelbuttonuploadimageequipment {
+  display: flex;
+  width: 5rem;
+  padding: 0.2rem 0rem 0.2rem 0rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid gray;
+  background-color: #D9DFEE;
+}
+
+.labelnameimageequipment {
+  display: flex;
+  height: 2rem;
+  justify-content: left;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.inputfile{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.buttonuploadimageequipment{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.inputfile:focus, .labelbuttonaddimageequipment:hover,
+.buttonuploadimageequipment:focus, .labelbuttonuploadimageequipment:hover {
+  background-color: #D1D7E8;
+}
+
+.fullimageequipmentcontainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+.imageequipmentcontainer{
+  width: 17%;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.imageequipmentsolicitude{
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1rem;
+}
+
+.add-equipment{
+  background-color: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: rgba(10,10,200, 1);
+  margin: 1rem 0rem 2rem 0rem;
+}
+
+.equipmentformcontainer {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 3rem 4rem;
+  margin: 4rem Auto;
+  width: 45rem;
+}
+
+.equipmentformfieldset {
+  border: none;
+  padding: 0.7rem 0rem;
+}
+
+.equipmentinput-full-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+.equipmenttitleform {
+  text-align: left;
+  font-size: 1.8rem;
+  padding: 1rem 0rem;
+}
+
+.equipmentformlabel {
+  font-size: 1.4rem;
+}
+
+.formbuttonequipment {
+  text-decoration: none;
+  margin: 2rem 0rem 0rem 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Montserrat';
+  font-size: 1.6rem;
+  color: white;
+  border: none;
+  background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));
+  cursor: pointer;
+}
+
+.formbuttonequipment:hover {
+  background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
+}
+
+.equipment-input-select{
+  width: 41%;
+  height: 2.2rem;
+  padding-left: 0.2rem;
+}
+
+.equipment-input-text{
+  width: 40%;
+  height: 1.8rem;
+  padding-left: 0.2rem;
+}
+
+
+.equipmentformlabel {
+  width: 50%;
+  text-align: left;
+}
+
+.error-input-container-equipment{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.iconcontainerequipments{
+  width: 100%;
+  text-align:center;
+  padding-top: 3rem;
+}
+.img-equipments {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 3rem;
+    filter: grayscale(100%);
+}
+
+.description-equipments {
+  padding-top: 2rem;
+  text-align: justify;
+  font-size: 1.2rem;
+}
+
+.titleequipments {
+    font-size: 2rem;
+}
+
+.mainimagecontainer {
+  width: 100%;
+  text-align:center;
+  padding-top: 3rem;
+}
+
+.mainimage{
+  width: 12rem;
+  height: 12rem;
+  border-radius: 3rem;
+  filter: grayscale(100%);
+}
