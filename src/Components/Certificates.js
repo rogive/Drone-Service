@@ -72,11 +72,10 @@ const ComponentContainer = styled.div`
   }
 `
 
-function CertificatesComponent({
-  certificates
-  }) {
-    return certificates.map((certificate) => {
-      return(
+function CertificatesComponent({ certificates, handleDelete}) {
+    return (
+      certificates.map((certificate) => {
+        return(
         <DocumentsContainer>
           <p className="element">{certificate.title}</p>
           <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="url">
@@ -85,11 +84,11 @@ function CertificatesComponent({
                  className="icon"
             />
           </a>
+          <button className="deletedflightlog" onClick={() => handleDelete(certificate.name, certificate._id)}> Eliminar </button>
         </DocumentsContainer>
-  
-      );
-    });
-  
+          );
+        })
+    )
   }
   
 function Certificates() {
@@ -116,6 +115,21 @@ function Certificates() {
     if(!event.target.files[0]) return
     setSelectedFile(event.target.files[0])
     setName(event.target.files[0].name)
+  }
+  
+  function handleDelete(nameFile, idFile) {
+    const deleteFile = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + nameFile)
+    deleteFile.delete().then( () =>{
+      console.log("El archivo fue removido de Firebase")
+      axios({
+        url: `http://localhost:8000/certificates/eliminar/${idFile}`,
+        method: 'DELETE',
+      }).then(({ data }) => {
+        //certificates.findIndex(elem => elem._id === idFile)
+        setCertificates( certificates.concat(data) )
+      })
+    }).catch((error) => setError(error))
+    console.log("El archivo fue removido")
   }
 
   function onSubmit( data ) {
@@ -227,7 +241,7 @@ function Certificates() {
         </form>
       )}
       <CertificatesComponentContainer>
-        <CertificatesComponent certificates = {certificates}/>
+        <CertificatesComponent certificates={certificates} handleDelete={handleDelete}/>
       </CertificatesComponentContainer>
     </ComponentContainer>
   )
