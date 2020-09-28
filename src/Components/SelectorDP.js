@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import UserProfile from './UserProfile';
 import Certificates from '../Components/Certificates';
 import FlightLogs from '../Components/FlightLogs';
-import FlightLogsApp from '../Components/FlightLogsApp';
 import Equipments from '../Components/Equipments';
 import Services from '../Components/Services';
 import Others from '../Components/Others';
@@ -41,7 +40,6 @@ function SelectorDP() {
           <button value="Profile" onClick={handleClick}> Perfil </button>
           <button value="Certificates" onClick={handleClick}> Certificaciones </button>
           <button value="FlightLogs" onClick={handleClick}> Bitacoras de Vuelo </button>
-          <button value="FlightLogsApp" onClick={handleClick}> Horas de Vuelo App </button>
           <button value="Services" onClick={handleClick}> Servicios </button>
           <button value="Equipments" onClick={handleClick}> Equipos </button>
           <button value="Others" onClick={handleClick}> Otros </button>
@@ -61,10 +59,6 @@ function SelectorDP() {
               value === "FlightLogs" ?
                 <div className="component-pilot">
                   <FlightLogs/>
-                </div> :
-              value === "FlightLogsApp" ?
-                <div className="component-pilot">
-                  <FlightLogsApp/> 
                 </div> :
               value === "Services" ?
                 <div className="component-pilot">

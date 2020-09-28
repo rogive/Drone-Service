@@ -1,25 +1,57 @@
+.flightlogscontainer{
+  width: 70%;
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(0, 23, 105);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  color: black;
+  border-radius: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
 
-.fullcontaineruploadimagecertificate{
+.element-flightlog{
+  background: none;
+  width: 80%;
+  padding: 1rem 1rem 1rem 1.5rem;
+  font-size: 1.4rem;;
+  text-align: left;
+  font-style: italic;
+  color: white;
+}
+
+.url-flightlog{
+  margin-right: 1.5rem;
+}
+
+.icon-flightlog{
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
+}
+
+.fullcontaineruploadimageflightlog{
   height: 2rem;
   display: flex;
   flex-direction: row;
   border-right: 1px solid gray;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
 }
-.boxlabelnameimagecertificate {
+.boxlabelnameimageflightlog {
   width: 80%;
   background-color: white;
   border: 1px solid gray;
 }
-.boxbuttonsimagecertificate{
+.boxbuttonsimageflightlog{
   width: 20%;
   display: flex;
   flex-direction: row;
   
 }
 
-.labelbuttonaddimagecertificate,
-.labelbuttonuploadimagecertificate {
+.labelbuttonaddimageflightlog,
+.labelbuttonuploadimageflightlog {
   display: flex;
   width: 5rem;
   padding: 0.2rem 0rem 0.2rem 0rem;
@@ -32,7 +64,7 @@
   background-color: #D9DFEE;
 }
 
-.labelnameimagecertificate {
+.labelnameimageflightlog {
   display: flex;
   height: 2rem;
   justify-content: left;
@@ -48,7 +80,7 @@
   position: absolute;
   z-index: -1;
 }
-.buttonuploadimagecertificate{
+.buttonuploadimageflightlog{
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -58,12 +90,12 @@
 }
 
 
-.inputfile:focus, .labelbuttonaddimagecertificate:hover,
-.buttonuploadimagecertificate:focus, .labelbuttonuploadimagecertificate:hover {
+.inputfile:focus, .labelbuttonaddimageflightlog:hover,
+.buttonuploadimageflightlog:focus, .labelbuttonuploadimageflightlog:hover {
   background-color: #D1D7E8;
 }
 
-.fullimagecertificatecontainer{
+.fullimageflightlogcontainer{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -72,19 +104,19 @@
   width: 100%;
 }
 
-.imagecertificatecontainer{
+.imageflightlogcontainer{
   width: 17%;
   border-radius: 1rem;
   margin: 1rem;
 }
 
-.imagecertificatesolicitude{
+.imageflightlogsolicitude{
   width: 5rem;
   height: 5rem;
   border-radius: 1rem;
 }
 
-.add-certificate{
+.add-flightlog{
   background-color: transparent;
   border: none;
   font-size: 1.6rem;
@@ -92,34 +124,34 @@
   margin: 1rem 0rem 2rem 0rem;
 }
 
-.certificateformcontainer {
+.flightlogformcontainer {
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   padding: 2rem 3rem;
   margin-bottom: 4rem;
 }
 
-.certificateformfieldset {
+.flightlogformfieldset {
   border: none;
   padding: 0.7rem 0rem;
 }
 
-.certificateinput-full-container {
+.flightloginput-full-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 0.4rem;
 }
-.certificatetitleform {
+.flightlogtitleform {
   text-align: left;
   font-size: 1.8rem;
   padding: 1rem 0rem;
 }
 
-.certificateformlabel {
+.flightlogformlabel {
   font-size: 1.4rem;
 }
 
-.formbuttoncertificate {
+.formbuttonflightlog {
   text-decoration: none;
   margin: 2rem 0rem 0rem 1rem;
   padding: 0.5rem 1rem;
@@ -132,22 +164,58 @@
   cursor: pointer;
 }
 
-.formbuttoncertificate:hover {
+.formbuttonflightlog:hover {
   background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
 }
 
-.certificate-input-title{
+.flightlog-input-title{
   width: 60%;
   height: 1.8rem;
   padding-left: 0.2rem;
 }
 
-.certificateformlabel {
+.flightlog-input-flightime-select{
+  width: 15%;
+  height: 2.2rem;
+  padding-left: 0.2rem;
+}
+
+.flightlog-input-flightime-text{
+  width: 30%;
+  height: 1.8rem;
+  padding-left: 0.2rem;
+}
+
+
+.flightlogformlabel {
   width: 40%;
   text-align: left;
 }
 
-.error-input-container-certificate{
+.error-input-container-flightlog{
   display: flex;
   justify-content: flex-end;
 }
+
+.iconcontainerflightlogs{
+  width: 100%;
+  text-align:center;
+  padding-top: 3rem;
+}
+.img-flightlogs {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 3rem;
+    filter: grayscale(100%);
+}
+
+.description-flightlogs {
+    padding-top: 2rem;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+.titleflightlogs {
+    font-size: 2rem;
+}
+
