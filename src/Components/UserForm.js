@@ -5,6 +5,9 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Departments from '../data/deparments.json'
 import "./UserForm.css";
+import { InputAdornment, IconButton } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const FormHook = () => {
   
@@ -15,6 +18,8 @@ const FormHook = () => {
   const emailRegexp = /((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))/;
   const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\./0-9]*$/
   let tipoUsuario = (userType === 'pilot')?'piloto':'cliente'
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const onSubmit = data => {
     let urlAux = (userType === 'pilot')?'pilotos':'client'
@@ -137,10 +142,22 @@ const FormHook = () => {
               <input
                 id='password'
                 name='password'
-                type='password'
+                type={showPassword ? "text" : "password"}
                 className="input-title"
                 ref={register({ required: { value:true, message: 'El campo contraseña es requerido' }})}
               />
+              InputProps={{ // <-- This is where the toggle button is added.
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             </div>
           </div>
           <div className="error-input-container">
