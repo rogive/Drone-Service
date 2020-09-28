@@ -5,11 +5,9 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Departments from '../data/deparments.json'
 import "./UserForm.css";
-import { InputAdornment, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
-import TogglePasword from './TogglePassword'
 
 const FormHook = () => {
   
