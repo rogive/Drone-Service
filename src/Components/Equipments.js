@@ -1,39 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import FileButton from './FileButton';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import Drones from '../data/drones.json'
 import "./Equipments.css";
 import axios from 'axios';
-import Drones from '../data/drones.json'
-
-const IconContainer = styled.div`
-  width: 100%;
-  text-align:center;
-  padding-top: 3rem;
-  img{
-    width: 15rem;
-    height: 15rem;
-    border-radius: 3rem;
-    filter: grayscale(100%);
-  }
-`
-
-const AttachContainer = styled.div`
-  display: flex;
-  justify-content: left;
-  padding-top:2rem;
-  padding-bottom:2rem;
-`
-
-const ComponentContainer = styled.div`
-  p{
-
-  }
-  h2{
-    font-size: 2rem;
-  }
-`
-
 
 function EquipmentsComponent({ equipments }) {
   return equipments.map((equipment) => {
@@ -119,11 +88,11 @@ function Equipments() {
   }
 
   return(
-    <ComponentContainer>
-      <h2>Equipos</h2>
-      <IconContainer>
-        <img src="https://aerialpixels.com/wp-content/uploads/2017/12/icon_049910_256.png" alt="Hola"></img>
-      </IconContainer>
+    <div className="titleequipments">
+      <h2 className="titleequipments">Equipos</h2>
+      <div className="mainimagecontainer">
+        <img className="mainimage" src="https://aerialpixels.com/wp-content/uploads/2017/12/icon_049910_256.png" alt="Hola"></img>
+      </div>
       <p className="description-equipments">Relaciona todos los equipos que tengas disponibles para realizar
           tus servicios como piloto profesional de drones.
       </p>
@@ -204,8 +173,7 @@ function Equipments() {
       <div className="equipments-full-container">
         <EquipmentsComponent equipments = {equipments}/>
       </div>
-        </ComponentContainer>
-
+    </div>
   )
 }
 
