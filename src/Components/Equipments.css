@@ -1,34 +1,46 @@
-.equipmentscontainer{
-  width: 70%;
-  height: 3.5rem;
+.equipments-full-container{
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.equipmentscontainer{
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  background-color: rgb(0, 23, 105);
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
   color: black;
   border-radius: 2rem;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 2rem;
+  width: 12rem;
 }
 
-.element-equipment{
-  background: none;
-  width: 80%;
-  padding: 1rem 1rem 1rem 1.5rem;
-  font-size: 1.4rem;;
-  text-align: left;
+.element-equipment-container{
+  display: flex;
+  padding: 1rem 1rem 1rem 1rem;
+  align-items: center;
   font-style: italic;
   color: white;
+  background-color: rgb(0, 23, 105);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 3rem;
+  height: 3rem;
 }
 
-.url-equipment{
-  margin-right: 1.5rem;
+
+
+.element-equipment{
+  font-size: 1.1rem;;
+  text-align: center;
 }
 
-.icon-equipment{
-  width: 1.5rem;
-  height: 1.5rem;
-  filter: invert(1);
+.image-equipment{
+  width: 12rem;
+  height: 12rem;
+  background-color: white;
+  border-radius: 6rem;
+  margin-bottom: 2rem;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
 }
 
 .fullcontaineruploadimageequipment{
@@ -126,8 +138,9 @@
 
 .equipmentformcontainer {
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
-  padding: 2rem 3rem;
-  margin-bottom: 4rem;
+  padding: 3rem 4rem;
+  margin: 4rem Auto;
+  width: 45rem;
 }
 
 .equipmentformfieldset {
@@ -168,27 +181,21 @@
   background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
 }
 
-.equipment-input-title{
-  width: 60%;
-  height: 1.8rem;
-  padding-left: 0.2rem;
-}
-
-.equipment-input-flightime-select{
-  width: 15%;
+.equipment-input-select{
+  width: 41%;
   height: 2.2rem;
   padding-left: 0.2rem;
 }
 
-.equipment-input-flightime-text{
-  width: 30%;
+.equipment-input-text{
+  width: 40%;
   height: 1.8rem;
   padding-left: 0.2rem;
 }
 
 
 .equipmentformlabel {
-  width: 40%;
+  width: 50%;
   text-align: left;
 }
 
@@ -210,12 +217,11 @@
 }
 
 .description-equipments {
-    padding-top: 2rem;
-    text-align: justify;
-    font-size: 1.2rem;
+  padding-top: 2rem;
+  text-align: justify;
+  font-size: 1.2rem;
 }
 
 .titleequipments {
     font-size: 2rem;
 }
-
