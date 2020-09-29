@@ -52,7 +52,7 @@ function Results({ info }) {
   };
 
   return (
-    <div className="results__container">
+    <>
       {userType === "pilot" && <h2>Solicitudes</h2>}
       {userType === "pilot"
         ? solicitudesDb
@@ -91,7 +91,7 @@ function Results({ info }) {
       <NewModal show={modelToggle} modalClosed={handleClose}>
         <PilotCard pilot={pilotCard} />
       </NewModal>
-    </div>
+    </>
   );
 }
 
