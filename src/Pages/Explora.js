@@ -4,13 +4,13 @@ import GlobalContainer from '../utils/GlobalStyles'
 
 
 
-class Explora extends React.Component{
+class Explora extends React.Component {
 
-render(){
-    return (
-        <GlobalContainer>
-            <Search/>
-        </GlobalContainer>
+    render() {
+        return (
+
+            <Search />
+
         )
     }
 }
