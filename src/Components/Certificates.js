@@ -72,7 +72,7 @@ const ComponentContainer = styled.div`
   }
 `
 
-function CertificatesComponent({ certificates, handleDelete}) {
+function CertificatesComponent({ certificates, setCertificates, handleHola}) {
     return (
       certificates.map((certificate) => {
         return(
@@ -84,7 +84,7 @@ function CertificatesComponent({ certificates, handleDelete}) {
                  className="icon"
             />
           </a>
-          <button className="deletedflightlog" onClick={() => handleDelete(certificate.name, certificate._id)}> Eliminar </button>
+          <button className="deletedflightlog" onClick={() => handleHola(certificate.name, certificate._id, setCertificates)}> Eliminar </button>
         </DocumentsContainer>
           );
         })
@@ -115,6 +115,13 @@ function Certificates() {
     if(!event.target.files[0]) return
     setSelectedFile(event.target.files[0])
     setName(event.target.files[0].name)
+  }
+
+  function handleHola(nameFile, idFile) {
+    const newcertificates = certificates
+    newcertificates.splice(newcertificates.findIndex(elem => elem._id === idFile), 1)
+    console.log(newcertificates)
+    setCertificates( certificates.pop() )
   }
   
   function handleDelete(nameFile, idFile) {
@@ -241,7 +248,7 @@ function Certificates() {
         </form>
       )}
       <CertificatesComponentContainer>
-        <CertificatesComponent certificates={certificates} handleDelete={handleDelete}/>
+        <CertificatesComponent certificates2={certificates} handleDelete={handleDelete} setCertificates={setCertificates} handleHola={handleHola}/>
       </CertificatesComponentContainer>
     </ComponentContainer>
   )

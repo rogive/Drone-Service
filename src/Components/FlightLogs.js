@@ -6,23 +6,20 @@ import "./FlightLogs.css";
 import axios from 'axios';
 import Categories from '../data/categories.json'
 
-function FlightLogsComponent({
-  flightlogs
-  }) {
-    return flightlogs.map((flightlog) => {
-      return(
-        <div className="flightlogscontainer">
-          <p className="element-flightlog">{`Operaciones de ${flightlog.specialty} - ${flightlog.company}`}</p>
-          <a href={flightlog.url} target="_blank" rel="noopener noreferrer" className="url-flightlog">
-            <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
-                 alt="pdfIcon"
-                 className="icon-flightlog"
-            />
-          </a>
-        </div>
-      );
-    });
-  
+function FlightLogsComponent({flightlogs, handleDelete}) {
+  return flightlogs.map((flightlog) => {
+    return(
+      <div className="flightlogscontainer">
+        <p className="element-flightlog">{`Operaciones de ${flightlog.specialty} - ${flightlog.company}`}</p>
+        <a href={flightlog.url} target="_blank" rel="noopener noreferrer" className="url-flightlog">
+          <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
+                alt="pdfIcon"
+                className="icon-flightlog"
+          />
+        </a>
+      </div>
+    )
+  })
   }
   
 function FlightLogs() {
