@@ -5,13 +5,17 @@ import { Payment } from "./Payment"
 
 import NewModal from "./NewModal";
 import PilotCard from "./PilotCard";
+import SolicitudeModal from "./SolicitudeModal";
+import SolicitudeCard from "./SolicitudeCard";
 
 function Results({ info }) {
   const userType = sessionStorage.getItem("userType");
   const [pilotsDb, setPilotsDb] = useState([]);
   const [solicitudesDb, setSolicitudesDb] = useState([]);
   const [modelToggle, setModelToggle] = useState(false);
+  const [solModalToggle, setSolModalToggle] = useState(false);
   const [pilotCard, setPilotCard] = useState("");
+  const [solicitudeCard, setSolicitudeCard] = useState("");
   const pilotId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -48,6 +52,7 @@ function Results({ info }) {
 
   const handleClose = () => {
     setModelToggle(false);
+    setSolModalToggle(false);
   };
 
   return (
@@ -75,6 +80,17 @@ function Results({ info }) {
                     <p>{element.description}</p>
                     {element.phone.includes("X")?<Payment element={element}/>:null}
                     <h2>{`Teléfono: ${element.phone}`}</h2>
+                    <div className="buttons">
+                      {console.log(element)}
+                      <button
+                        onClick={(event) => {
+                          setSolicitudeCard(element);
+                          setSolModalToggle(true);
+                        }}
+                      >
+                        Ver más
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -132,6 +148,9 @@ function Results({ info }) {
       <NewModal show={modelToggle} modalClosed={handleClose}>
         <PilotCard pilot={pilotCard} />
       </NewModal>
+      <SolicitudeModal show={solModalToggle} modalClosed={handleClose}>
+        <SolicitudeCard pilot={pilotCard}/>
+      </SolicitudeModal>
     </>
   );
 }
