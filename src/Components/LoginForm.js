@@ -42,7 +42,6 @@ const LoginForm = ({ handleClose }) => {
             dispatch(setGlobalUser(data.client));
           })
           .catch((error) => {
-/*             alert(error.response.data.message); */
             sessionStorage.clear();
           });
       });

@@ -1,3 +1,5 @@
+import { Checkbox, Radio } from "@material-ui/core";
+import { CheckBox } from "@material-ui/icons";
 import React, { useState } from "react";
 import categories from "../data/categories.json";
 import "./Categories.css";
@@ -16,6 +18,7 @@ const Categories = ({ categorieHandleChange }) => {
               name="Categoria"
               onChange={(event) => categorieHandleChange(event)}
             />
+
             <label htmlFor={categorie.id}>{categorie.label}</label>
           </div>
         );
