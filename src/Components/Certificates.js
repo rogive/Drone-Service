@@ -55,12 +55,6 @@ const IconContainer = styled.div`
     filter: grayscale(100%);
   }
 `
-
-const AttachContainer = styled.div`
-  padding-top: 1rem;
-  padding-bottom:2rem;
-`
-
 const ComponentContainer = styled.div`
   h2{
     font-size: 2rem;
@@ -72,36 +66,38 @@ const ComponentContainer = styled.div`
   }
 `
 
-function CertificatesComponent({
-  certificates
-  }) {
-    return certificates.map((certificate) => {
-      return(
+function CertificatesComponent({ certificates, handleDelete}) {
+    return (
+      certificates.map((certificate) => {
+        return(
         <DocumentsContainer>
           <p className="element">{certificate.title}</p>
-          <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="url">
+          <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="certificateurl">
             <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
                  alt="pdfIcon"
-                 className="icon"
+                 className="certificateicon"
             />
           </a>
+          <button className="deletedcertificatebutton" onClick={() => handleDelete(certificate.name, certificate._id)}>
+            <img src="https://cdn.onlinewebfonts.com/svg/img_79761.png" 
+                  alt="deleteIcon"
+                  className="deletecertificateicon"
+              />
+          </button>
         </DocumentsContainer>
-  
-      );
-    });
-  
+          );
+        })
+    )
   }
   
 function Certificates() {
   const [certificates, setCertificates] = useState([])
   const [name, setName] = useState('')
-  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
-  const [urlDocument, setUrlDocument] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [showadd, setShowAdd] = useState(false)
   const [error, setError] = useState(null)
-  const { register, errors, handleSubmit } = useForm();
-
+  const { register, errors, handleSubmit } = useForm()
+  const pilotId = sessionStorage.getItem("userId")
 
   useEffect( () => {
     axios({
@@ -118,6 +114,31 @@ function Certificates() {
     setName(event.target.files[0].name)
   }
 
+  
+  function handleDelete(nameFile, idFile) {
+    const deleteFile = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + nameFile)
+    deleteFile.delete().then( () =>{
+      axios({
+        url: `http://localhost:8000/certificates/eliminar/${idFile}`,
+        method: 'DELETE',
+      }).then(() => {
+          axios({
+            url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+            method: 'GET'
+          }).then(({ data }) => setCertificates( data ))
+            .catch((error) => setError({ error }))
+      })
+      .catch((error) => {
+        setError(error)
+        axios({
+          url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+          method: 'GET'
+        }).then(({ data }) => setCertificates( data ))
+          .catch((error) => setError({ error }))
+      })
+    })
+  }
+
   function onSubmit( data ) {
     const uploadDocument = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + name).put(selectedFile);
     uploadDocument.on('state_changed', 
@@ -125,7 +146,6 @@ function Certificates() {
       (error) => {alert(error)},
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
-          setUrlDocument(url)
           axios({
             url: 'http://localhost:8000/certificates/crear',
             method: 'POST',
@@ -227,7 +247,7 @@ function Certificates() {
         </form>
       )}
       <CertificatesComponentContainer>
-        <CertificatesComponent certificates = {certificates}/>
+        <CertificatesComponent certificates={certificates} handleDelete={handleDelete}/>
       </CertificatesComponentContainer>
     </ComponentContainer>
   )

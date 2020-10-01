@@ -151,3 +151,32 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.certificateicon{
+  height: 1.4rem;
+  width: 1.4rem;
+  background-color: transparent;
+  filter: invert(1);
+}
+
+.certificateurl{
+  margin-right: 1rem;
+}
+
+.deletecertificateicon{
+  height: 1.4rem;
+  width: 1.3rem;
+  background-color: transparent;
+  filter: invert(1);
+}
+
+.deletedcertificatebutton{
+  background-color: transparent;
+  border: none;
+  margin-right: 1rem;
+}
+
+.deletedcertificatebutton:hover {
+  cursor: pointer;
+}
+
