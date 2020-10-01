@@ -20,8 +20,9 @@ function FlightLogsComponent({
             />
           </a>
         </div>
-      );
-    });
+      )
+    })
+  }
   
 function FlightLogs() {
   const [flightlogs, setFlightLogs] = useState([])
