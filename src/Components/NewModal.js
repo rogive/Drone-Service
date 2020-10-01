@@ -3,7 +3,6 @@ import Backdrop from "./Backdrop";
 import "./NewModal.css";
 
 function NewModal({ children, show, modalClosed }) {
-  console.log(show);
   return (
     <>
       <Backdrop show={show} clicked={modalClosed} />
