@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGlobalUser, setGlobalUser } from "../store";
 import Chatbot from 'react-chatbot-kit';
-import { ActionProvider, MessageParser, config}  from './ChatBot/ChatBot';
+import { ActionProvider, MessageParser, config } from './ChatBot/ChatBot';
 import { ConditionallyRender } from "react-util-kit";
 import droneboticon from "../img/dronebot-icon.png";
 import "./Header.css";
@@ -19,6 +19,7 @@ const HeaderContainer = styled.div`
   padding: 10px 40px;
   display: flex;
   box-shadow: 0 1px 6px rgba(57, 73, 76, 0.35);
+  position: relative;
 `;
 
 const ModalContainer = styled.div`
@@ -155,30 +156,30 @@ function Header() {
             </nav>
           </div>
         ) : (
-          <div>
-            <StyledLink to="" onClick={() => setShow(!show)}>
-              Iniciar sesión
+            <div>
+              <StyledLink to="" onClick={() => setShow(!show)}>
+                Iniciar sesión
             </StyledLink>
-          </div>
-        )}
+            </div>
+          )}
       </Session>
       <div className="chatbotcontainer">
         <ConditionallyRender
-            ifTrue={showChatbot}
-            show={
-              <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser}/>
-            }
+          ifTrue={showChatbot}
+          show={
+            <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser} />
+          }
         />
       </div>
       <div className="chatbotbuttoncontainer">
         <div className={showNotificationBot ? "chatbotnotification" : "chatbotnotification-hidden"}> 1 </div>
-        <div className="chatbotbutton" 
-             onClick={() => {
-               toggleChatbot((prev) => !prev)
-               toggleNotificationBot(false)
-             }}
+        <div className="chatbotbutton"
+          onClick={() => {
+            toggleChatbot((prev) => !prev)
+            toggleNotificationBot(false)
+          }}
         >
-          <img src={droneboticon} alt="dronebot-icon"/>
+          <img src={droneboticon} alt="dronebot-icon" />
         </div>
       </div>
       <Modal show={show} handleClose={hideModal}>

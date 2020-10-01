@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import "./LocationSearch.css"
 
 const OptionContainer = styled.div`
   margin-bottom: 15px;
@@ -31,7 +32,7 @@ const LocationSearch = ({
         <OptionContainer>
           {departments.map((department) => {
             return (
-              <div>
+              <div className="deparment-check">
                 <input
                   key={department.id}
                   value={department}
@@ -46,10 +47,10 @@ const LocationSearch = ({
           })}
         </OptionContainer>
       </div>
-      <h3>Ciudades</h3>
       <div>
         {departmentID && (
           <OptionContainer>
+            <h3>Ciudades</h3>
             {cities.map((element) => {
               return (
                 <div>

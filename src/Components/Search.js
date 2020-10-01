@@ -9,6 +9,8 @@ import SlideShow from "./SlideShow";
 const ExploraContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+  padding: 10px 40px;
+  background-color: #E1E4EE;
 `;
 
 const SearchContainer = styled.div`
@@ -26,6 +28,9 @@ const ResultsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  overflow-y: scroll;
+  height: 62vh;
+  background-color: white;
 `;
 
 const Search = () => {
