@@ -5,7 +5,61 @@
   top: 10%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+  min-height: 400px;
 }
+
+.selector{
+  background: rgb(179, 195, 255);
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 1px;
+  margin-right: 5px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.selector:hover {
+  background: rgb(0, 23, 105);
+  transition: all 0.4s ease-in-out;
+}
+
+.selector-active{
+  background: rgb(0, 23, 105);
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 1px;
+  margin-right: 5px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.buttons button {
+  background: rgb(179, 195, 255);
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: -1px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: rgb(0, 23, 105);
+  transition: all 0.4s ease-in-out;
+}
+
 
 @media (min-width: 600px) {
   .solicitude-modal {
