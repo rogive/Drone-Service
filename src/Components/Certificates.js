@@ -72,19 +72,24 @@ const ComponentContainer = styled.div`
   }
 `
 
-function CertificatesComponent({ certificates, setCertificates, handleHola}) {
+function CertificatesComponent({ certificates, handleDelete}) {
     return (
       certificates.map((certificate) => {
         return(
         <DocumentsContainer>
           <p className="element">{certificate.title}</p>
-          <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="url">
+          <a href={certificate.url} target="_blank" rel="noopener noreferrer" className="certificateurl">
             <img src="https://firebasestorage.googleapis.com/v0/b/droneservice-cc42f.appspot.com/o/src%2Ficons%2Fdocument-icon.png?alt=media&token=57d39b43-a362-40ce-9652-08ef9af6388f" 
                  alt="pdfIcon"
-                 className="icon"
+                 className="certificateicon"
             />
           </a>
-          <button className="deletedflightlog" onClick={() => handleHola(certificate.name, certificate._id, setCertificates)}> Eliminar </button>
+          <button className="deletedcertificatebutton" onClick={() => handleDelete(certificate.name, certificate._id)}>
+            <img src="https://cdn.onlinewebfonts.com/svg/img_79761.png" 
+                  alt="deleteIcon"
+                  className="deletecertificateicon"
+              />
+          </button>
         </DocumentsContainer>
           );
         })
@@ -109,7 +114,7 @@ function Certificates() {
     })
       .then(({ data }) => setCertificates( data ))
       .catch((error) => setError({ error }))
-  }, [])
+  }, [certificates])
 
   function handleChange(event) {
     if(!event.target.files[0]) return
@@ -117,12 +122,6 @@ function Certificates() {
     setName(event.target.files[0].name)
   }
 
-  function handleHola(nameFile, idFile) {
-    const newcertificates = certificates
-    newcertificates.splice(newcertificates.findIndex(elem => elem._id === idFile), 1)
-    console.log(newcertificates)
-    setCertificates( certificates.pop() )
-  }
   
   function handleDelete(nameFile, idFile) {
     const deleteFile = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + nameFile)
@@ -132,10 +131,17 @@ function Certificates() {
         url: `http://localhost:8000/certificates/eliminar/${idFile}`,
         method: 'DELETE',
       }).then(({ data }) => {
-        //certificates.findIndex(elem => elem._id === idFile)
         setCertificates( certificates.concat(data) )
       })
-    }).catch((error) => setError(error))
+    }).catch((error) => {
+      setError(error)
+      axios({
+        url: `http://localhost:8000/certificates/eliminar/${idFile}`,
+        method: 'DELETE',
+      }).then(({ data }) => {
+        setCertificates( certificates.concat(data) )
+      })
+    })
     console.log("El archivo fue removido")
   }
 
@@ -248,7 +254,7 @@ function Certificates() {
         </form>
       )}
       <CertificatesComponentContainer>
-        <CertificatesComponent certificates2={certificates} handleDelete={handleDelete} setCertificates={setCertificates} handleHola={handleHola}/>
+        <CertificatesComponent certificates={certificates} handleDelete={handleDelete}/>
       </CertificatesComponentContainer>
     </ComponentContainer>
   )
