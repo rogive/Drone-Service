@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./PilotCard.css";
 
 function PilotCard({ pilot }) {
-  console.log(pilot);
   return (
     <div class="pilotcard-container">
       <div className="pilotcard-photos">
