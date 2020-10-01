@@ -131,7 +131,11 @@ function Header() {
         <List>Blog </List>
         <StyledLink to="/explora">Explora</StyledLink>
         <List>About</List>
-        <List>Ayuda</List>
+        <List onClick={() => {
+                toggleChatbot((prev) => !prev)
+                toggleNotificationBot(false)
+              }}
+        >Ayuda</List>
       </Ulist>
 
       <Session>
