@@ -27,15 +27,7 @@ function SelectorDP() {
         <div className="Bienvenido">
           <h2 className="Bienvenido-Pilot-Profile"> ¡Bienvenido {pilotName}!</h2>
         </div>
-        <div className="Indicador"> 
-          <p className="TuPerfil"> Tu perfil esta al:</p>
-            <div className="BarBoxContainer">
-                <div className="BarBackgroundContainer">
-                    <div className="BarStateContainer">80%</div>
-                </div>
-                <span className="LabelBar">80%</span>
-            </div>
-        </div>
+        <br/>
         <div className="TabsContainer">
           <button value="Profile" onClick={handleClick}> Perfil </button>
           <button value="Certificates" onClick={handleClick}> Certificaciones </button>
