@@ -55,12 +55,6 @@ const IconContainer = styled.div`
     filter: grayscale(100%);
   }
 `
-
-const AttachContainer = styled.div`
-  padding-top: 1rem;
-  padding-bottom:2rem;
-`
-
 const ComponentContainer = styled.div`
   h2{
     font-size: 2rem;
@@ -99,13 +93,11 @@ function CertificatesComponent({ certificates, handleDelete}) {
 function Certificates() {
   const [certificates, setCertificates] = useState([])
   const [name, setName] = useState('')
-  const [pilotId, setPilotid] = useState(sessionStorage.getItem("userId"))
-  const [urlDocument, setUrlDocument] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [showadd, setShowAdd] = useState(false)
   const [error, setError] = useState(null)
-  const { register, errors, handleSubmit } = useForm();
-
+  const { register, errors, handleSubmit } = useForm()
+  const pilotId = sessionStorage.getItem("userId")
 
   useEffect( () => {
     axios({
@@ -114,7 +106,7 @@ function Certificates() {
     })
       .then(({ data }) => setCertificates( data ))
       .catch((error) => setError({ error }))
-  }, [certificates])
+  }, [])
 
   function handleChange(event) {
     if(!event.target.files[0]) return
@@ -126,23 +118,25 @@ function Certificates() {
   function handleDelete(nameFile, idFile) {
     const deleteFile = storage.ref(`Pilots/Pilot-${pilotId}/Certificates/` + nameFile)
     deleteFile.delete().then( () =>{
-      console.log("El archivo fue removido de Firebase")
       axios({
         url: `http://localhost:8000/certificates/eliminar/${idFile}`,
         method: 'DELETE',
-      }).then(({ data }) => {
-        setCertificates( certificates.concat(data) )
+      }).then(() => {
+          axios({
+            url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+            method: 'GET'
+          }).then(({ data }) => setCertificates( data ))
+            .catch((error) => setError({ error }))
       })
-    }).catch((error) => {
-      setError(error)
-      axios({
-        url: `http://localhost:8000/certificates/eliminar/${idFile}`,
-        method: 'DELETE',
-      }).then(({ data }) => {
-        setCertificates( certificates.concat(data) )
+      .catch((error) => {
+        setError(error)
+        axios({
+          url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+          method: 'GET'
+        }).then(({ data }) => setCertificates( data ))
+          .catch((error) => setError({ error }))
       })
     })
-    console.log("El archivo fue removido")
   }
 
   function onSubmit( data ) {
@@ -152,7 +146,6 @@ function Certificates() {
       (error) => {alert(error)},
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/Certificates/`).child(name).getDownloadURL().then(url => {
-          setUrlDocument(url)
           axios({
             url: 'http://localhost:8000/certificates/crear',
             method: 'POST',
