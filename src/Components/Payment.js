@@ -1,5 +1,6 @@
 import React, { useEffect }from 'react'
 import axios from 'axios'
+import "./SolicitudeCardMoreInfo.css";
 
 export function Payment(props) {
   const solicitudeId = props.element._id
@@ -33,7 +34,12 @@ export function Payment(props) {
     sessionStorage.setItem('solicitudeId', solicitudeId)
   }
 
-  return <button onClick={handlePayment}>Pagar</button>
+  return (
+    <div className="pay-container">
+      <button className="pay-button" onClick={handlePayment}>Pagar</button>
+      <span className="pay-text">$ 20.000</span>
+    </div>
+  )
 }
 
 export function queryString(query) {
