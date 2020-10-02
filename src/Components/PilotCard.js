@@ -84,7 +84,6 @@ function PilotCard({ pilot }) {
       {viewShow == "servicios" && (
         <div className="services-wrap">
           {services.map((service) => {
-            console.log(service);
             return (
               <div className="ServicesContainer">
                 <img src={service.url} alt="miniatura"></img>
