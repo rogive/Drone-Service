@@ -1,0 +1,165 @@
+.solicitude-card-moreInfo-container {
+  background-color: #e1e4ee;
+  width: 70%;
+  box-shadow: 1px 1px 1px black;
+  box-sizing: border-box;
+  min-height: 350px;
+  position: relative;
+  padding: 25px;
+}
+
+@media (min-width: 600px) {
+  .solicitude-card-moreInfo-container {
+    width: 500px;
+    left: calc(50% - 250px);
+  }
+}
+
+.solicitude-card-moreInfo-main {
+  display: flex;
+  flex: 1 1 40%;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Montserrat";
+  flex-direction: column;
+  align-self: center;
+  background-color: white;
+  padding: 20px;
+  height: 26vh;
+  border-radius: 5px;
+  border: 2mm solid gainsboro;
+}
+
+.solicitude-card-moreInfo-main li {
+  display: flex;
+  flex: 1 1 40%;
+  justify-content: space-between;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Montserrat";
+  flex-direction: column;
+  margin: 5px;
+}
+.main-info-container{
+  font-size: 1.3rem;
+  width: auto;
+}
+
+.main-info-container h3 {
+  margin-bottom: 25px;
+}
+
+.main-info-container h3 span{
+  color: rgb(0, 23, 105);
+  font-size: 1.2rem;
+}
+
+.main-info-container li{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  font-size: 1.2rem;
+}
+
+.main-info-container li span{
+  color: gray;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.main-date-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 25px;
+}
+
+.main-date-container li span {
+  font-weight: bold;
+  color: gray;
+}
+
+.main-date {
+  font-size: 1rem;
+}
+
+.solicitude-card-moreInfo-contact-info {
+  display: flex;
+  flex-grow: 1;
+  position: absolute;
+  bottom: 2vh;
+}
+
+.solicitude-card-moreInfo-contact-info ul {
+  display: flex;
+  flex: 1 1 40%;
+  font-size: 1.3rem;
+  justify-content: space-between;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Montserrat";
+  position: absolute;
+  bottom: 8vh;
+  align-self: flex-start;
+}
+
+.solicitude-card-moreInfo-contact-info ul li {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.solicitude-card-moreInfo-contact-info ul li img{
+  width: 1.5vw;
+  height:1.5vw;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.solicitude-card-description-moreInfo {
+  padding: 20px;
+}
+
+.solicitude-card-description-moreInfo h1 {
+  margin-bottom: 5px;
+}
+
+.solicitude-card-description-moreInfo p {
+  margin-bottom: 5px;
+}
+
+.pay-container {
+  display: flex;
+  flex: 1 1 40%;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  text-decoration: none;
+  list-style: none;
+  align-self: center;
+  font-family: "Montserrat";
+  align-items: center;
+}
+
+.pay-button {
+  background: rgb(179, 195, 255);
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.pay-button:hover {
+  background: rgb(0, 23, 105);
+  transition: all 0.4s ease-in-out;
+}
+
+.pay-text {
+  font-size: 1.7rem;
+}

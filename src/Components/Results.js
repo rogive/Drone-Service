@@ -4,14 +4,22 @@ import "./Results.css";
 import { Payment } from "./Payment"
 import NewModal from "./NewModal";
 import PilotCard from "./PilotCard";
+import SolicitudeModal from "./SolicitudeModal";
+import SolicitudeCard from "./SolicitudeCard";
+import SolicitudeCardMoreInfo from "./SolicitudeCardMoreInfo";
 import Pilot from "./Pilot";
+import nameImg from "../img/name.png"
+import phoneImg from "../img/phone.png"
+import mailImg from "../img/mail.png"
 
 function Results({ info }) {
   const userType = sessionStorage.getItem("userType");
   const [pilotsDb, setPilotsDb] = useState([]);
   const [solicitudesDb, setSolicitudesDb] = useState([]);
   const [modelToggle, setModelToggle] = useState(false);
+  const [solModalToggle, setSolModalToggle] = useState(false);
   const [pilotCard, setPilotCard] = useState("");
+  const [solicitudeCard, setSolicitudeCard] = useState("");
   const pilotId = sessionStorage.getItem("userId");
 
 
@@ -49,6 +57,7 @@ function Results({ info }) {
 
   const handleClose = () => {
     setModelToggle(false);
+    setSolModalToggle(false);
   };
 
   return (
@@ -67,15 +76,39 @@ function Results({ info }) {
                           className="image__solicitude"
                           src={image.url}
                           alt=""
+                          key={element._id}
                         />
                       );
                     }
                   })}
                 </div>
                 <div className="solicitude-right">
+                  <h2 className="solicitude-title">{element.servicetitle}</h2>
                   <p>{element.description}</p>
-                  {element.phone.includes("X") ? <Payment element={element} /> : null}
-                  <h2>{`Teléfono: ${element.phone}`}</h2>
+                  <ul className="solicitude-contact-info">
+                    <li>
+                      <img src={nameImg}/>
+                      {element.clientName}
+                    </li>
+                    <li>
+                      <img src={phoneImg}/>
+                      {element.phone}
+                    </li>
+                    <li>
+                      <img src={mailImg}/>
+                      {element.clientEmail}
+                    </li>
+                  </ul>
+                  <div className="buttons">
+                      <button
+                        onClick={() => {
+                          setSolicitudeCard(element);
+                          setSolModalToggle(true);
+                        }}
+                      >
+                        Ver más
+                      </button>
+                    </div>
                 </div>
               </div>
             );
@@ -91,6 +124,11 @@ function Results({ info }) {
       <NewModal show={modelToggle} modalClosed={handleClose}>
         <PilotCard pilot={pilotCard} />
       </NewModal>
+      <SolicitudeModal show={solModalToggle} modalClosed={handleClose}
+        solInfo = { <SolicitudeCard solicitude={solicitudeCard}/> }
+        moreInfo = { <SolicitudeCardMoreInfo solicitude={solicitudeCard} /> }
+        contactInfo = {null}
+      />
     </>
   );
 }

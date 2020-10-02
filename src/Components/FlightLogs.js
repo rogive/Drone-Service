@@ -20,9 +20,8 @@ function FlightLogsComponent({
             />
           </a>
         </div>
-      );
-    });
-  
+      )
+    })
   }
   
 function FlightLogs() {
