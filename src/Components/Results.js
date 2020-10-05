@@ -87,28 +87,28 @@ function Results({ info }) {
                   <p>{element.description}</p>
                   <ul className="solicitude-contact-info">
                     <li>
-                      <img src={nameImg}/>
+                      <img src={nameImg} />
                       {element.clientName}
                     </li>
                     <li>
-                      <img src={phoneImg}/>
+                      <img src={phoneImg} />
                       {element.phone}
                     </li>
                     <li>
-                      <img src={mailImg}/>
+                      <img src={mailImg} />
                       {element.clientEmail}
                     </li>
                   </ul>
                   <div className="buttons">
-                      <button
-                        onClick={() => {
-                          setSolicitudeCard(element);
-                          setSolModalToggle(true);
-                        }}
-                      >
-                        Ver más
+                    <button
+                      onClick={() => {
+                        setSolicitudeCard(element);
+                        setSolModalToggle(true);
+                      }}
+                    >
+                      Ver más
                       </button>
-                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -125,9 +125,9 @@ function Results({ info }) {
         <PilotCard pilot={pilotCard} />
       </NewModal>
       <SolicitudeModal show={solModalToggle} modalClosed={handleClose}
-        solInfo = { <SolicitudeCard solicitude={solicitudeCard}/> }
-        moreInfo = { <SolicitudeCardMoreInfo solicitude={solicitudeCard} /> }
-        contactInfo = {null}
+        solInfo={<SolicitudeCard solicitude={solicitudeCard} />}
+        moreInfo={<SolicitudeCardMoreInfo solicitude={solicitudeCard} />}
+        contactInfo={null}
       />
     </>
   );

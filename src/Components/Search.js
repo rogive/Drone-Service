@@ -9,8 +9,8 @@ import SlideShow from "./SlideShow";
 const ExploraContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding: 10px 40px;
-  background-color: #E1E4EE;
+  padding: 30px 40px;
+  background-color: #e1e4ee;
 `;
 
 const SearchContainer = styled.div`
