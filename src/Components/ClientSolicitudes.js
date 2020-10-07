@@ -12,7 +12,7 @@ function ClientSolicitudes() {
     const solicitudes = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:8000/solicitudes/listar/cliente/${clientId}`
+          `${process.env.REACT_APP_BACKEND_URL}/solicitudes/listar/cliente/${clientId}`
         )
         setSolicitudesDb(result.data);
       } catch (error) {

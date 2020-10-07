@@ -28,7 +28,7 @@ function Services() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/servicios/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/servicios/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setServices( data ))
@@ -48,7 +48,7 @@ function Services() {
   function handleSubmit(event) {
     event.preventDefault();
     axios({
-      url: `http://localhost:8000/servicios/actualizar/${serviceId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/servicios/actualizar/${serviceId}`,
       method: 'PUT',
       data: {
         pilotId: pilotId,

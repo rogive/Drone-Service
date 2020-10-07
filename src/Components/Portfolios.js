@@ -78,7 +78,7 @@ function Portfolios() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/media/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/media/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setPortfolios( data ))
@@ -105,7 +105,7 @@ function Portfolios() {
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/Portfolio/`).child(name).getDownloadURL().then(url => {
           axios({
-            url: 'http://localhost:8000/media/crear',
+            url: `${process.env.REACT_APP_BACKEND_URL}/media/crear`,
             method: 'POST',
             data: {
               pilotId: pilotId,

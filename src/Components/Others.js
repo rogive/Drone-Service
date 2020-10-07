@@ -30,7 +30,7 @@ function Others() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/others/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/others/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setDocuments( data ) )
@@ -51,7 +51,7 @@ function Others() {
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/Others/`).child(name).getDownloadURL().then(url => {
           axios({
-            url: 'http://localhost:8000/others/crear',
+            url: `${process.env.REACT_APP_BACKEND_URL}/others/crear`,
             method: 'POST',
             data: { ...data,
               pilotId,

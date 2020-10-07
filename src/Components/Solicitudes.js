@@ -66,7 +66,7 @@ function handleSubmitImage(event) {
 const onSubmit = data => {
   axios({
     method: 'post',
-    url: 'http://localhost:8000/solicitudes/crear',
+    url: `${process.env.REACT_APP_BACKEND_URL}/solicitudes/crear`,
     data: {...data, images, clientId}
   })
     .then(() => {

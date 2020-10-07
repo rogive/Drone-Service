@@ -14,7 +14,7 @@ const LoginForm = ({ handleClose }) => {
   const onSubmit = (data) => {
     axios({
       method: "post",
-      url: "http://localhost:8000/pilot/login",
+      url: `${process.env.REACT_APP_BACKEND_URL}/pilot/login`,
       data: data,
     })
       .then(({ data }) => {
@@ -29,7 +29,7 @@ const LoginForm = ({ handleClose }) => {
       .catch((error) => {
         axios({
           method: "post",
-          url: "http://localhost:8000/client/login",
+          url: `${process.env.REACT_APP_BACKEND_URL}/client/login`,
           data: data,
         })
           .then(({ data }) => {

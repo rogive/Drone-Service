@@ -62,7 +62,7 @@ function handlePaymentAxios(x_cod_response) {
     try {
       const result = await axios({
         method: "put",
-        url: "http://localhost:8000/solicitudes/pagarSolicitud",
+        url: `${process.env.REACT_APP_BACKEND_URL}/solicitudes/pagarSolicitud`,
         data: {solicitudeId, pilotId},
         headers: {x_cod_response}
       });
