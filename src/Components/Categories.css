@@ -1,0 +1,13 @@
+.categories {
+  margin-top: 15px;
+  padding-top: 15px;
+  margin-bottom: 15px;
+  border-top: 1px solid #e0e0e0;
+  
+  box-sizing: border-box;
+}
+
+.categorie input {
+  margin-right: 5px;
+}
+

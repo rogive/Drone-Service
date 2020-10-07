@@ -1,0 +1,58 @@
+.clientProfile {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.title__clientProfile {
+  border: 1px solid gray;
+  padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgb(0, 23, 105);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 23, 105, 1) 0%,
+    rgba(0, 17, 78, 1) 52%,
+    rgba(0, 23, 105, 1) 100%
+  );
+  color: white;
+}
+
+.solicitud__button {
+  border: none;
+  background: white;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px;
+  width: 200px;
+  color: black;
+  margin-left: 25px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+}
+
+.solicitud__button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.content__clientProfile {
+  display: flex;
+  justify-content: space-around;
+
+  padding: 20px;
+}
+
+.solicitudes__clientProfile {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+}
+
+.Updateprofile__clientProfile {
+  width: 60%;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}

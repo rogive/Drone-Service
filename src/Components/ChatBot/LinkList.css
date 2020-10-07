@@ -1,0 +1,22 @@
+.link-list {
+  padding: 0;
+}
+
+.link-list-item {
+  text-align: center;
+  font-size: 1rem;
+  width: 60%;
+  padding: 0.25rem 7rem;
+  list-style: none;
+}
+
+.link-list-item-url {
+  text-decoration: none;
+  margin: 6px;
+  display: block;
+  color: white;
+  background-color: #4772ce;
+  padding: 8px;
+  border-radius: 3px;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
+}

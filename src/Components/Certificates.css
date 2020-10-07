@@ -1,0 +1,182 @@
+
+.fullcontaineruploadimagecertificate{
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  border-right: 1px solid gray;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+}
+.boxlabelnameimagecertificate {
+  width: 80%;
+  background-color: white;
+  border: 1px solid gray;
+}
+.boxbuttonsimagecertificate{
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.labelbuttonaddimagecertificate,
+.labelbuttonuploadimagecertificate {
+  display: flex;
+  width: 5rem;
+  padding: 0.2rem 0rem 0.2rem 0rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid gray;
+  background-color: #D9DFEE;
+}
+
+.labelnameimagecertificate {
+  display: flex;
+  height: 2rem;
+  justify-content: left;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.inputfile{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.buttonuploadimagecertificate{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.inputfile:focus, .labelbuttonaddimagecertificate:hover,
+.buttonuploadimagecertificate:focus, .labelbuttonuploadimagecertificate:hover {
+  background-color: #D1D7E8;
+}
+
+.fullimagecertificatecontainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+.imagecertificatecontainer{
+  width: 17%;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.imagecertificatesolicitude{
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1rem;
+}
+
+.add-certificate{
+  background-color: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: rgba(10,10,200, 1);
+  margin: 1rem 0rem 2rem 0rem;
+}
+
+.certificateformcontainer {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 2rem 3rem;
+  margin-bottom: 4rem;
+}
+
+.certificateformfieldset {
+  border: none;
+  padding: 0.7rem 0rem;
+}
+
+.certificateinput-full-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+.certificatetitleform {
+  text-align: left;
+  font-size: 1.8rem;
+  padding: 1rem 0rem;
+}
+
+.certificateformlabel {
+  font-size: 1.4rem;
+}
+
+.formbuttoncertificate {
+  text-decoration: none;
+  margin: 2rem 0rem 0rem 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Montserrat';
+  font-size: 1.6rem;
+  color: white;
+  border: none;
+  background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));
+  cursor: pointer;
+}
+
+.formbuttoncertificate:hover {
+  background-image: linear-gradient(to left, rgba(10,10,100, 1), rgba(10,10,100, 1));
+}
+
+.certificate-input-title{
+  width: 60%;
+  height: 1.8rem;
+  padding-left: 0.2rem;
+}
+
+.certificateformlabel {
+  width: 40%;
+  text-align: left;
+}
+
+.error-input-container-certificate{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.certificateicon{
+  height: 1.4rem;
+  width: 1.4rem;
+  background-color: transparent;
+  filter: invert(1);
+}
+
+.certificateurl{
+  margin-right: 1rem;
+}
+
+.deletecertificateicon{
+  height: 1.4rem;
+  width: 1.3rem;
+  background-color: transparent;
+  filter: invert(1);
+}
+
+.deletedcertificatebutton{
+  background-color: transparent;
+  border: none;
+  margin-right: 1rem;
+}
+
+.deletedcertificatebutton:hover {
+  cursor: pointer;
+}
+

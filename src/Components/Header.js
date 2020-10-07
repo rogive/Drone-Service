@@ -1,97 +1,196 @@
-import React from 'react';
-import logo from '../IconoDS.png';
-import styled from 'styled-components';
-
-
-const defaultMargin = "0-auto"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../src/Logo-Drone.png";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { resetGlobalUser, setGlobalUser } from "../store";
+import Chatbot from 'react-chatbot-kit';
+import { ActionProvider, MessageParser, config } from './ChatBot/ChatBot';
+import { ConditionallyRender } from "react-util-kit";
+import droneboticon from "../img/dronebot-icon.png";
+import "./Header.css";
+import Modal from "./Modal";
+import LoginForm from "./LoginForm";
+import "./Header.css";
+import avatar from "../img/img_avatar.png";
 
 const HeaderContainer = styled.div`
-  position: absolute;
+  padding: 10px 40px;
   display: flex;
-  justify-content: space-between;
-  margin: ${defaultMargin}
-`
+  box-shadow: 0 1px 6px rgba(57, 73, 76, 0.35);
+  position: relative;
+`;
+
+const ModalContainer = styled.div`
+  height: 200px;
+  width: 200px;
+  border: none !important;
+  background-color: white;
+`;
 
 const HeaderLogoContainer = styled.div`
-  display: flex;
-`
+  flex: 1 1 30%;
+  img {
+    width: 10rem;
+  }
+`;
 
 const Ulist = styled.ul`
   display: flex;
+  flex: 1 1 40%;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  text-decoration: none;
   list-style: none;
-`
+  align-items: center;
+  font-family: "Montserrat";
+`;
 
 const List = styled.li`
-  margin-right: 20px;
-`
-
-/* const Container = styled.div`
-  width: 500px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  display: ${props => props.hidden ? 'none' : 'block'};
-
-  @media screen and (min-width: 600px) {
-    width: 100%;
-    background: beige;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2) rotate(-8deg);
+    box-shadow: 0.6rem 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 `;
- */
 
-function Header(){
-  return(
+const Session = styled.li`
+  display: flex;
+  flex: 1 1 30%;
+  font-size: 1.5rem;
+  justify-content: flex-end;
+  text-decoration: none;
+  list-style: none;
+  align-items: center;
+  font-family: "Montserrat";
+
+  .signup {
+    margin-right: 3rem;
+    font-weight: 600;
+  }
+
+  .login {
+    font-weight: 600;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    transform: scale(1.2) rotate(-8deg);
+    box-shadow: 0.6rem 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
+  }
+`;
+
+function Header() {
+  const dispatch = useDispatch();
+  const pilotName = useSelector((state) => state.userName);
+  const history = useHistory();
+  const [showChatbot, toggleChatbot] = useState(false);
+  const [showNotificationBot, toggleNotificationBot] = useState(true);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    dispatch(setGlobalUser({ name: sessionStorage.getItem("userName") }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    dispatch(resetGlobalUser());
+    history.push("/");
+  };
+
+  const handleProfileRedirect = () => {
+    sessionStorage.getItem("userType") === "pilot"
+      ? history.push("/pilot-profile")
+      : history.push("/client-profile");
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
+
+  return (
     <HeaderContainer>
       <HeaderLogoContainer>
-        <img width="100px" src = {logo} alt="logo_drone_services"/>
-        <h2>Drone Services</h2>
+        <Link to="/">
+          <img width="100px" src={logo} alt="logo_drone_services" />
+        </Link>
       </HeaderLogoContainer>
       <Ulist>
-        <List>Home</List>
-        <List>Blog de noticias</List>
-        <List>Explora</List>
+        <StyledLink to="/">Home</StyledLink>
+        <List>Blog </List>
+        <StyledLink to="/explora">Explora</StyledLink>
         <List>About</List>
-        <List>Ayuda</List>
+        <List onClick={() => {
+                toggleChatbot((prev) => !prev)
+                toggleNotificationBot(false)
+              }}
+        >Ayuda</List>
       </Ulist>
+
+      <Session>
+        {pilotName ? (
+          <div className="dropmenu">
+            <nav role="navigation">
+              <ul>
+                <li>
+                  <a href="#">
+                    <img src={avatar} alt="Avatar" class="avatar" />
+                  </a>
+                  <ul class="dropdown">
+                    <li>
+                      <a onClick={handleProfileRedirect}>Mi perfil</a>
+                    </li>
+                    <li>
+                      <a onClick={handleLogout}>Cerrar sesión</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        ) : (
+            <div>
+              <StyledLink to="" onClick={() => setShow(!show)}>
+                Iniciar sesión
+            </StyledLink>
+            </div>
+          )}
+      </Session>
+      <div className="chatbotcontainer">
+        <ConditionallyRender
+          ifTrue={showChatbot}
+          show={
+            <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser} />
+          }
+        />
+      </div>
+      <div className="chatbotbuttoncontainer">
+        <div className={showNotificationBot ? "chatbotnotification" : "chatbotnotification-hidden"}> 1 </div>
+        <div className="chatbotbutton"
+          onClick={() => {
+            toggleChatbot((prev) => !prev)
+            toggleNotificationBot(false)
+          }}
+        >
+          <img src={droneboticon} alt="dronebot-icon" />
+        </div>
+      </div>
+      <Modal show={show} handleClose={hideModal}>
+        <LoginForm handleClose={hideModal} />
+      </Modal>
     </HeaderContainer>
-  )
+  );
 }
 
- /*    <div class="HeaderContainer">
-        <div class="HeaderLogoContainer">
-          <img/>
-          <h2>Drone Services<h2/>
-        </div>
-        <ul class="Ulist">
-          <list class="List"></list>
-          <list class="List"></list>
-          <list class="List"></list>
-          <list class="List"></list>
-        </ul>
-    </div>
-
-  <style>
-
-    .HeaderContainer{
-
-    }
-
-    .HeaderLogoContainer{
-
-    }
-
-    .Ulist{
-
-    }
-
-
-    .List{
-
-    }
-    
-    </style>
-     */
-    
-  
-
-
-export default Header
+export default Header;
