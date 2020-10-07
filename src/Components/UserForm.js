@@ -27,7 +27,7 @@ const FormHook = () => {
     if( userType ) {
       axios({
         method: 'post',
-        url: `http://localhost:8000/${urlAux}/crear`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/${urlAux}/crear`,
         data: {...data, userType}
       })
       .then(() => {

@@ -33,7 +33,7 @@ function Equipments() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/equipments/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/equipments/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setEquipments( data ))
@@ -73,7 +73,7 @@ function Equipments() {
 
   function onSubmit( data ) {
     axios({
-      url: 'http://localhost:8000/equipments/crear',
+      url: `${process.env.REACT_APP_BACKEND_URL}/equipments/crear`,
       method: 'POST',
       data: { ...data,
         pilotId,

@@ -8,7 +8,7 @@ const Button1 = styled(Link)`
     padding: 1rem 1.6rem;
     border-radius: 8px;
     font-family: 'Montserrat';
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: white;
     border: none;
     background-image: linear-gradient(to left, rgba(10,10,200, 1), rgba(10,100,200, 1));

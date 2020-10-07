@@ -16,7 +16,7 @@ function PilotCard({ pilot }) {
 
   const fetchData = (tag) => {
     Axios({
-      url: `http://localhost:8000/${tag}/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/${tag}/listar/piloto/${pilotId}`,
       method: `GET`,
     })
       .then(({ data }) => {

@@ -31,7 +31,7 @@ function UserProfile() {
       const userId = sessionStorage.getItem("userId");
       try {
         const result = await axios.get(
-          `http://localhost:8000/${userType}/listar/${userId}`
+          `${process.env.REACT_APP_BACKEND_URL}/${userType}/listar/${userId}`
           );
           (userType === "client" ?  
           setUserDataDb(result.data.client) :
@@ -48,7 +48,7 @@ function UserProfile() {
     const userId = sessionStorage.getItem("userId");
     try {
       const result = await axios.put(
-        `http://localhost:8000/${userType}/actualizar/${userId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/${userType}/actualizar/${userId}`,
         {
           data,
         }

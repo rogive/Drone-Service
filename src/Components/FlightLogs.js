@@ -38,7 +38,7 @@ function FlightLogs() {
 
   useEffect( () => {
     axios({
-      url: `http://localhost:8000/flightlogs/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/flightlogs/listar/piloto/${pilotId}`,
       method: 'GET',
     })
       .then(({ data }) => setFlightLogs( data ))
@@ -69,7 +69,7 @@ function FlightLogs() {
       () => {
         storage.ref(`Pilots/Pilot-${pilotId}/FlightLogs/`).child(name).getDownloadURL().then(url => {
           axios({
-            url: 'http://localhost:8000/flightlogs/crear',
+            url: `${process.env.REACT_APP_BACKEND_URL}/flightlogs/crear`,
             method: 'POST',
             data: { ...data,
               pilotId,

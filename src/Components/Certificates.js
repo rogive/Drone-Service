@@ -108,7 +108,7 @@ function Certificates() {
 
   useEffect(() => {
     axios({
-      url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/certificates/listar/piloto/${pilotId}`,
       method: "GET",
     })
       .then(({ data }) => setCertificates(data))
@@ -127,12 +127,12 @@ function Certificates() {
     );
     deleteFile.delete().then(() => {
       axios({
-        url: `http://localhost:8000/certificates/eliminar/${idFile}`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/certificates/eliminar/${idFile}`,
         method: "DELETE",
       })
         .then(() => {
           axios({
-            url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/certificates/listar/piloto/${pilotId}`,
             method: "GET",
           })
             .then(({ data }) => setCertificates(data))
@@ -141,7 +141,7 @@ function Certificates() {
         .catch((error) => {
           setError(error);
           axios({
-            url: `http://localhost:8000/certificates/listar/piloto/${pilotId}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/certificates/listar/piloto/${pilotId}`,
             method: "GET",
           })
             .then(({ data }) => setCertificates(data))
@@ -167,7 +167,7 @@ function Certificates() {
           .getDownloadURL()
           .then((url) => {
             axios({
-              url: "http://localhost:8000/certificates/crear",
+              url: `${process.env.REACT_APP_BACKEND_URL}/certificates/crear`,
               method: "POST",
               data: { ...data, pilotId, name, url, type: "document" },
             })

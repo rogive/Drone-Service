@@ -60,12 +60,12 @@ function Carousel() {
         <ButtonContainer>
           <Button
             onClick={() => sessionStorage.setItem("userType", "client")}
-            title={"Quiero encontrar un piloto"}
+            title={"Registro de Cliente"}
             linkto={"/user-registry"}
           />
           <Button
             onClick={() => sessionStorage.setItem("userType", "pilot")}
-            title={"Quiero prestar mi servicio"}
+            title={"Registro de Pilotos"}
             linkto={"/user-registry"}
           />
         </ButtonContainer>

@@ -29,7 +29,7 @@ function Results({ info }) {
       const solicitudes = async () => {
         try {
           const result = await axios.post(
-            "http://localhost:8000/solicitudes/filtrar",
+            `${process.env.REACT_APP_BACKEND_URL}/solicitudes/filtrar`,
             { info, pilotId }
           );
           setSolicitudesDb(result.data);
@@ -43,7 +43,7 @@ function Results({ info }) {
       const filterPilots = async () => {
         try {
           const result = await axios.post(
-            "http://localhost:8000/pilot/filtrar",
+            `${process.env.REACT_APP_BACKEND_URL}/pilot/filtrar`,
             { info }
           );
           setPilotsDb(result.data);
